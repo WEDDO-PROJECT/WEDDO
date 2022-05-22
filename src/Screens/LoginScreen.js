@@ -114,7 +114,7 @@ const LoginScreen = () => {
           >
             Or, login with ...
           </Text>
-          <Icon.Button
+          {/* <Icon.Button
             name="facebook"
             backgroundColor="#3b5998"
             style={{
@@ -126,7 +126,7 @@ const LoginScreen = () => {
             }}
           >
             Login with Facebook
-          </Icon.Button>
+          </Icon.Button> */}
           {/* <View
             style={{
               flexDirection: "row",
