@@ -47,7 +47,7 @@ const RegisterScreen = ({ navigation }) => {
             color: "#333",
             marginBottom: 21,
           }}
-        >
+        > 
           Register
         </Text>
         {/* <View
