@@ -34,7 +34,7 @@ import Background from "../assets/Background.webp";
 //   navigation.navigate("Home");
 // };
 import Icon from "react-native-vector-icons/FontAwesome";
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -107,7 +107,8 @@ const LoginScreen = () => {
           <CustomButton
             label={"Login"}
             title="to homePage"
-            onPress={() => this.props.navigation.navigate("Home")}
+            onPress={() => navigation.navigate("Home")}
+            // onPress={() => this.props.navigation.navigate("Home")}
           />
           <Text
             style={{ textAlign: "center", color: "#EBBAD2", marginBottom: 20 }}
@@ -179,17 +180,17 @@ const LoginScreen = () => {
               marginBottom: 30,
             }}
           >
-            <Text>New to the app?</Text>
+            {/* /<Text>New to the app?</Text> */}
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               title="Register"
               onPress={() => this.props.navigation.navigate("Register")}
-            >
+            > */}
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
                 {" "}
                 Register
               </Text>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
             {/* <TouchableOpacity
             onPress={() => {}}
             style={{

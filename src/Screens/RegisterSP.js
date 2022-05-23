@@ -15,7 +15,19 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Background from "../assets/Background.webp";
 import RNPickerSelect from "react-native-picker-select";
+import axios from "axios";
 const RegisterSP = ({ navigation }) => {
+  const [name,setName]=useState("aaaaa")
+  const [email,setEmail]=useState("")
+  const [cin,setCin]=useState("")
+  const [password,setPassword]=useState("NNNNN")
+  const [tel,setTel]=useState("")
+  const [category,setCategory]=useState("")
+
+  const register=()=>{
+    console.log(password)
+
+  }
   return (
     <ImageBackground
       style={{
@@ -51,6 +63,7 @@ const RegisterSP = ({ navigation }) => {
       
         <InputField
           label={"Full Name"}
+          setValue={setName}
           icon={
             <Ionicons
               name="person-outline"
@@ -62,6 +75,7 @@ const RegisterSP = ({ navigation }) => {
         />
         <InputField
           label={"Email "}
+          setValue={setEmail}
           icon={
             <MaterialIcons
               name="alternate-email"
@@ -74,6 +88,7 @@ const RegisterSP = ({ navigation }) => {
         />
          <InputField
           label={"CIN"}
+          onChangeText={(e)=>setCin(e)}
           icon={
             <MaterialIcons
               name="badge"
@@ -86,7 +101,7 @@ const RegisterSP = ({ navigation }) => {
         />
         <View style={{marginBottom:15, marginTop:-20}}>
         <RNPickerSelect
-                 onValueChange={(value) => console.log(value)}
+                 onValueChange={(value) => setCategory(value)}
                  items={[
                      { label: "Hairdresser", value: "Hairdresser" },
                      { label: "Musical Band", value: "MusicalBand" },
@@ -100,6 +115,7 @@ const RegisterSP = ({ navigation }) => {
        
               <InputField
           label={"Phone Number"}
+          onChangeText={(e)=>{setTel(e)}}
           keyboardType="numeric"
           icon={
             <Ionicons
@@ -112,6 +128,7 @@ const RegisterSP = ({ navigation }) => {
         />
         <InputField
           label={"Password"}
+          onChangeText={(e)=>{setPassword(e)}}
           icon={
             <Ionicons
               name="ios-lock-closed-outline"
@@ -141,7 +158,7 @@ const RegisterSP = ({ navigation }) => {
          
         >
           
-          <CustomButton label={"Register"} onPress={() => {}} />
+          <CustomButton label={"Register"}  onPress={() => navigation.navigate("ProfileScreen1")}/>
           <View
             style={{
               flexDirection: "row",
