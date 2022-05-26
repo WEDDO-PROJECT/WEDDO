@@ -11,6 +11,13 @@ import { StyleSheet, Text, View } from "react-native";
 // import { createStackNavigator } from "@react-navigation/stack";
 // const Stack = createStackNavigator();
  import Navigator from "./src/Navigations/Navigator.js"
+ import { LogBox } from 'react-native';
+ 
+// Ignore log notification by message
+LogBox.ignoreLogs(['Warning: ...']);
+ 
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 export default function App() {
   return (
     

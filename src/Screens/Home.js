@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Cards from '../components/homeComponents/Cards';
 import Background from "../assets/Background.webp";
+import StorageUtils from '../Utils/StorageUtils';
 const Home = () => {
   let imagePh = '../assets/iconPhotogrape.png';
   let imageBand = '../assets/band.png';
@@ -47,7 +48,12 @@ const Home = () => {
   pack_price:'700 DTN'
 }
   ]
-  useEffect(()=>{         // bring the url from the backend  
+  useEffect(()=>{         // bring the url from the backend 
+     
+      StorageUtils.retrieveData('user').then((value) =>
+     //setUser(JSON.parse(value))
+     console.log(value)
+   );
     // axios.get('')
     // .then(res=>setAllData(res.data))
     // .catch(err=>console.log(err))

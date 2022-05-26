@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SocialIcon } from "react-native-elements";
-import * as Google from "expo-google-app-auth";
+//import * as Google from "expo-google-app-auth";
 import * as Facebook from "expo-facebook";
-import * as GoogleSignIn from 'expo-google-sign-in';
+//import * as GoogleSignIn from 'expo-google-sign-in';
 
 
 const { width, height } = Dimensions.get("window");
@@ -154,26 +154,26 @@ class AuthenticationChoice extends React.Component {
     //   console.log("FB login error : " + error);
     // }
   };
-  signIn = async () => {
-    try {
-      const result = await Google.logInAsync({
-        androidClientId:
-          "475962756761-ak6aqpd210bta53trn8htvqlc5d8tbec.apps.googleusercontent.com",
-        scopes: ["profile", "email"],
-      });
-      if ((result.type = "success")) {
-        console.log("Token : " + result.accessToken);
-        this.setState({
-          userAuth: result,
-          loaded: true,
-        });
-      } else {
-        console.log("Canceled");
-      }
-    } catch (error) {
-      console.log("Auth error : " + error);
-    }
-  };
+  // signIn = async () => {
+  //   try {
+  //     const result = await Google.logInAsync({
+  //       androidClientId:
+  //         "475962756761-ak6aqpd210bta53trn8htvqlc5d8tbec.apps.googleusercontent.com",
+  //       scopes: ["profile", "email"],
+  //     });
+  //     if ((result.type = "success")) {
+  //       console.log("Token : " + result.accessToken);
+  //       this.setState({
+  //         userAuth: result,
+  //         loaded: true,
+  //       });
+  //     } else {
+  //       console.log("Canceled");
+  //     }
+  //   } catch (error) {
+  //     console.log("Auth error : " + error);
+  //   }
+  // };
   content() {
     if (!this.state.loaded) {
       return (
