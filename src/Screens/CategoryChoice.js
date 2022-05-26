@@ -12,13 +12,9 @@ import {
 } from "react-native";
 import back from "../assets/back.png";
 const { width, height } = Dimensions.get("window");
-class CategoryChoice extends React.Component{
-    constructor(){
-    super()
-    }
+const  CategoryChoice =({navigation})=>{
+  
 
-
-    render(){
         return (
     <View style={styles.container}>
     <ImageBackground
@@ -49,12 +45,12 @@ class CategoryChoice extends React.Component{
                     marginTop: "10%",
                   }}
                 >
-                  Choose your Categorie
+                  Choose your Role
                 </Text>
                
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => addUserAndRedirect(userRoleKey)}
+                  onPress={() => navigation.navigate("RegisterScreen")}
                 >
                   <Image
                    source={require("../assets/user.png")}
@@ -65,7 +61,7 @@ class CategoryChoice extends React.Component{
       
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => addUserAndRedirect(taxiRoleKey)}
+                  onPress={() => navigation.navigate("RegisterSP")}
                 >
                   <Image
                    source={require("../assets/SP.png")}
@@ -81,8 +77,6 @@ class CategoryChoice extends React.Component{
         
     }
 
-
-}
 
 const styles = StyleSheet.create({
     container: {

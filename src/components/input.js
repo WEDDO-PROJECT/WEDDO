@@ -22,13 +22,15 @@ export default function InputField({
       {inputType == "password" ? (
         <TextInput
           value={value}
-          onChangeText={setValue}
+          onChangeText={(e)=> setValue(e)}
           placeholder={label}
           style={{ flex: 1, paddingVertical: 0 }}
           secureTextEntry={true}
         />
       ) : (
         <TextInput
+          value={value}
+          onChangeText={(e)=>setValue(e)}
           placeholder={label}
           style={{ flex: 0, paddingVertical: 0 }}
         />
