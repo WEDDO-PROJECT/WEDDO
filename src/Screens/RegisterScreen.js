@@ -168,7 +168,7 @@ const RegisterScreen = ({ navigation }) => {
             color="#666"
             style={{ marginRight:  }}
           /> */}
-          <CustomButton label={"Register"} onPress={() => {}} />
+          <CustomButton label={"Register"} onPress={() => navigation.navigate("Home")} />
           <View
             style={{
               flexDirection: "row",
@@ -177,11 +177,10 @@ const RegisterScreen = ({ navigation }) => {
               // marginTop: 150,
             }}
           >
-            <Text> Already registered? </Text>
+           
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
                 {" "}
-                Login
               </Text>
             </TouchableOpacity>
           </View>
