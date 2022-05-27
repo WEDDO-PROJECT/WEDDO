@@ -7,6 +7,7 @@ import LoginScreen from "../../Screens/LoginScreen";
 import CustomDrawer from "./CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Tabnavigation from '../Navigation/Tabnavigation.js';
+ import Navigator from "../../Navigations/Navigator"
 
 const Drawer = createDrawerNavigator();
 
@@ -29,7 +30,12 @@ const DrawerNavigator = () => {
           fontSize: 15
         } 
       }}
-      initialRouteName="Home" >
+      initialRouteName="Navigator" >
+         <Drawer.Screen name="Navigator" component={Navigator} options = {{
+        drawerIcon:({color}) => (
+          <Ionicons name="reader-outline" size={22} color={color} />
+        )
+      }} />
       <Drawer.Screen name="Home" component={Tabnavigation} options = {{
         drawerIcon:({color}) => (
           <Ionicons name ="home-outline" size={22} color={color }/>

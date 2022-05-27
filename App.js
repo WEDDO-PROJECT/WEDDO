@@ -9,10 +9,24 @@ import CategoryChoice from "./src/Screens/CategoryChoice.js"
 import DrawerNavigator from './src/components/Navigation/DrawerContent.js'
 import { NavigationContainer } from '@react-navigation/native';
 
+// import RegisterScreen from "./src/Screens/RegisterScreen.js";
+// import LoginScreen from "./src/Screens/LoginScreen.js";
+// import RegisterSP from "./src/Screens/RegisterSP.js";
+// import AuthenticationChoice from "./src/Screens/AuthChoice.js";
+// import CategoryChoice from "./src/Screens/CategoryChoice.js";
+ //import LandingPage from "./src/Screens/LandingPage.js"
 // import RegisterScreen from "./src/components/register";
 // import { NavigationContainer } from "@react-navigation/native";
 // import { createStackNavigator } from "@react-navigation/stack";
 // const Stack = createStackNavigator();
+
+ import { LogBox } from 'react-native';
+ 
+// Ignore log notification by message
+LogBox.ignoreLogs(['Warning: ...']);
+ 
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 export default function App() {
   return (
     //   <NavigationContainer>
@@ -25,15 +39,22 @@ export default function App() {
     //           name="Register"
     //           component={RegisterScreen}
     //         />
-
-
-      <NavigationContainer>
+    // <Navigator />
+    
+      <NavigationContainer independent={true}>
          <DrawerNavigator />
+         
+         
       </NavigationContainer>
     
     
  
     
+    
+   
+      
+      
+  
   );
 }
 

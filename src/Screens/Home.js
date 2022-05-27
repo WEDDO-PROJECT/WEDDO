@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Cards from '../components/homeComponents/Cards';
 import Background from "../assets/Background.webp";
+import StorageUtils from '../Utils/StorageUtils';
 const Home = () => {
   let imagePh = '../assets/iconPhotogrape.png';
   let imageBand = '../assets/band.png';
@@ -49,12 +50,19 @@ const Home = () => {
 }
   ]
   useEffect(()=>{         // bring the url from the backend  
+  // useEffect(()=>{         // bring the url from the backend 
+     
+  //     StorageUtils.retrieveData('user').then((value) =>
+  //    //setUser(JSON.parse(value))
+  //    console.log(value)
+  //  );
     // axios.get('')
     // .then(res=>setAllData(res.data))
     // .catch(err=>console.log(err))
     setAllData(array);
     // AsyncStorage.getItem('person')
     // .then(res=>console.log(res))
+    
 
   },[])
   const buttonFunction=(val)=>{
@@ -97,6 +105,7 @@ if (val===5){
     //   source={Background}
     //   resizeMode="cover"
     // >
+        
         <View style={styles.container}>
           
           {view==null&&<View

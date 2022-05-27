@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SocialIcon } from "react-native-elements";
-import * as Google from "expo-google-app-auth";
+//import * as Google from "expo-google-app-auth";
 import * as Facebook from "expo-facebook";
+//import * as GoogleSignIn from 'expo-google-sign-in';
 
 
 const { width, height } = Dimensions.get("window");
@@ -90,7 +91,33 @@ class AuthenticationChoice extends React.Component {
       userAuth: {},
       loaded: false,
     };
+    this.initAsync()
   }
+
+  initAsync = async () => {
+    await GoogleSignIn.initAsync({
+      // You may ommit the clientId when the firebase `googleServicesFile` is configured
+      clientId: '475962756761-ak6aqpd210bta53trn8htvqlc5d8tbec.apps.googleusercontent.com',
+    });
+   this._syncUserWithStateAsync();
+  };
+
+  _syncUserWithStateAsync = async () => {
+    const user = await GoogleSignIn.signInSilentlyAsync();
+    this.setState({ user });
+  };
+
+  signInAsync = async () => {
+    try {
+      await GoogleSignIn.askForPlayServicesAsync();
+      const { type, user } = await GoogleSignIn.signInAsync();
+      if (type === 'success') {
+        this._syncUserWithStateAsync();
+      }
+    } catch ({ message }) {
+      alert('login: Error:' + message);
+    }
+  };
 
   signInFB = async () => {
     // try {
@@ -127,28 +154,28 @@ class AuthenticationChoice extends React.Component {
     //   console.log("FB login error : " + error);
     // }
   };
-  signIn = async () => {
-    // try {
-    //   const result = await Google.logInAsync({
-    //     androidClientId:
-    //       "475962756761-ak6aqpd210bta53trn8htvqlc5d8tbec.apps.googleusercontent.com",
-    //     scopes: ["profile", "email"],
-    //   });
-    //   if ((result.type = "success")) {
-    //     console.log("Token : " + result.accessToken);
-    //     this.setState({
-    //       userAuth: result,
-    //       loaded: true,
-    //     });
-    //   } else {
-    //     console.log("Canceled");
-    //   }
-    // } catch (error) {
-    //   console.log("Auth error : " + error);
-    // }
-  };
+  // signIn = async () => {
+  //   try {
+  //     const result = await Google.logInAsync({
+  //       androidClientId:
+  //         "475962756761-ak6aqpd210bta53trn8htvqlc5d8tbec.apps.googleusercontent.com",
+  //       scopes: ["profile", "email"],
+  //     });
+  //     if ((result.type = "success")) {
+  //       console.log("Token : " + result.accessToken);
+  //       this.setState({
+  //         userAuth: result,
+  //         loaded: true,
+  //       });
+  //     } else {
+  //       console.log("Canceled");
+  //     }
+  //   } catch (error) {
+  //     console.log("Auth error : " + error);
+  //   }
+  // };
   content() {
-   // if (!this.state.loaded) {
+    if (!this.state.loaded) {
       return (
         <View style={styles.container}>
           <View style={styles.slider}></View>
@@ -184,18 +211,18 @@ class AuthenticationChoice extends React.Component {
 
               <TouchableOpacity
                 style={styles.button}
-                // onPress={() => {
-                //   this.props.navigation.navigate("AuthWithPhone");
-                // }}
+                onPress={() => {
+                  this.props.navigation.navigate("AuthWithPhone");
+                }}
               >
-                <Text style={styles.textBtn}>Login with PhoneNumber</Text>
+                <Text style={styles.textBtn}>Register with PhoneNumber</Text>
               </TouchableOpacity>
               <SocialIcon
                 title="Google"
                 button
                 type="google"
                 style={styles.btnG}
-               // onPress={this.signIn}
+               onPress={this.signIn}
               />
               <SocialIcon
                 title="Facebook"
@@ -207,7 +234,7 @@ class AuthenticationChoice extends React.Component {
 
               <TouchableOpacity
                 style={styles.newAccount}
-              //  onPress={() => this.props.navigation.navigate("Login")}
+                onPress={() => this.props.navigation.navigate("LoginScreen")}
               >
                 <Text
                   style={{
@@ -224,9 +251,9 @@ class AuthenticationChoice extends React.Component {
           </View>
         </View>
       );
-    // } else {
-    //   return <AddUser navigation={this.props.navigation} />;
-    // }
+     } else {
+       return <AddUser navigation={this.props.navigation} />;
+     }
   }
   render() {
     return this.content();
