@@ -38,7 +38,7 @@ const RegisterSP = ({ navigation }) => {
     // confirmPassword
     }
     axios
-    .post("http://192.168.11.4:3000/api/sp/Register",UserRegister)
+    .post("http://192.168.11.80:3000/api/sp/Register",UserRegister)
     .then((response)=>{
       //console.log(response.data.result[0])
       const userdata =response.data.result[0]

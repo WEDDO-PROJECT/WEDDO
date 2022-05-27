@@ -37,7 +37,7 @@ export default function Navigator(){
 
   if (user) {
     return (
-      <NavigationContainer>
+    
         <Stack.Navigator
           initialRouteName={user.id == "notFound" ? "LandingPage" : "CategoryChoice"}
         >
@@ -151,7 +151,7 @@ export default function Navigator(){
           />
 
         </Stack.Navigator>
-      </NavigationContainer>
+    
     );
   } else {
     return null;
