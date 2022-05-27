@@ -7,8 +7,9 @@ import Background from "../assets/Background.webp";
 const Home = () => {
   let imagePh = '../assets/iconPhotogrape.png';
   let imageBand = '../assets/band.png';
-  let imageHS = '../assets/hair.jpg';
+  let imageHS = '../assets/hair.png';
   let imageHall = '../assets/hall.png'
+  let imagePack = '../assets/package.png'
 
   const [person,setPerson]=useState(null)
   const [allData,setAllData]=useState([])
@@ -18,14 +19,14 @@ const Home = () => {
     {
     logo:'/',
     professional_name:'the dreamer',
-   description:'photographe professionnel',
+    description:'photographe professionnel',
     category:'photographer',
     pack_title:'VIP',
     pack_price:'700 DTN'
 },{
   logo:'/',
   professional_name:'boudinar',
- description:'stambali mezwed fatma bouseha',
+  description:'stambali mezwed fatma bouseha',
   category:'band',
   pack_title:'VIP',
   pack_price:'700 DTN'
@@ -33,7 +34,7 @@ const Home = () => {
 {
   logo:'/',
   professional_name:'islem',
- description:'hair + hsjkqsqks+qsdkjdksjd+',
+  description:'hair + hsjkqsqks+qsdkjdksjd+',
   category:'hairSalon',
   pack_title:'VIP',
   pack_price:'700 DTN'
@@ -41,7 +42,7 @@ const Home = () => {
 {
   logo:'/',
   professional_name:'darna',
- description:'surface 1200 person',
+  description:'surface 1200 person',
   category:'weddingHall',
   pack_title:'VIP',
   pack_price:'700 DTN'
@@ -59,22 +60,27 @@ const Home = () => {
   const buttonFunction=(val)=>{
     var array=[]
 if (val==1){
-  array=allData.filter((elem,i)=> elem.category=='photographer')
+  array=allData.filter((elem,i)=> elem.category == 'photographer')
   setFIltredData(array)
   setView(1)
 }
 if (val===2){
-  array=allData.filter((elem,i)=> elem.category=='band')
+  array=allData.filter((elem,i)=> elem.category == 'band')
   setFIltredData(array)
   setView(1)
 }
 if (val===3){
-  array=allData.filter((elem,i)=> elem.category=='hairSalon')
+  array=allData.filter((elem,i)=> elem.category == 'hairSalon')
   setFIltredData(array)
   setView(1)
 }
 if (val===4){
-  array=allData.filter((elem,i)=> elem.category=='weddingHall')
+  array=allData.filter((elem,i)=> elem.category == 'weddingHall')
+  setFIltredData(array)
+  setView(1)
+}
+if (val===5){
+  array=allData.filter((elem,i)=> elem.category == 'Package')
   setFIltredData(array)
   setView(1)
 }
@@ -83,23 +89,25 @@ if (val===4){
 
 
     return ( 
-      <ImageBackground
-      style={{
-        width: "100%",
-        height: "100%",
-      }}
-      source={Background}
-      resizeMode="cover"
-    >
+    //   <ImageBackground
+    //   style={{
+    //     width: "100%",
+    //     height: "100%",
+    //   }}
+    //   source={Background}
+    //   resizeMode="cover"
+    // >
         <View style={styles.container}>
           
           {view==null&&<View
             style={{
-              // flexDirection: "row",
-              justifyContent: "center",
-              marginBottom: 30,
-              // height:"50px",
-              // width:"50px",
+              // display: flex,
+              flexDirection: "row",
+              // justifyContent: "center",
+              marginTop: -600,
+            
+              // height:"50",
+              // width:"50",
               // borderColor:'black'
             }}
           >
@@ -110,12 +118,12 @@ if (val===4){
               onPress={() => buttonFunction(1)}
             >
              <Image
-        style={{width: 50, height: 50}}
+        style={styles.image}
         source={require(imagePh)}
       />
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+              <Text style={styles.text}>
                 
-                photographer
+                Photographer
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -123,10 +131,10 @@ if (val===4){
               onPress={() => buttonFunction(2)}
             >
               <Image
-        style={{width: 50, height: 50}}
+        style={styles.image}
         source={require(imageBand)}
       />
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+              <Text style={styles.text}>
                 
                 Band
               </Text>
@@ -136,10 +144,10 @@ if (val===4){
               onPress={() => buttonFunction(3)}
             >
               <Image
-        style={{width: 50, height: 50}}
+        style={styles.image}
         source={require(imageHS)}
       />
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+              <Text style={styles.text}>
                 
                 Hair Salon
               </Text>
@@ -149,14 +157,27 @@ if (val===4){
                     onPress={() => buttonFunction(4)}
                   >
                     <Image
-                 style={{width: 50, height: 50}}
+                 style={styles.image}
                  source={require(imageHall)}
               />
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+              <Text style={styles.text}>
                 
                 Wedding Hall
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                    title="weddingHall"
+                    onPress={() => buttonFunction(5)}
+                  >
+                    <Image
+                 style={styles.image}
+                 source={require(imagePack)}
+              />
+              <Text style={styles.text}>
+                
+                Packages
+              </Text>
+            </TouchableOpacity>            
          
             </View>}
             {view&&<View>
@@ -171,7 +192,7 @@ if (val===4){
 
 
 
-</ImageBackground>
+// </ImageBackground>
         
      );
 }
@@ -182,5 +203,11 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     
     },
+    image:{
+     margin:5, width: 50, height: 50, borderRadius:30, backgroundColor:'#f0c5da'
+    },
+    text:{
+     textAlign: 'center', color: "#AD40AF",fontSize:8
+    }
   });
 export default Home;
