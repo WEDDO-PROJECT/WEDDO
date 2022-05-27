@@ -4,11 +4,8 @@ import {
   SafeAreaView,
   View,
   Text,
-  StyleSheet,
-  TextInput,
   TouchableOpacity,
 } from "react-native";
-import DatePicker from "react-native-date-picker";
 import InputField from "../components/input.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -16,6 +13,44 @@ import CustomButton from "../components/button.js";
 import Background from "../assets/Background.webp";
 
 const RegisterScreen = ({ navigation }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [tel, setTel] = useState("");
+  const register = async () => {
+    const Register = {
+      name: name,
+      email: email,
+      tel: tel,
+      password: password,
+    };
+    axios
+      .post("http://192.168.11.4:3000/api/users", Register)
+      .then((response) => {
+        const data = response.data.result[0];
+        StorageUtils.storeData("user", data);
+        navigation.navigate("Home");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const CreateName = (value) => {
+    setName(value);
+  };
+  const createEmail = (value) => {
+    setEmail(value);
+  };
+  const createTel = (value) => {
+    setTel(value);
+  };
+  const createPass = (value) => {
+    setPassword(value);
+  };
+  const onconfirmPassword = (value) => {
+    setConfirmPassword(value);
+  };
   return (
     <ImageBackground
       style={{
@@ -33,13 +68,7 @@ const RegisterScreen = ({ navigation }) => {
           marginTop: 150,
         }}
       >
-        <View style={{ alignItems: "center" }}>
-          {/* <RegistrationSVG
-            height={300}
-            width={300}
-            style={{ transform: [{ rotate: "-5deg" }] }}
-          /> */}
-        </View>
+        <View style={{ alignItems: "center" }}></View>
         <Text
           style={{
             fontSize: 28,
@@ -47,52 +76,13 @@ const RegisterScreen = ({ navigation }) => {
             color: "#333",
             marginBottom: 21,
           }}
-        > 
+        >
           Register
         </Text>
-        {/* <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginBottom: 30,
-          }}
-        > */}
-        {/* <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: "#ddd",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          ></TouchableOpacity> */}
-        {/* <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: "#ddd",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          ></TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: "#ddd",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          ></TouchableOpacity> */}
-        {/* </View> */}
-        {/* <Text style={{ textAlign: "center", color: "#666", marginBottom: 30 }}>
-          Or, register with email ...
-        </Text> */}
+
         <InputField
           label={"Full Name"}
+          setValue={CreateName}
           icon={
             <Ionicons
               name="person-outline"
@@ -104,6 +94,7 @@ const RegisterScreen = ({ navigation }) => {
         />
         <InputField
           label={"Email ID"}
+          setValue={createEmail}
           icon={
             <MaterialIcons
               name="alternate-email"
@@ -116,6 +107,7 @@ const RegisterScreen = ({ navigation }) => {
         />
         <InputField
           label={"Password"}
+          setValue={createPass}
           icon={
             <Ionicons
               name="ios-lock-closed-outline"
@@ -128,6 +120,7 @@ const RegisterScreen = ({ navigation }) => {
         />
         <InputField
           label={"Confirm Password"}
+          setValue={onconfirmPassword}
           icon={
             <Ionicons
               name="ios-lock-closed-outline"
@@ -140,6 +133,7 @@ const RegisterScreen = ({ navigation }) => {
         />
         <InputField
           label={"Phone Number"}
+          setValue={createTel}
           keyboardType="numeric"
           icon={
             <Ionicons
@@ -150,40 +144,19 @@ const RegisterScreen = ({ navigation }) => {
             />
           }
         />
-
+        <CustomButton
+          label={"Register"}
+          onPress={() => navigation.navigate("Home")}
+        />
         <View
-          style={
-            {
-              // flexDirection: "row",
-              // borderBottomColor: "#ccc",
-              // borderBottomWidth: 1,
-              // paddingBottom: ,
-              // marginBottom: 30,
-            }
-          }
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
         >
-          {/* <Ionicons
-            name="picture"
-            size={20}
-            color="#666"
-            style={{ marginRight:  }}
-          /> */}
-          <CustomButton label={"Register"} onPress={() => navigation.navigate("Home")} />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-
-              // marginTop: 150,
-            }}
-          >
-           
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
-                {" "}
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text style={{ color: "#AD40AF", fontWeight: "700" }}> </Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </ImageBackground>
@@ -191,17 +164,3 @@ const RegisterScreen = ({ navigation }) => {
 };
 
 export default RegisterScreen;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 20,
-  },
-});

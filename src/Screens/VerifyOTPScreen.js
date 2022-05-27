@@ -6,13 +6,12 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Alert,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
 import BasePath from "../constants/BasePath";
-
 
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
- 
+
   bottomView: {
     //position: "absolute",
     flexDirection: "row",
@@ -63,10 +62,10 @@ const styles = StyleSheet.create({
     //marginBottom: "25%",
     alignItems: "center",
     //marginTop: "5%",
-    top:"1%",
-    alignSelf:"center"
+    top: "1%",
+    alignSelf: "center",
   },
-  
+
   btnChangenbr: {
     width: 150,
     height: 50,
@@ -120,7 +119,7 @@ function VerifyOTPScreen({ route, navigation }) {
   const [phone, setPhone] = useState();
   useEffect(() => {
     // setPhone(route.params.phoneNumber);
-    console.log(phone+'ggvgfgfgf')
+    console.log(phone + "ggvgfgfgf");
   }, []);
 
   const Callforput = () => {
@@ -128,7 +127,7 @@ function VerifyOTPScreen({ route, navigation }) {
       mobile: phone,
       otp: code,
     };
-    console.log(x)
+    console.log(x);
     if (code.length === 4) {
       console.log("Hello word ");
       const config = {
@@ -141,7 +140,7 @@ function VerifyOTPScreen({ route, navigation }) {
         .put(BasePath + "/mobilenumbers/otp", x, config)
         .then((response) => {
           setResponsedata(response.data);
-          setCodeNumber("")
+          setCodeNumber("");
         })
         .catch((error) => {
           console.log(error.response);
@@ -164,7 +163,7 @@ function VerifyOTPScreen({ route, navigation }) {
   }, [testok, responseData]);
 
   const Ok = () => {
-      navigation.navigate("CategoryChoice")
+    navigation.navigate("CategoryChoice");
     //console.log("test passer avec succees")
     //setTestok(true);
   };
@@ -223,91 +222,89 @@ function VerifyOTPScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-    <View style={styles.slider}></View>
-    <View style={styles.footer}>
-      <View
-        style={{
-          ...StyleSheet.absoluteFillObject,
-          backgroundColor: "#f794e0",
-        }}
-      />
-      <View style={styles.footerContent}>
-        <Text
+      <View style={styles.slider}></View>
+      <View style={styles.footer}>
+        <View
           style={{
-            color: "black",
-            fontWeight: "bold",
-            fontSize: 24,
-            alignSelf: "center",
-            marginTop: "20%",
+            ...StyleSheet.absoluteFillObject,
+            backgroundColor: "#f794e0",
           }}
-        >
-         Verification code is sent
-        </Text>
-        <Text
-          style={{
-            color: "black",
-            fontSize: 16,
-            alignSelf: "center",
-            marginTop: "2%",
-          }}
-        >
-         please enter the 4 digits code
-        </Text>
-        <View style={styles.containerInput}>
-          <View style={styles.containerBox}>
-            <TextInput
-              value={code}
-              onChangeText={onChangeCode}
-              keyboardType="numeric"
-              style={styles.input}
-              maxLength={4}
-            />
-            {/* {console.log("responseData", responseData )}
+        />
+        <View style={styles.footerContent}>
+          <Text
+            style={{
+              color: "black",
+              fontWeight: "bold",
+              fontSize: 24,
+              alignSelf: "center",
+              marginTop: "20%",
+            }}
+          >
+            Verification code is sent
+          </Text>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 16,
+              alignSelf: "center",
+              marginTop: "2%",
+            }}
+          >
+            please enter the 4 digits code
+          </Text>
+          <View style={styles.containerInput}>
+            <View style={styles.containerBox}>
+              <TextInput
+                value={code}
+                onChangeText={onChangeCode}
+                keyboardType="numeric"
+                style={styles.input}
+                maxLength={4}
+              />
+              {/* {console.log("responseData", responseData )}
               {console.log("test code2", codeHandler)} */}
-            {codeHandler !== ""
-              ? Alert.alert("Message", codeHandler, [
-                  {
-                    text: "OK",
-                    onPress: () => {
-                      if (codeHandler == "OTP is verified Successfully") {
-                        navigation.navigate("AddUser", {
-                          mobilenumber: phone,
-                        });
-                      }
-                      setcodeHandler("");
+              {codeHandler !== ""
+                ? Alert.alert("Message", codeHandler, [
+                    {
+                      text: "OK",
+                      onPress: () => {
+                        if (codeHandler == "OTP is verified Successfully") {
+                          navigation.navigate("AddUser", {
+                            mobilenumber: phone,
+                          });
+                        }
+                        setcodeHandler("");
+                      },
                     },
-                  },
-                ])
-              : null}
+                  ])
+                : null}
+            </View>
+          </View>
+          <View style={styles.bottomView}>
+            <TouchableOpacity onPress={Ok}>
+              <View style={styles.btnChangenbr}>
+                <Text style={styles.textChange}>Verifier</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onResendOTP}>
+              <View style={styles.btnResend}>
+                <Text
+                  style={[
+                    styles.textResend,
+                    {
+                      color: enableResend ? "#FFD804" : "black",
+                    },
+                  ]}
+                >
+                  Resend ({countdown})
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.bottomView}>
-          <TouchableOpacity onPress={Ok}>
-            <View style={styles.btnChangenbr}>
-              <Text style={styles.textChange}>Verifier</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onResendOTP}>
-            <View style={styles.btnResend}>
-              <Text
-                style={[
-                  styles.textResend,
-                  {
-                    color: enableResend ? "#FFD804" : "black",
-                  },
-                ]}
-              >
-                Resend ({countdown})
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        
-        
       </View>
     </View>
-  </View>
-    );
+  );
 }
 
 export default VerifyOTPScreen;
