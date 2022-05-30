@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from "react-native-vector-icons/Ionicons";   
 import Feather from "react-native-vector-icons/Feather";
-import Home from '../../Screens/Home';
+import NavHome from '../homeComponents/NavHome';
 import Basket from '../../Screens/Basket';
 
 const Tab= createBottomTabNavigator();
@@ -25,7 +25,7 @@ function Tabnavigation(props) {
             tabBarActiveTintColor: '#fff',
             tabBarShowLabel:true,
         }}>
-            <Tab.Screen name='Home' component={Home} options={{
+            <Tab.Screen name='Home' component={NavHome} options={{
                 tabBarIcon: ({color,size}) => (
                     <Ionicons name="home-outline" color={color} size={size} />
                 )

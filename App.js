@@ -8,6 +8,7 @@ import Home from "./src/Screens/Home.js"
 import CategoryChoice from "./src/Screens/CategoryChoice.js"
 import DrawerNavigator from './src/components/Navigation/DrawerContent.js'
 import { NavigationContainer } from '@react-navigation/native';
+import Navigator from "./src/Navigations/Navigator.js";
 
 // import RegisterScreen from "./src/Screens/RegisterScreen.js";
 // import LoginScreen from "./src/Screens/LoginScreen.js";
@@ -42,7 +43,8 @@ export default function App() {
     // <Navigator />
     
       <NavigationContainer independent={true}>
-         <DrawerNavigator />
+        <Navigator />
+         {/* <DrawerNavigator /> */}
          
          
       </NavigationContainer>
