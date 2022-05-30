@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import DatePicker from "react-native-date-picker";
+// import DatePicker from "react-native-date-picker";
 import InputField from "../components/input.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";

@@ -8,7 +8,7 @@ import {
     Image
   } from "react-native";
   // import Logo from "../components/Logo.js";
-  let imageLogo = '../assets/weddo.png'
+  let imageLogo = require('../assets/weddo.png')
 
   const { width, height } = Dimensions.get("window");
 
@@ -22,7 +22,7 @@ export default function LandingPage({navigation}){
       
       <Image
         style={styles.image}
-        source={require(imageLogo)}
+        source={imageLogo}
       />
           
       </View>
