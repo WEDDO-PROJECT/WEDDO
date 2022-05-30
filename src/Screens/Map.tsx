@@ -202,6 +202,8 @@ const styles = StyleSheet.create({
       fontSize: 15,
       color: "#FFD804",
       marginLeft: 5,
+
+      
     },
     roundButtonActive: {
       borderWidth: 1,
