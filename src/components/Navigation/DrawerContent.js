@@ -30,12 +30,13 @@ const DrawerNavigator = () => {
           fontSize: 15
         } 
       }}
-      initialRouteName="Navigator" >
-         <Drawer.Screen name="Navigator" component={Navigator} options = {{
+      initialRouteName="Home" >
+      {/* initialRouteName="Navigator" > */}
+         {/* <Drawer.Screen name="Navigator" component={Navigator} options = {{
         drawerIcon:({color}) => (
           <Ionicons name="reader-outline" size={22} color={color} />
         )
-      }} />
+      }} /> */}
       <Drawer.Screen name="Home" component={Tabnavigation} options = {{
         drawerIcon:({color}) => (
           <Ionicons name ="home-outline" size={22} color={color }/>

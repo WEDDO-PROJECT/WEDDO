@@ -10,6 +10,8 @@ import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
 import StorageUtils from "../Utils/StorageUtils.js";
 import Home from "../Screens/Home.js";
 import ProfileScreen1 from "../Screens/profile.js"
+import DrawerContent from '../components/Navigation/DrawerContent'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -18,17 +20,19 @@ export default function Navigator(){
 
     const [user, setUser] = useState(null);
   useEffect(() => {
-    async function getUser() {
-      let data: any;
-     // await StorageUtils.retrieveData(userKey).then((value) => (data = value));
-      console.log(data);
-      if (data === undefined) {
+    // AsyncStorage.setItem('user',)
+    // async function getUser() {
+    //   let data=[]
+    //  // await StorageUtils.retrieveData(userKey).then((value) => (data = value));
+    //   console.log(data);
+    //   if (data === undefined) {
         setUser({ id: "notFound" });
-      } else {
-        setUser(JSON.parse(data));
-      }
-    }
-    getUser();
+        // setUser({ role: "sp" });
+    //   } else {
+    //     setUser(JSON.parse(data));
+    //   }
+    // }
+    // getUser();
   }, []);
 
 
@@ -39,7 +43,8 @@ export default function Navigator(){
     return (
     
         <Stack.Navigator
-          initialRouteName={user.id == "notFound" ? "LandingPage" : "CategoryChoice"}
+          initialRouteName={user.id == "notFound" ? "LoginScreen" : "Home"}
+          // initialRouteName={user&&user.role == "sp" ? "ProfileScreen1" : "CategoryChoice"}
         >
           <Stack.Screen
             name="LandingPage"
@@ -129,7 +134,7 @@ export default function Navigator(){
           />
            <Stack.Screen
             name="Home"
-            component={Home}
+            component={DrawerContent}
             options={{
               headerStyle: {
                 backgroundColor: "transparent",

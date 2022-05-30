@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import back from "../assets/back.png";
 const { width, height } = Dimensions.get("window");
-const  CategoryChoice =({navigation})=>{
+export default function  CategoryChoice ({navigation}){
   
 
         return (
@@ -139,4 +139,4 @@ const styles = StyleSheet.create({
   });
   
 
-  export default CategoryChoice;
+  // export default CategoryChoice;
