@@ -43,11 +43,12 @@ const LoginScreen = ({navigation}) => {
 const send=()=>{
   let person={email:email, password:password}
   console.log(person);
-  axios.post('http://localhost:3000/api/user/login',person)
+  axios.post('http://192.168.28.15:3000/api/user/login',person)
   .then(res=>{console.log(res.data)
-    if(res.data[0]==='succesfully connected')
+     if(res.data[0]==='succesfully connected')
     AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-    navigation.navigate("Home")
+   navigation.navigate("Home")
+
   })
   
 }
