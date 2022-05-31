@@ -56,7 +56,7 @@ export default function  CategoryChoice ({navigation}){
                    source={require("../assets/user.png")}
                     style={styles.image}
                   />
-                  <Text style={styles.text}>User</Text>
+                  <Text style={styles.text}>Client</Text>
                 </TouchableOpacity>
       
                 <TouchableOpacity

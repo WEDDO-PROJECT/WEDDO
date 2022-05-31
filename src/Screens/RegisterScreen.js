@@ -25,7 +25,9 @@ const [tel_number,setTel_number]=useState(null)
 
 const send=()=>{
   let person={email,name,password,tel_number}
-  axios.post('http://192.168.11.11:3000/api/user/signup',person)
+
+axios.post('http://192.168.11.6:3000/api/user/signup',person)
+
   .then(res=>{
     console.log(res.data);
     navigation.navigate("Home")
@@ -119,7 +121,7 @@ const send=()=>{
           }
         />
         <InputField
-          label={"Email ID"}
+          label={"Email "}
           setValue={setEmail}
           icon={
             <MaterialIcons
