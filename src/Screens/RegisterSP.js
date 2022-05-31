@@ -158,9 +158,9 @@ const RegisterSP = ({ navigation }) => {
         <RNPickerSelect
                  
                  items={[
-                     { label: "Hairdresser", value: "Hairdresser" },
+                     { label: "Beauty salons", value: "Hairdresser" },
                      { label: "Musical Band", value: "MusicalBand" },
-                     { label: "Party Room", value: "partyroom" },
+                     { label: "Marriage hall", value: "partyroom" },
                      { label: "Photographer", value: "Photographer" },
                      
                  ]}
@@ -219,7 +219,7 @@ const RegisterSP = ({ navigation }) => {
 
             }}
           >
-            <Text> Already registered? </Text>
+            
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
                 {" "}

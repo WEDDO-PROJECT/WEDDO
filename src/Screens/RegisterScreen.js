@@ -119,7 +119,7 @@ const send=()=>{
           }
         />
         <InputField
-          label={"Email ID"}
+          label={"Email "}
           setValue={setEmail}
           icon={
             <MaterialIcons

@@ -91,7 +91,7 @@ const  MapContent = ({navigation}) => {
           longitude:marker.longitude
         }
         axios 
-        .post("http://192.168.11.203:3000/api/sp/addSalle",body)
+        .post("http://192.168.11.6:3000/api/sp/addSalle",body)
         .then((response)=>{
           //console.log(response.data.result[0])
           const userdata =response.data.result[0]
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
       color: "#FFD804",
       marginLeft: 5,
 
-      
+
     },
     roundButtonActive: {
       borderWidth: 1,
