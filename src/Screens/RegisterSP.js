@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import DatePicker from "react-native-date-picker";
+// import DatePicker from "react-native-date-picker";
 import InputField from "../components/input.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -40,7 +40,7 @@ const RegisterSP = ({ navigation }) => {
     // confirmPassword
     }
     axios
-    .post("http://192.168.11.203:3000/api/sp/Register",UserRegister)
+    .post("http://192.168.28.15:3000/api/sp/Register",UserRegister)
     .then((response)=>{
       //console.log(response.data.result[0])
       const userdata =response.data.result[0]

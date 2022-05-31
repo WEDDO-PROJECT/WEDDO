@@ -7,9 +7,8 @@ import EditProfileSPRoom from './EditProfileRoom.js';
 import CardExemple from '../components/Card.js';
 const ProfileRoom = ({navigation})=>{
   
-    
-
     function goBack() {
+        console.log('bhvfjnfnvfvn')
         navigation.toggleDrawer();
       }
 
@@ -18,28 +17,33 @@ const ProfileRoom = ({navigation})=>{
       }
     return(
     <SafeAreaView style={styles.container}>
+
+        <View style={{flexDirection :'row' , marginTop : 25}}>
         <TouchableOpacity onPress={goBack} style={styles.roundButtonActive}>
          
-        <Ionicons
-              name="menu-outline"
-              size={30}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-        </TouchableOpacity>
-{/*         
-        <Title style={{textAlign:'center' ,marginTop:20 ,fontSize:20}}>Profile</Title> */}
-        <TouchableOpacity onPress={edit} style={styles.roundIconEdit}>
-        <Ionicons
-              name="md-person-sharp"
-              size={30}
-              color="#666"
-            />
-        
-        </TouchableOpacity>
+         <Ionicons
+               name="menu-outline"
+               size={30}
+               color="#666"
+               style={{ marginRight: 5 }}
+             />
+         </TouchableOpacity>
+            <Title style={{marginLeft : '50%'}}>profile</Title>
+         <TouchableOpacity onPress={edit} style={styles.roundIconEdit}>
+         <Ionicons
+               name="md-person-sharp"
+               size={30}
+               color="#666"
+             />
+         
+         </TouchableOpacity>
+                    
+        </View>
+       
 
         <View style={styles.userInfoSection}>
-            <View style={{flexDirection :'row' ,marginTop:20}}>
+        
+            <View style={{flexDirection :'row' ,marginTop:50}}>
                 <Avatar.Image 
                 source={
                     {
@@ -95,7 +99,7 @@ export default ProfileRoom;
 
 const styles =StyleSheet.create({
     container:{
-        flex :1,
+        flex :1
     },
     userInfoSection:{
         paddingHorizontal:30,
@@ -146,16 +150,12 @@ const styles =StyleSheet.create({
     roundButtonActive: {
         height: 50,
         width:50,
-        margin:4,
-        padding: 10,
-        paddingRight: 10,
         position:'absolute',
       },
       roundIconEdit:{
         height :50,
         width:50,
         marginLeft:'90%',
-        marginTop:15,
         position:'absolute',
 
       }

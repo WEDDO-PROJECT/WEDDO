@@ -66,7 +66,7 @@ const  DrawerContentRoom = ({navigation}) => {
                                 />
                             )}
                             label="Home"
-                          onPress={() => {props.navigation.navigate('RegisterSP')}}
+                          onPress={() => {navigation.navigate('Home')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -93,7 +93,6 @@ const  DrawerContentRoom = ({navigation}) => {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="settings-outline" 
                                 color={color}
                                 size={size}
                                 />

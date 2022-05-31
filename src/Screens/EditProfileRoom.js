@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -17,9 +17,21 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
-
+import axios from 'axios'
 //import ImagePicker from 'react-native-image-crop-picker';
 const EditProfileSPRoom = ({navigation})=>{
+    const  [SPRoom,SetSPRoom]=useState([])
+    useEffect(() => {
+        axios
+        .get('http://192.168.11.203:3000/api/sp/AllServiceProvider')
+        .then((response)=>{
+            console.log(response.data.result)
+            
+            SetSPRoom(response.data.result)
+        })
+       
+     }, []);
+
 
     const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
     const {colors} = useTheme();
