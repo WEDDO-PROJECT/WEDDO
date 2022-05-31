@@ -8,14 +8,29 @@ import {
   TextInput,
   TouchableOpacity, 
 } from "react-native";
-import DatePicker from "react-native-date-picker";
+// import DatePicker from "react-native-date-picker";
 import InputField from "../components/input.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Background from "../assets/Background.webp";
+import axios from 'axios'
 
 const RegisterScreen = ({ navigation }) => {
+const [name,setName]=useState(null)
+const [password,setPassword]=useState(null)
+const [email,setEmail]=useState(null)
+const [confirme_Password,setConfirme_Password]=useState(null)
+const [tel_number,setTel_number]=useState(null)
+
+const send=()=>{
+  let person={email,name,password,tel_number}
+  axios.post('http://192.168.11.11:3000/api/user/signup',person)
+  .then(res=>{
+    console.log(res.data);
+    navigation.navigate("Home")
+  })
+}
   return (
     <ImageBackground
       style={{
@@ -93,6 +108,7 @@ const RegisterScreen = ({ navigation }) => {
         </Text> */}
         <InputField
           label={"Full Name"}
+          setValue={setName}
           icon={
             <Ionicons
               name="person-outline"
@@ -104,6 +120,7 @@ const RegisterScreen = ({ navigation }) => {
         />
         <InputField
           label={"Email ID"}
+          setValue={setEmail}
           icon={
             <MaterialIcons
               name="alternate-email"
@@ -116,6 +133,7 @@ const RegisterScreen = ({ navigation }) => {
         />
         <InputField
           label={"Password"}
+          setValue={setPassword}
           icon={
             <Ionicons
               name="ios-lock-closed-outline"
@@ -128,6 +146,7 @@ const RegisterScreen = ({ navigation }) => {
         />
         <InputField
           label={"Confirm Password"}
+          setValue={setConfirme_Password}
           icon={
             <Ionicons
               name="ios-lock-closed-outline"
@@ -140,6 +159,7 @@ const RegisterScreen = ({ navigation }) => {
         />
         <InputField
           label={"Phone Number"}
+          setValue={setTel_number}
           keyboardType="numeric"
           icon={
             <Ionicons
@@ -168,7 +188,7 @@ const RegisterScreen = ({ navigation }) => {
             color="#666"
             style={{ marginRight:  }}
           /> */}
-          <CustomButton label={"Register"} onPress={() => navigation.navigate("Home")} />
+          <CustomButton label={"Register"} onPress={ send } />
           <View
             style={{
               flexDirection: "row",

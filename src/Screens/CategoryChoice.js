@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import back from "../assets/back.png";
 const { width, height } = Dimensions.get("window");
-const  CategoryChoice =({navigation})=>{
+export default function  CategoryChoice ({navigation}){
   
 
         return (
@@ -50,7 +50,7 @@ const  CategoryChoice =({navigation})=>{
                
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => navigation.navigate("RegisterScreen")}
+                  onPress={() => navigation.navigate("LoginScreen")}
                 >
                   <Image
                    source={require("../assets/user.png")}
@@ -61,7 +61,7 @@ const  CategoryChoice =({navigation})=>{
       
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => navigation.navigate("RegisterSP")}
+                  onPress={() => navigation.navigate("LoginScreenSP")}
                 >
                   <Image
                    source={require("../assets/SP.png")}
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
       borderWidth: 2,
       marginLeft: "5%",
     },
-    image: { height: 100, width: 100, marginLeft: 20 },
+    image: { height: 80, width: 80, marginLeft: 20 },
     background: {
       position: "absolute",
       left: 0,
@@ -139,4 +139,4 @@ const styles = StyleSheet.create({
   });
   
 
-  export default CategoryChoice;
+  // export default CategoryChoice;
