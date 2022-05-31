@@ -5,7 +5,10 @@ import {
     View,
     TouchableOpacity,
     Dimensions,
+    Image
   } from "react-native";
+  // import Logo from "../components/Logo.js";
+  let imageLogo = require('../assets/weddo.png')
 
   const { width, height } = Dimensions.get("window");
 
@@ -16,19 +19,18 @@ export default function LandingPage({navigation}){
         <View style={styles.container}>
       <View style={styles.slider}>
         
-        <Text style={{
-           color: "black",
-           fontWeight: "bold",
-           fontSize: 45,
-           margin: "30%", 
-           
-        }}>WEDDO</Text>
+      
+      <Image
+        style={styles.image}
+        source={imageLogo}
+      />
+          
       </View>
       <View style={styles.footer}>
         <View
           style={{
             ...StyleSheet.absoluteFillObject,
-            backgroundColor: "#f794e0",
+            backgroundColor: "white",
           }}
         />
         <View style={styles.footerContent}>
@@ -53,7 +55,7 @@ export default function LandingPage({navigation}){
           </Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("AuthenticationChoice")}
+            onPress={() => navigation.navigate("CategoryChoice")}
           >
             <Text style={styles.textBtn}>Let's go</Text>
           </TouchableOpacity>
@@ -65,13 +67,13 @@ export default function LandingPage({navigation}){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "white",
+      backgroundColor: "#f0c5da",
     },
     slider: {
       height: 0.5 * height,
       backgroundColor: "#FFD804",
       borderBottomRightRadius: 75,
-      backgroundColor:"#f794e0",
+      backgroundColor:"white",
       width:width
     },
     footer: {
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     },
     footerContent: {
       flex: 1,
-      backgroundColor: "white",
+      backgroundColor: "#f0c5da",
       borderTopLeftRadius: 75,
       alignItems: "center",
     },
@@ -96,6 +98,12 @@ const styles = StyleSheet.create({
       alignSelf: "center",
       width: "50%",
       height: "15%",
-      backgroundColor: "#f794e0",
+      backgroundColor: "white",
     },
+    image: {
+      alignSelf: "center",
+      width: 150,
+      height: 150,
+      margin:140
+    }
   });

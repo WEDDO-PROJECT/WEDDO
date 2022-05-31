@@ -16,6 +16,8 @@ import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
+import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { useNavigation } from "@react-navigation/native";
 // import GoogleSVG from "../assets/google.svg";
 // import FacebookSVG from "../assets/facebook.svg";
@@ -38,6 +40,18 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+const send=()=>{
+  let person={email:email, password:password}
+  console.log(person);
+  axios.post('http://192.168.11.6:3000/api/user/login',person)
+  .then(res=>{console.log(res.data)
+     if(res.data[0]==='succesfully connected')
+    AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
+   navigation.navigate("Home")
+
+  })
+  
+}
   const { height } = useWindowDimensions();
   // const navigation = useNavigation();
   //   const myIcon = <Icon name="bird" size={30} color="#900" />;
@@ -107,7 +121,7 @@ const LoginScreen = ({navigation}) => {
           <CustomButton
             label={"Login"}
             title="to homePage"
-            onPress={() => navigation.navigate("Home")}
+            onPress={send}
             // onPress={() => this.props.navigation.navigate("Home")}
           />
           <Text
@@ -182,10 +196,10 @@ const LoginScreen = ({navigation}) => {
           >
             {/* /<Text>New to the app?</Text> */}
 
-            {/* <TouchableOpacity
+             <TouchableOpacity
               title="Register"
-              onPress={() => this.props.navigation.navigate("Register")}
-            > */}
+              onPress={() => navigation.navigate("RegisterScreen")}
+            > 
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
                 {" "}
                 Register
@@ -201,8 +215,8 @@ const LoginScreen = ({navigation}) => {
               paddingVertical: 10,
             }}
           >
-            <Google height={24} width={24} />
-          </TouchableOpacity> */}
+            <Google height={24} width={24} />*/}
+          </TouchableOpacity> 
           </View>
         </View>
       </SafeAreaView>
