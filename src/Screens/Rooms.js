@@ -13,7 +13,7 @@ const Rooms =({navigation})=>{
 
     useEffect(() => {
          axios
-         .get('http://192.168.11.203:3000/api/sp/SelectSalle')
+         .get('http://192.168.11.6:3000/api/sp/SelectSalle')
          .then((response)=>{
              console.log(response.data.result)
              setRooms(response.data.result)
