@@ -52,7 +52,7 @@ return (
            </Text>
            </TouchableOpacity> */}
             <View>
-            <View>
+            <View style={styles.input}>
             <InputField
           label={"Min Price"}
           setValue={setMinPrice}
@@ -61,10 +61,12 @@ return (
               name="cash-outline"
               size={20}
               color="#666"
-              style={{ marginRight: 5 }}
+              style={{ marginRight: 5, color:'#696969' }}
             />
           }
         />
+        </View>
+            <View style={styles.input}>
             <InputField
           label={"Max Price"}
           setValue={setMaxPrice}
@@ -73,10 +75,11 @@ return (
               name="cash-outline"
               size={20}
               color="#666"
-              style={{ marginRight: 5 }}
+              style={{ marginRight: 5, color:'#696969' }}
             />
           }
         />
+            
             </View>
                 {data.map((elem,i)=>{
                   return(
@@ -110,8 +113,16 @@ return (
                       {/* <Image  style={{width:"50",height:"50"}} source={{uri:elem.logo}} /><Image/> */}
                       <Text>{elem.description} </Text>
                       <Text>{elem.pack_title}</Text>
-                      <Text>{elem.pack_price}</Text>
-                      
+                      <Text>{elem.pack_price} DT</Text>
+                      {/* <TouchableOpacity
+                        title="AddToBasket"
+                        onPress={() => navigation.navigate("Basket")}
+                      > 
+                        <Text style={{ color: "#AD40AF", fontWeight: "700",marginLeft: 200, }}>
+                          {" "}
+                          add
+                        </Text>
+                      </TouchableOpacity> */}
                   </View>
             </TouchableOpacity>
 
@@ -129,7 +140,13 @@ const styles= StyleSheet.create({
     fontSize:20,
     fontWeight:'800',
     marginHorizontal:'10'
-  }
+  },
+  input: {
+    borderColor:'#f0c5da',
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
 })
-
-export default Cards;
+  export default Cards;

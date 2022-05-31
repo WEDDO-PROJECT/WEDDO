@@ -31,13 +31,9 @@ const Home =({ navigation})=> {
     .then(res=>{console.log(res.data)
       setAllData(res.data)})
     .catch(err=>console.log(err))
-    
     setAllData(array);
     AsyncStorage.getItem('user')
-   .then(res=>console.log(res))
-   
-  
-
+    .then(res=>console.log(res))
   },[])
   const buttonFunction=(val)=>{
     var array=[]
@@ -183,7 +179,7 @@ if (val===4){
          
           </View>
           <View>
-          <View style={styles.leftFrom}>
+          <View>
           <Text
                 style={styles.inputFrom}
                 onPress={() => {
@@ -224,16 +220,23 @@ if (val===4){
 const styles = StyleSheet.create({
     container: {
       // flex: 1,
-      alignItems: 'center',
+      alignItems:   'center',
       justifyContent: 'center',
       backgroundColor:"white"
     
     },
     image:{
-     margin:5, width: 50, height: 50, borderRadius:30,
+     margin:5,
+     width: 50,
+     height: 50,
+     borderRadius:30,
+     borderWidth: 2,
+     borderColor:'#696969',
     },
     text:{
-     textAlign: 'center', color: "#AD40AF",fontSize:8
+     textAlign: 'center',
+     color: "#AD40AF",
+     fontSize:8
     },
     
     clicked:{
@@ -242,10 +245,22 @@ const styles = StyleSheet.create({
       borderRadius:5
     },
     inputFrom:{
+      backgroundColor:'#f0c5da',
       fontFamily: "sans-serif-thin",
-      fontWeight: "bold",
+      // fontWeight: "bold",
       textAlign:"center",
+      fontColor:'#696969',
       left:-6,
+      borderWidth: 0.5,
+      borderColor: "#777",
+      padding: 8,
+      margin: 10,
+      borderRadius: 6,
+      height: 50,
+      maxWidth: 340,
+      width: 300,
+      elevation: 12,
+      alignSelf: "center",
     },
     leftFrom: {
       backgroundColor: "white",

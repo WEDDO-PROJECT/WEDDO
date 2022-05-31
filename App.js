@@ -4,9 +4,8 @@ import RegisterScreen from "./src/Screens/RegisterScreen.js";
 import LoginScreen from "./src/Screens/LoginScreen.js";
 import RegisterSP from "./src/Screens/RegisterSP.js";
 import AuthenticationChoice from "./src/Screens/AuthChoice.js";
-import Home from "./src/Screens/Home.js"
-import CategoryChoice from "./src/Screens/CategoryChoice.js"
-import DrawerNavigator from './src/components/Navigation/DrawerContent.js'
+import Home from "./src/Screens/Home.js";
+import CategoryChoice from "./src/Screens/CategoryChoice.js";
 import { NavigationContainer } from '@react-navigation/native';
 import Navigator from "./src/Navigations/Navigator.js";
 
@@ -44,9 +43,6 @@ export default function App() {
     
       <NavigationContainer independent={true}>
         <Navigator />
-         {/* <DrawerNavigator /> */}
-         
-         
       </NavigationContainer>
     
     

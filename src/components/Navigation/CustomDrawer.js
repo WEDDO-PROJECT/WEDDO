@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
+import { DrawerContentScrollView, DrawerItemList,StyleSheet } from '@react-navigation/drawer'
 
 function CustomDrawer(props) {
     return (
@@ -11,5 +11,7 @@ function CustomDrawer(props) {
         </View>  
     );
 }
+// const styles= StyleSheet.create({
 
+// })
 export default CustomDrawer;
