@@ -28,7 +28,7 @@ export default function LandingPage({navigation}){
         <View
           style={{
             ...StyleSheet.absoluteFillObject,
-            backgroundColor: "#f794e0",
+            backgroundColor: "#B22222",
           }}
         />
         <View style={styles.footerContent}>
@@ -69,9 +69,9 @@ const styles = StyleSheet.create({
     },
     slider: {
       height: 0.5 * height,
-      backgroundColor: "#FFD804",
+      backgroundColor: "#B22222",
       borderBottomRightRadius: 75,
-      backgroundColor:"#f794e0",
+      backgroundColor:"#B22222",
       width:width
     },
     footer: {
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     },
     footerContent: {
       flex: 1,
-      backgroundColor: "white",
+      backgroundColor: "#f5f5dc",
       borderTopLeftRadius: 75,
       alignItems: "center",
     },
@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
       alignSelf: "center",
       width: "50%",
       height: "15%",
-      backgroundColor: "#f794e0",
+      backgroundColor: "#B22222",
     },
   });

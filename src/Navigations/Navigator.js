@@ -9,7 +9,7 @@ import AuthWithPhone from "../Screens/AuthWithPhone.js";
 import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
 import StorageUtils from "../Utils/StorageUtils.js";
 import Home from "../Screens/Home.js";
-import ProfileScreen1 from "../Screens/profile.js"
+import ProfileScreen1 from "../components/profile.js"
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";

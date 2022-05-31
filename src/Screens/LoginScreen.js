@@ -16,7 +16,8 @@ import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import axios from 'axios'
 // import GoogleSVG from "../assets/google.svg";
 // import FacebookSVG from "../assets/facebook.svg";
 // import TwitterSVG from "../assets/twitter.svg";
@@ -33,10 +34,30 @@ import Background from "../assets/Background.webp";
 // const onConfirmPressed = () => {
 //   navigation.navigate("Home");
 // };
-import Icon from "react-native-vector-icons/FontAwesome";
-const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+// import Icon from "react-native-vector-icons/FontAwesome";
+const LoginScreen = () => {
+    const [password,setPassword]=useState("");
+    const [email, setEmail] = useState("");
+    const navigation = useNavigation();
+    const onLoginPressed =()=>{
+      axios
+      .post("http://192.168.254.167:3000/api/sp/login", {
+        password,
+        email
+      })
+      .then((res)=>{
+        if(res.data ==="Email or password is incorrect!"){
+          // console.log(data)
+          // console.log(res.result)
+          console.warn("wrong password or email")
+        }else{
+  console.log(res.data)
+  navigation.navigate("Home")
+        }
+      }).catch((err)=>console.log(err))
+
+
+  };
 
   const { height } = useWindowDimensions();
   // const navigation = useNavigation();
@@ -107,7 +128,7 @@ const LoginScreen = ({navigation}) => {
           <CustomButton
             label={"Login"}
             title="to homePage"
-            onPress={() => navigation.navigate("Home")}
+            onPress={onLoginPressed }
             // onPress={() => this.props.navigation.navigate("Home")}
           />
           <Text
@@ -186,9 +207,10 @@ const LoginScreen = ({navigation}) => {
               title="Register"
               onPress={() => this.props.navigation.navigate("Register")}
             > */}
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+              <Text style={{ color: "#AD40AF", fontWeight: "700" }} onPress={()=>{navigation.navigate('RegisterSP')}}>
                 {" "}
                 Register
+                
               </Text>
             {/* </TouchableOpacity> */}
             {/* <TouchableOpacity

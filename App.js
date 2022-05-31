@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import Profile from "./src/components/profile.js";
 // import RegisterScreen from "./src/Screens/RegisterScreen.js";
 // import LoginScreen from "./src/Screens/LoginScreen.js";
 // import RegisterSP from "./src/Screens/RegisterSP.js";
@@ -10,7 +11,7 @@ import { StyleSheet, Text, View } from "react-native";
 // import { NavigationContainer } from "@react-navigation/native";
 // import { createStackNavigator } from "@react-navigation/stack";
 // const Stack = createStackNavigator();
- import Navigator from "./src/Navigations/Navigator.js"
+import Navigator from "./src/Navigations/Navigator.js"
  import { LogBox } from 'react-native';
  
 // Ignore log notification by message
@@ -31,7 +32,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#B22222",
     alignItems: "center",
     justifyContent: "center",
   },
