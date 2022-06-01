@@ -37,6 +37,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // };
 import Icon from "react-native-vector-icons/FontAwesome";
 import StorageUtils from "../Utils/StorageUtils.js";
+
+import BasePath from "../constants/BasePath";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,7 +46,7 @@ const LoginScreen = ({navigation}) => {
 const send=()=>{
   let person={email:email, password:password}
    console.log(person);
-  axios.post('http://192.168.28.15:3000/api/sp/login',person)
+  axios.post(BasePath + '/api/sp/login',person)
    .then(res=>{//console.log(res.data)
   //   if(res.data[0]==='succesfully connected')
    // AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
