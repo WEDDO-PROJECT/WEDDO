@@ -8,6 +8,7 @@ import CustomDrawer from "./CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Tabnavigation from '../Navigation/Tabnavigation.js';
  import Navigator from "../../Navigations/Navigator"
+ import Checklist from "../../Screens/Checklist.js";
 
 const Drawer = createDrawerNavigator();
 
@@ -42,7 +43,7 @@ const DrawerNavigator = () => {
           <Ionicons name ="home-outline" size={22} color={color }/>
         )
       }} />
-      <Drawer.Screen name="Checklist" component={LoginScreen} options = {{
+      <Drawer.Screen name="Checklist" component={Checklist} options = {{
         drawerIcon:({color}) => (
           <Ionicons name="reader-outline" size={22} color={color} />
         )
