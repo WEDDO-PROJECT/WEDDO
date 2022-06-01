@@ -41,7 +41,9 @@ const RegisterSP = ({ navigation }) => {
     // confirmPassword
     }
     axios
+
     .post(BasePath + "/api/sp/Register",UserRegister)
+
     .then((response)=>{
       //console.log(response.data.result[0])
       const userdata =response.data.result[0]

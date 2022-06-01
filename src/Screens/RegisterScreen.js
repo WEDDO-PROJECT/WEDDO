@@ -27,7 +27,9 @@ const [tel_number,setTel_number]=useState(null)
 
 const send=()=>{
   let person={email,name,password,tel_number}
+
   axios.post(BasePath + '/api/user/signup',person)
+
   .then(res=>{
     console.log(res.data);
     const userdata =response.data.result[0]
