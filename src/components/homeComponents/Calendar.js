@@ -44,7 +44,7 @@ const {start , end}=route.params
 const styles = StyleSheet.create({
   containerCalendar: {
     flex:1,
-    backgroundColor:'#f0c5da',
+    backgroundColor:'#D49B35',
     margin:0,
   },
   calendar: {

@@ -1,12 +1,41 @@
 import { Ionicons } from '@expo/vector-icons';
-import react from 'react';
+import react, { useState,useEffect } from 'react';
 import {View, SafeAreaView,StyleSheet,Image,TouchableOpacity} from 'react-native';
 import {Avatar,Title,Caption,Text,TouchableRipple} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfileSPRoom from './EditProfileRoom.js';
 // import CardExemple from '../components/Card.js';
+import StorageUtils from '../Utils/StorageUtils.js';
 const ProfileRoom = ({navigation})=>{
+    
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [cin, setCin] = useState("");
+  const [document, setDocument] = useState("");
+  const [tel, setTel] = useState("");
+  const [category, setCategory] = useState("");
   
+ 
+  useEffect(() => {
+    async function getUser() {
+      let data
+      await StorageUtils.retrieveData('user').then((value) => (data = JSON.parse(value)));
+     console.log(data);
+      if (data === undefined) {
+       console.log('not found')
+      } else {
+
+          setName(data.owner_name)
+         // console.log(data.'owner_name')
+          setEmail(data.email)
+        //  console.log(data.email)
+          setCategory(data.category)
+          setCin(data.cin)
+          setTel(data.tel)
+      }
+    }
+    getUser();
+  }, []);
     function goBack() {
         console.log('bhvfjnfnvfvn')
         navigation.toggleDrawer();
@@ -28,7 +57,7 @@ const ProfileRoom = ({navigation})=>{
                style={{ marginRight: 5 }}
              />
          </TouchableOpacity>
-            <Title style={{marginLeft : '50%'}}>profile</Title>
+            <Title style={{marginLeft : '42%' ,fontSize:23}}>Profile</Title>
          <TouchableOpacity onPress={edit} style={styles.roundIconEdit}>
          <Ionicons
                name="md-person-sharp"
@@ -44,18 +73,14 @@ const ProfileRoom = ({navigation})=>{
         <View style={styles.userInfoSection}>
         
             <View style={{flexDirection :'row' ,marginTop:50}}>
-                <Avatar.Image 
-                source={
-                    {
-                        uri:'../assets/SP.png'
-                    }
-                    
-                }
-                size={80}
-                />
+            <Image
+                   source={require("../assets/SP.png")}
+                    style={styles.image}
+                  />
+              
                 <View style={{marginLeft:20}}>
-                    <Title style={[styles.title,{marginTop:15 ,marginBottom :5}]}> Fradj Mili</Title>
-                    <Caption style={styles.caption}>fradj@gmail.com</Caption>
+                    <Title style={[styles.title,{marginTop:15 ,marginBottom :5}]}> {name}</Title>
+                    <Caption style={styles.caption}>{category}</Caption>
                 </View>
                 </View>
         </View>
@@ -69,17 +94,17 @@ const ProfileRoom = ({navigation})=>{
             <View style={styles.row}>
                 <Icon name='phone'color='#777777' size={20}></Icon>
                 <Text style={{color:"#777777",marginLeft:20}}>
-                    55004732
+                    {tel}
                 </Text>
             </View>
             <View style={styles.row}>
                 <Icon name='email'color='#777777' size={20}></Icon>
                 <Text style={{color:"#777777",marginLeft:20}}>
-                   Fradj.mili@esprit.tn
+                  {email}
                 </Text>
             </View>
         </View>
-        <View style={styles.infoBoxWrapper}>
+        {/* <View style={styles.infoBoxWrapper}>
             <View style={styles.infoBox}>
                 <Title>1000dt</Title>
                 <Caption>Prix</Caption>
@@ -90,7 +115,7 @@ const ProfileRoom = ({navigation})=>{
             </View>
 
             
-        </View>
+        </View> */}
        
     </SafeAreaView>
     )
@@ -158,5 +183,7 @@ const styles =StyleSheet.create({
         marginLeft:'90%',
         position:'absolute',
 
-      }
+      },
+      
+    image: { height: 90, width: 90, borderRadius:60 },
 })

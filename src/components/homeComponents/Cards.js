@@ -61,7 +61,7 @@ return (
               name="cash-outline"
               size={20}
               color="#666"
-              style={{ marginRight: 5, color:'#696969' }}
+              style={{ marginRight: 5, color:'#D49B35' }}
             />
           }
         />
@@ -75,7 +75,7 @@ return (
               name="cash-outline"
               size={20}
               color="#666"
-              style={{ marginRight: 5, color:'#696969' }}
+              style={{ marginRight: 5, color:'#D49B35' }}
             />
           }
         />
@@ -91,7 +91,7 @@ return (
             <View
             style={{
               margin:10, 
-              backgroundColor:'#f0c5da',
+              backgroundColor:'white',
               height: 100,
               shadowColor: '#000',
               shadowOffset: {
@@ -106,7 +106,7 @@ return (
                       <Text style={{
                             fontSize:20,
                             fontWeight:'500',
-                            color : '#696969',
+                            color : '#D49B35',
                             marginHorizontal:'10'
                            }}>{elem.professional_name}</Text>
                       
@@ -142,7 +142,8 @@ const styles= StyleSheet.create({
     marginHorizontal:'10'
   },
   input: {
-    borderColor:'#f0c5da',
+    backgroundColor: 'white',
+    borderColor:'#D49B35',
     height: 40,
     margin: 12,
     borderWidth: 1,

@@ -5,7 +5,7 @@ import { DrawerContentScrollView, DrawerItemList,StyleSheet } from '@react-navig
 function CustomDrawer(props) {
     return (
         <View style = {{flex:1}}>
-        <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor:'#f0c5da'}}>
+        <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor:'#D49B35'}}>
             <DrawerItemList {...props} />
         </DrawerContentScrollView>
         </View>  

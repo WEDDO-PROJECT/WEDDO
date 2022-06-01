@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from "react-native-vector-icons/Ionicons";   
 import Feather from "react-native-vector-icons/Feather";
@@ -14,7 +14,7 @@ function Tabnavigation(props) {
             tabBarShowLabel: false,
             headerShown: false,
             tabBarStyle: { 
-                backgroundColor: '#f0c5da',
+                backgroundColor: 'white',
                 height: 60,
                 position: 'absolute',
                 bottom: 16,
@@ -22,8 +22,8 @@ function Tabnavigation(props) {
                 left: 16,
                 borderRadius: 10
             },
-            tabBarInactiveTintColor: '#696969',
-            tabBarActiveTintColor: '#fff',
+            tabBarInactiveTintColor: '#D49B35',
+            tabBarActiveTintColor: '#D49B35',
             tabBarShowLabel:true,
         }}>
             <Tab.Screen name='Home' component={NavHome} options={{
