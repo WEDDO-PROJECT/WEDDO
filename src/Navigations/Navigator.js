@@ -23,6 +23,7 @@ import EditProfileSPRoom from "../Screens/EditProfileRoom.js";
 import MapContent from '../Screens/Map.tsx'
 import Rooms from "../Screens/Rooms.js";
 import CustomDrawer from "../components/Navigation/CustomDrawer.js";
+import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
 const Stack = createStackNavigator();
 export default function Navigator(){
 
@@ -135,7 +136,17 @@ export default function Navigator(){
               title: "",
             }}
           />
-
+ <Stack.Screen
+            name="WeddingHallDetails"
+            component={WeddingHallDetails}
+            options={{
+              headerStyle: {
+                backgroundColor: "transparent",
+              },
+              headerTransparent: true,
+              title: "",
+            }}
+          />
         <Stack.Screen
             name="VerifyOTPScreen"
             component={VerifyOTPScreen}

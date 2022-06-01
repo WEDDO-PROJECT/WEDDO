@@ -95,9 +95,9 @@ const  MapContent = ({navigation}) => {
         .post(BasePath + "/api/sp/addSalle",body)
         .then((response)=>{
           //console.log(response.data.result[0])
-          const userdata =response.data.result[0]
-          navigation.navigate("Rooms")
-          console.log(userdata)
+          const data =response.data.result[0]
+          navigation.navigate("WeddingHallDetails",{weddinghalldata : data})
+          console.log(data)
         })
         .catch((error)=>{
           console.log(error)
@@ -132,7 +132,7 @@ const  MapContent = ({navigation}) => {
                 <View style={styles.view}>
                 <TextInput
                   style={styles.input}
-                  placeholder={'Room Name'}
+                  placeholder={'Marriege Hall'}
                   value={name}
                   onChangeText={(text) => editName(text)}
                 ></TextInput>
@@ -156,7 +156,7 @@ const  MapContent = ({navigation}) => {
                 <Text
                   style={ styles.switchTextActive }
                 > 
-                Add Room
+                Add 
                 </Text>
               </TouchableOpacity>
             </View>
