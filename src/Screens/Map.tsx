@@ -10,6 +10,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text } from "../components/Themed";
 import axios from "axios";
 
+import BasePath from "../constants/BasePath";
 const  MapContent = ({navigation}) => {
     const [myLocation, setLocation] = useState<LocationObject>();
     const [myRegion, setRegion] = useState<Region>(undefined);
@@ -91,7 +92,7 @@ const  MapContent = ({navigation}) => {
           longitude:marker.longitude
         }
         axios 
-        .post("http://192.168.11.6:3000/api/sp/addSalle",body)
+        .post(BasePath + "/api/sp/addSalle",body)
         .then((response)=>{
           //console.log(response.data.result[0])
           const userdata =response.data.result[0]

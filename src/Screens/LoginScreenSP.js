@@ -36,19 +36,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //   navigation.navigate("Home");
 // };
 import Icon from "react-native-vector-icons/FontAwesome";
+import StorageUtils from "../Utils/StorageUtils.js";
+
+import BasePath from "../constants/BasePath";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
 const send=()=>{
-  // let person={email:email, password:password}
-  // console.log(person);
-  // axios.post('http://localhost:3000/api/user/login',person)
-  // .then(res=>{console.log(res.data)
+  let person={email:email, password:password}
+   console.log(person);
+  axios.post(BasePath + '/api/sp/login',person)
+   .then(res=>{//console.log(res.data)
   //   if(res.data[0]==='succesfully connected')
    // AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-    navigation.navigate("Home")
- // })
+   const userdata =res.data
+     StorageUtils.storeData('user',userdata)
+  navigation.navigate("DrawerNavigator")
+ })
   
 }
   const { height } = useWindowDimensions();
