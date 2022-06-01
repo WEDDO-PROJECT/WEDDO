@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet,Image } from 'react-native';
 import {
     useTheme,
     Avatar,
@@ -9,7 +9,8 @@ import {
     Drawer,
     Text,
     TouchableRipple,
-    Switch
+    Switch,
+   
 } from 'react-native-paper';
 import {
     DrawerContentScrollView,
@@ -18,62 +19,62 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import map from './Map.tsx'
+import StorageUtils from '../Utils/StorageUtils';
 
 const  DrawerContentRoom = ({navigation}) => {
-
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const paperTheme = useTheme();
+
+    useEffect(() => {
+        async function getUser() {
+          let data
+          await StorageUtils.retrieveData('user').then((value) => (data = JSON.parse(value)));
+         console.log(data);
+          if (data === undefined) {
+           console.log('not found')
+          } else {
+    
+              setName(data.owner_name)
+              //console.log(data.'owner_name')
+              setEmail(data.email)
+            //  console.log(data.email)
+             
+          }
+        }
+        getUser();
+      }, []);
 
     //const { signOut, toggleTheme } = React.useContext(AuthContext);
 
     return(
         
         <View style={{flex:1}}>
-            <DrawerContentScrollView >
+            <DrawerContentScrollView style={styles.drawerSection}>
                 <View style={styles.drawerContent}>
-                    <View style={styles.userInfoSection}>
+                    <Drawer.Section style={styles.userInfoSection}>
                         <View style={{flexDirection:'row',marginTop: 15}}>
-                            <Avatar.Image 
-                                source={{
-                                    uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
-                                }}
-                                size={50}
-                            />
-                            <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>John Doe</Title>
-                                <Caption style={styles.caption}>@j_doe</Caption>
+                        <Image
+                                source={require("../assets/SP.png")}
+                                    style={styles.image}
+                          />
+                            <View style={{marginLeft:20, flexDirection:'column'}}>
+                                <Title style={styles.title}>{name}</Title>
+                                <Caption style={styles.caption}>{email}</Caption>
                             </View>
                         </View>
 
-                        <View style={styles.row}>
-                            <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
-                                <Caption style={styles.caption}>Following</Caption>
-                            </View>
-                            <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
-                                <Caption style={styles.caption}>Followers</Caption>
-                            </View>
-                        </View>
-                    </View>
+                        
+                    </Drawer.Section >
 
                     <Drawer.Section style={styles.drawerSection}>
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="home-outline" 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Home"
-                          onPress={() => {navigation.navigate('Home')}}
-                        />
+                        
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="account-outline" 
                                 color={color}
-                                size={size}
+                                size={35}
                                 />
                             )}
                             label="Profile"
@@ -84,28 +85,19 @@ const  DrawerContentRoom = ({navigation}) => {
                                 <Icon 
                                 name="bookmark-outline" 
                                 color={color}
-                                size={size}
+                                size={35}
                                 />
                             )}
                             label="Bookmarks"
                            // onPress={() => {props.navigation.navigate('BookmarkScreen')}}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                color={color}
-                                size={size}
-                                />
-                            )}
-                            label="Settings"
-                           // onPress={() => {props.navigation.navigate('SettingScreen')}}
-                        />
+                        
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="account-check-outline" 
                                 color={color}
-                                size={size}
+                                size={35}
                                 />
                             )}
                             label="Support"
@@ -114,9 +106,9 @@ const  DrawerContentRoom = ({navigation}) => {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="location-enter" 
+                                name="map-marker-radius-outline" 
                                 color={color}
-                                size={size}
+                                size={35}
                                 />
                             )}
                             label="localisation"
@@ -125,9 +117,9 @@ const  DrawerContentRoom = ({navigation}) => {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="location-enter" 
+                                name="format-list-group" 
                                 color={color}
-                                size={size}
+                                size={35}
                                 />
                             )}
                             label="marriage halls"
@@ -152,11 +144,11 @@ const  DrawerContentRoom = ({navigation}) => {
                         <Icon 
                         name="exit-to-app" 
                         color={color}
-                        size={size}
+                        size={35}
                         />
                     )}
                     label="Sign Out"
-                   // onPress={() => {signOut()}}
+                    onPress={() => {navigation.navigate('LandingPage')}}
                 />
             </Drawer.Section>
         </View>
@@ -210,4 +202,6 @@ const styles = StyleSheet.create({
       paddingVertical: 12,
       paddingHorizontal: 16,
     },
+         
+    image: { height: 80, width: 80, borderRadius:60 },
   });

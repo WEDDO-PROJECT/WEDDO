@@ -15,6 +15,14 @@ const LONGITUDE = -73.99033; // Korea Town, New York, NY 10001
 const LATITUDE_DELTA = 0.28;
 const LONGITUDE_DELTA = LATITUDE_DELTA * (width / height);
 import { ScrollView } from 'react-native-gesture-handler';
+const COLORS = {
+    white: '#FFF',
+    dark: '#000',
+    primary: '#F9813A',
+    secondary: '#fedac5',
+    light: '#E5E5E5',
+    grey: '#908e8c',
+  };
 const WeddingHallDetails = ({navigation,route})=>{
     const { weddinghalldata} = route.params;
   const [email, setEmail] = useState("");
@@ -73,65 +81,63 @@ const WeddingHallDetails = ({navigation,route})=>{
     return(
 
         <ScrollView>
+          
         <View style={{flexDirection :'row' , marginTop : 30}}>
         
-            <Title style={{marginLeft : '21%' ,fontSize:23}}> Wedding Hall Details</Title>
+        <Title style={{marginLeft : '21%' ,fontSize:23, marginBottom:15,marginTop:15}}> Wedding Hall Details</Title>
          
         </View>
-        <View style={styles.userInfoSection2}>
-        
-        <View style={{flexDirection :'row' ,marginTop:20}}>
+        <View style={styles.cartCard}>
+            <View style={{flexDirection :'row'  ,justifyContent:'center'}}>
+                <View style={{marginLeft:20 ,marginTop:10}}>
+            
+                    <Icon name='account-outline' size={35}>
+                     <Title style={[styles.title,{ justifyContent:'center',size:30}]}>Name : {weddinghall?.name}</Title>
+                     </Icon>
+                </View>
+            </View>
       
-          
-            <View style={{marginLeft:20}}>
-                <Title style={[styles.title,{marginTop:15 ,marginBottom :5}]}> {weddinghall?.name}</Title>
-             
-            </View>
-            </View>
-    </View>
-        <View style={styles.userInfoSection}>
-    
-            <View style={styles.row}>
-                <Icon name='account-cash'color='#777777' size={20}></Icon>
-                <Text style={{color:"#777777",marginLeft:20}}>
-                  {weddinghall?.price}
+             <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:5 }}>
+                <Icon name='account-cash' size={35}></Icon>
+                <Text style={{marginLeft:20 ,marginTop:10,size:30}}>
+                    Price :  {weddinghall?.price}
                 </Text>
-            </View>
+             </View>
+           
         </View>
-        <View style={styles.userInfoSection2}>
+        <View style={styles.cartCard }>
         
-            <View style={{flexDirection :'row' ,marginTop:20}}>
+            <View style={{flexDirection :'row' ,marginTop:10,marginLeft:20}}>
             <Image
                    source={require("../assets/SP.png")}
                     style={styles.image}
                   />
               
-                <View style={{marginLeft:20}}>
+              <View style={{flexDirection :'row'  ,justifyContent:'center'}}>
                     <Title style={[styles.title,{marginTop:15 ,marginBottom :5}]}> {name}</Title>
                     <Caption style={styles.caption}>{category}</Caption>
                 </View>
-                </View>
-        </View>
-        <View style={styles.userInfoSection}>
-            <View style={styles.row}>
                 <Icon name='map-marker-radius'color='#777777' size={20}></Icon>
                 <Text style={{color:"#777777",marginLeft:20}}>
                     Ariana , Tunis
                 </Text>
-            </View>
-            <View style={styles.row}>
+
                 <Icon name='phone'color='#777777' size={20}></Icon>
-                <Text style={{color:"#777777",marginLeft:20}}>
+                <Text style={{color:"#777777",marginLeft:40}}>
                     {tel}
                 </Text>
-            </View>
-            <View style={styles.row}>
+
                 <Icon name='email'color='#777777' size={20}></Icon>
                 <Text style={{color:"#777777",marginLeft:20}}>
                   {email}
                 </Text>
-            </View>
+                </View>
         </View>
+       
+    
+            <View style={[styles.row ,{marginLeft :35}]}>
+                
+            </View>
         <View >
         
         <MapView 
@@ -183,6 +189,7 @@ const styles =StyleSheet.create({
         paddingHorizontal:30,
         marginBottom:25,
         
+        
     },
     userInfoSection2:{
         borderBottomColor :'#dddddd',
@@ -199,11 +206,12 @@ const styles =StyleSheet.create({
     caption :{
         fontSize :14,
         lineHeight:14,
-        fontWeight:'500',
+        fontWeight:'bold',
     },
     row:{
         flexDirection:'row',
-        marginBottom:10,
+        marginBottom:0,
+        justifyContent:'center',
     },
     infoBoxWrapper :{
         borderBottomColor :'#dddddd',
@@ -246,11 +254,21 @@ const styles =StyleSheet.create({
 
       },
       
-    image: { height: 90, width: 90, borderRadius:60 },
+    image: { height: 70, width: 70, borderRadius:60 },
     map: {
+        marginTop:10,
         height: 300, width: '100%',
         left: 0,
         right: 0,
         bottom: 10,
+      },
+      cartCard: {
+        height: 100,
+        elevation: 15,
+        borderRadius: 10,
+        backgroundColor: COLORS.white,
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingHorizontal: 10,
       },
 })
