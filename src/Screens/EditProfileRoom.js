@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
-  StyleSheet,
+  StyleSheet,Image,
 } from 'react-native';
 
 import {useTheme} from 'react-native-paper';
@@ -18,9 +18,14 @@ import Feather from 'react-native-vector-icons/Feather';
 import BasePath from "../constants/BasePath";
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
-import axios from 'axios'
-//import ImagePicker from 'react-native-image-crop-picker';
+ import axios from 'axios'
+ 
+import * as ImagePicker from 'expo-image-picker';
+ 
+// import ImagePicker from 'react-native-image-crop-picker';
 const EditProfileSPRoom = ({navigation})=>{
+  
+  const [image, setImage] = useState(null);
     const  [SPRoom,SetSPRoom]=useState([])
     useEffect(() => {
         axios
@@ -32,9 +37,6 @@ const EditProfileSPRoom = ({navigation})=>{
         })
        
      }, []);
-
-
-    const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
     const {colors} = useTheme();
 
     const takePhotoFromCamera = () => {
@@ -62,6 +64,21 @@ const EditProfileSPRoom = ({navigation})=>{
           this.bs.current.snapTo(1);
         });
       }
+      const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+        console.log(result);
+    
+        if (!result.cancelled) {
+          setImage(result.uri);
+        }
+      };
 
       renderInner = () => (
         <View style={styles.panel}>
@@ -72,7 +89,7 @@ const EditProfileSPRoom = ({navigation})=>{
           <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
             <Text style={styles.panelButtonTitle}>Take Photo</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.panelButton} onPress={choosePhotoFromLibrary}>
+          <TouchableOpacity style={styles.panelButton} onPress={pickImage}>
             <Text style={styles.panelButtonTitle}>Choose From Library</Text>
           </TouchableOpacity>
           <TouchableOpacity
