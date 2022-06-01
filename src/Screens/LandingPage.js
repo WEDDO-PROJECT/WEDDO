@@ -55,7 +55,7 @@ export default function LandingPage({navigation}){
           </Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("AuthenticationChoice")}
+            onPress={() => navigation.navigate("CategoryChoice")}
           >
             <Text style={styles.textBtn}>Let's go</Text>
           </TouchableOpacity>

@@ -24,12 +24,14 @@ const [confirme_Password,setConfirme_Password]=useState(null)
 const [tel_number,setTel_number]=useState(null)
 
 const send=()=>{
-  let person={email,name,password,confirme_Password,tel_number}
-  // axios.post('http://localhost:3000/api/user/signup',person)
-  // .then(res=>{
-  //   console.log(res.data);
+  let person={email,name,password,tel_number}
+
+axios.post('http://192.168.11.6:3000/api/user/signup',person)
+
+  .then(res=>{
+    console.log(res.data);
     navigation.navigate("Home")
-  // })
+  })
 }
   return (
     <ImageBackground
@@ -119,7 +121,7 @@ const send=()=>{
           }
         />
         <InputField
-          label={"Email ID"}
+          label={"Email "}
           setValue={setEmail}
           icon={
             <MaterialIcons
@@ -188,7 +190,7 @@ const send=()=>{
             color="#666"
             style={{ marginRight:  }}
           /> */}
-          <CustomButton label={"Register"} onPress={send} />
+          <CustomButton label={"Register"} onPress={ send } />
           <View
             style={{
               flexDirection: "row",

@@ -10,6 +10,7 @@ import {
   navigation,
   useWindowDimensions,
 } from "react-native";
+import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
@@ -43,11 +44,12 @@ const LoginScreen = ({navigation}) => {
 const send=()=>{
   let person={email:email, password:password}
   console.log(person);
-  axios.post('http://localhost:3000/api/user/login',person)
+  axios.post(`${iP}/api/user/login`,person)
   .then(res=>{console.log(res.data)
-    if(res.data[0]==='succesfully connected')
+     if(res.data[0]==='succesfully connected')
     AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-    navigation.navigate("Home")
+   navigation.navigate("Home")
+
   })
   
 }
