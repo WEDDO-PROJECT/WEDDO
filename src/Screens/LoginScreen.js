@@ -36,6 +36,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //   navigation.navigate("Home");
 // };
 import Icon from "react-native-vector-icons/FontAwesome";
+import StorageUtils from "../Utils/StorageUtils.js";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +48,9 @@ const send=()=>{
   .then(res=>{console.log(res.data)
   //    if(res.data[0]==='succesfully connected')
   //   AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-  //  navigation.navigate("Home")
+  const userdata =response.data
+  StorageUtils.storeData('user',userdata)
+    navigation.navigate("Home")
 
   })
   
