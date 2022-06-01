@@ -9,7 +9,7 @@ import AuthWithPhone from "../Screens/AuthWithPhone.js";
 import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
 import StorageUtils from "../Utils/StorageUtils.js";
 import Home from "../Screens/Home.js";
-import ProfileScreen1 from "../components/profile.js"
+import Profile from "../components/profile.js"
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -44,6 +44,13 @@ export default function Navigator(){
           <Stack.Screen
             name="LandingPage"
             component={LandingPage}
+            options={{
+              headerShown: false,
+            }}
+          />
+           <Stack.Screen
+            name="Profile"
+            component={Profile}
             options={{
               headerShown: false,
             }}
@@ -138,17 +145,7 @@ export default function Navigator(){
               title: "",
             }}
           />
-          <Stack.Screen
-            name="ProfileScreen1"
-            component={ProfileScreen1}
-            options={{
-              headerStyle: {
-                backgroundColor: "transparent",
-              },
-              headerTransparent: true,
-              title: "",
-            }}
-          />
+       
 
         </Stack.Navigator>
       </NavigationContainer>

@@ -10,6 +10,7 @@ import {
   navigation,
   useWindowDimensions,
 } from "react-native";
+import { AsyncStorage } from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
@@ -45,14 +46,17 @@ const LoginScreen = () => {
         password,
         email
       })
-      .then((res)=>{
+      .then(async(res)=>{
         if(res.data ==="Email or password is incorrect!"){
           // console.log(data)
           // console.log(res.result)
           console.warn("wrong password or email")
         }else{
   console.log(res.data)
-  navigation.navigate("Home")
+
+  await AsyncStorage.setItem("response",JSON.stringify(res.data))
+
+  navigation.navigate("Profile")
         }
       }).catch((err)=>console.log(err))
 

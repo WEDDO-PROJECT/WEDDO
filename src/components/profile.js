@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AsyncStorage } from 'react-native';
 import {
   StyleSheet,
   Text,
@@ -8,30 +9,61 @@ import {
 } from 'react-native';
 
 export default class Profile extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      user:[],
+      Myposts:[]
 
-  render() {
-    return (
-      <View style={styles.container}>
-          <View style={styles.header}></View>
-          <Image style={styles.avatar} source={{uri: 'https://scontent.ftun4-2.fna.fbcdn.net/v/t1.15752-9/274980301_1121643038596445_1815628856691352671_n.jpg?stp=dst-jpg_p75x225&_nc_cat=109&ccb=1-7&_nc_sid=aee45a&_nc_ohc=R7nLcS-Z4M8AX9_pi5g&_nc_ht=scontent.ftun4-2.fna&oh=03_AVJYC3VcXrUaAsKgqgyM9FlW16rO8CHYrnvqNaXGxHR6hw&oe=62BB5233'}}/>
-          <View style={styles.body}>
-            <View style={styles.bodyContent}>
-              <Text style={styles.name}>Boudinar</Text>
-              <Text style={styles.info}>Musical Band</Text>
-              <Text style={styles.description}></Text>
-              
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Contact Me</Text>  
-              </TouchableOpacity>              
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Posts</Text>  
-              </TouchableOpacity> 
-            </View>
-        </View>
-      </View>
-    );
+    }
+   }
+  componentDidMount(){
+    this.getUserInfo()
+    // console.log(this.state.user)
   }
-}
+  async getUserInfo(){
+    await AsyncStorage.getItem("response").then((res)=>{
+    var x = JSON.parse(res)
+    console.log("Hamady " , x.id)
+    axios.get(`http://192.168.254.167:3000/api/sp/info/${x.id}`).then(({data})=>{
+      console.log('fffff',data)
+      this.setState({
+        user:data[0]
+      })
+      // console.log(this.state.user)
+    }).catch((err)=>{
+      console.log(err)
+    })
+    
+    
+    })
+    
+  }
+    render() {
+        console.log(this.state.user)
+        return (
+          <View style={styles.container}>
+              <View style={styles.header}></View>
+              <Image style={styles.avatar} source={{uri: 'https://scontent.ftun4-2.fna.fbcdn.net/v/t1.15752-9/274980301_1121643038596445_1815628856691352671_n.jpg?stp=dst-jpg_p75x225&_nc_cat=109&ccb=1-7&_nc_sid=aee45a&_nc_ohc=R7nLcS-Z4M8AX9_pi5g&_nc_ht=scontent.ftun4-2.fna&oh=03_AVJYC3VcXrUaAsKgqgyM9FlW16rO8CHYrnvqNaXGxHR6hw&oe=62BB5233'}}/>
+              <View style={styles.body}>
+                <View style={styles.bodyContent}>
+                  <Text style={styles.name}>{this.state.user.professional_name}</Text>
+                  <Text style={styles.info}>{this.state.user.category}</Text>
+                  <Text style={styles.description}>{this.state.user.description}</Text>
+                  <Text style={styles.description}>{this.state.user.tel}</Text>
+                  <TouchableOpacity style={styles.buttonContainer}>
+                    <Text>Contact Me</Text>  
+                  </TouchableOpacity>              
+                  <TouchableOpacity style={styles.buttonContainer}>
+                    <Text>Posts</Text>  
+                  </TouchableOpacity> 
+                </View>
+            </View>
+          </View>
+        );
+      }
+      }
+ 
 
 const styles = StyleSheet.create({
   header:{
@@ -90,3 +122,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#B22222",
   },
 });
+
+
+
+
