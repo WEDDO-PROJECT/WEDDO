@@ -18,6 +18,8 @@ import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import BasePath from "../constants/BasePath";
 // import { useNavigation } from "@react-navigation/native";
 // import GoogleSVG from "../assets/google.svg";
 // import FacebookSVG from "../assets/facebook.svg";
@@ -44,7 +46,7 @@ const LoginScreen = ({navigation}) => {
 const send=()=>{
   let person={email:email, password:password}
   console.log(person);
-  axios.post('http://192.168.28.15:3000/api/user/login',person)
+  axios.post(BasePath + '/api/user/login',person)
   .then(res=>{console.log(res.data)
   //    if(res.data[0]==='succesfully connected')
   //   AsyncStorage.setItem('user',JSON.stringify(res.data[1]))

@@ -5,6 +5,8 @@ import axios from 'axios';
 import Cards from '../components/homeComponents/Cards';
 import Background from "../assets/Background.webp";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BasePath from "../constants/BasePath";
 // import StorageUtils from '../Utils/StorageUtils';
 const Home =({ navigation})=> {
   let imagePh = require('../assets/iconPhotogrape.png');
@@ -27,7 +29,7 @@ const Home =({ navigation})=> {
   //    //setUser(JSON.parse(value))
   //    console.log(value)
   //  );
-    axios.get('http://localhost:3000/api/sp/all')
+    axios.get(BasePath + '/api/sp/all')
     .then(res=>{console.log(res.data)
       setAllData(res.data)})
     .catch(err=>console.log(err))

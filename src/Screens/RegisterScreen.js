@@ -17,6 +17,7 @@ import Background from "../assets/Background.webp";
 import axios from 'axios'
 import StorageUtils from "../Utils/StorageUtils.js";
 
+import BasePath from "../constants/BasePath";
 const RegisterScreen = ({ navigation }) => {
 const [name,setName]=useState(null)
 const [password,setPassword]=useState(null)
@@ -27,7 +28,7 @@ const [tel_number,setTel_number]=useState(null)
 const send=()=>{
   let person={email,name,password,tel_number}
 
-axios.post('http://192.168.11.6:3000/api/user/signup',person)
+  axios.post(BasePath + '/api/user/signup',person)
 
   .then(res=>{
     console.log(res.data);
