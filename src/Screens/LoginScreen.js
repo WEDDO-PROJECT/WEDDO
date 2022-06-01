@@ -47,15 +47,15 @@ const LoginScreen = ({navigation}) => {
 const send=()=>{
   let person={email:email, password:password}
   console.log(person);
-  axios.post(BasePath + '/api/user/login',person)
-  .then(res=>{console.log(res.data)
+  // axios.post(BasePath + '/api/user/login',person)
+  // .then(res=>{console.log(res.data)
     //  if(res.data[0]==='succesfully connected')
-    AsyncStorage.setItem('user',JSON.stringify(res.data))
+    // AsyncStorage.setItem('user',JSON.stringify(res.data))
   // const userdata =res.data
   // StorageUtils.storeData('user',userdata)
-    navigation.navigate("Home")
+    // navigation.navigate("drawer")
 
-  })
+  // })
   
 }
   const { height } = useWindowDimensions();

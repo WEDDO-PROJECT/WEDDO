@@ -159,7 +159,7 @@ export default function Navigator(){
             }}
           /> */}
            <Stack.Screen
-            name="Home"
+            name="drawer"
             component={drawer}
             options={{
               headerStyle: {
@@ -167,7 +167,7 @@ export default function Navigator(){
               },
               headerTransparent: true,
               title: "",
-              headerShown: false,
+              // headerShown: false,
             }}
             
             

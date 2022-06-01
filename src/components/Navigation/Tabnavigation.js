@@ -14,7 +14,7 @@ function Tabnavigation(props) {
             tabBarShowLabel: false,
             headerShown: false,
             tabBarStyle: { 
-                backgroundColor: 'white',
+                backgroundColor: '#D49B35',
                 height: 60,
                 position: 'absolute',
                 bottom: 16,
@@ -22,8 +22,8 @@ function Tabnavigation(props) {
                 left: 16,
                 borderRadius: 10
             },
-            tabBarInactiveTintColor: '#D49B35',
-            tabBarActiveTintColor: '#D49B35',
+            tabBarInactiveTintColor: 'white',
+            tabBarActiveTintColor: 'white',
             tabBarShowLabel:true,
         }}>
             <Tab.Screen name='Home' component={NavHome} options={{

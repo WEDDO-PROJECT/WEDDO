@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react';
-import {View,Text,TouchableOpacity,Image, StyleSheet} from 'react-native';
+import {View,Text,TouchableOpacity,Image, StyleSheet, ImageBackground} from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import InputField from "../input.js";
+import golden from "../../assets/golden.webp";
 
 function Cards(props) {
   const [minPrice,setMinPrice]=useState(null)
@@ -90,9 +91,9 @@ return (
 
             <View
             style={{
-              margin:10, 
-              backgroundColor:'white',
-              height: 100,
+              margin:15, 
+              // backgroundColor:'white',
+              height: 120,
               shadowColor: '#000',
               shadowOffset: {
                 width:1,
@@ -101,8 +102,21 @@ return (
               shadowOpacity:0.75,
               elevation:9,
               borderRadius:10
-              }}>
-                
+              }}
+              >
+               <ImageBackground
+                  style={{
+                    marginTop:10,
+                    width: "100%",
+                    height: "100%",
+                    borderRadius:10,
+                    borderColor: "#D49B35",
+                    borderWidth: 1.5,
+                  
+                  }}
+                  source={golden}
+                  resizeMode="cover"
+                > 
                       <Text style={{
                             fontSize:20,
                             fontWeight:'500',
@@ -123,6 +137,7 @@ return (
                           add
                         </Text>
                       </TouchableOpacity> */}
+                    </ImageBackground>   
                   </View>
             </TouchableOpacity>
 

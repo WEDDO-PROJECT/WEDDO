@@ -103,7 +103,7 @@ if (val===4){
               marginTop: 40,
               // backgroundColor:"#AF9E9E",
               borderRadius: 10,
-              backgroundColor: '#D49B35',
+              // backgroundColor: '#D49B35',
               height: 60,
               bottom: 16,
               // right: 16,
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
       // flex: 1,
       alignItems:   'center',
       justifyContent: 'center',
-      backgroundColor:"#D49B35"
+      backgroundColor:"white"
     
     },
     image:{
@@ -236,8 +236,8 @@ const styles = StyleSheet.create({
     },
     text:{
      textAlign: 'center',
-     color: "white",
-     fontSize:8
+     color: "#D49B35",
+     fontSize:10
     },
     
     clicked:{
@@ -262,6 +262,7 @@ const styles = StyleSheet.create({
       width: 300,
       elevation: 12,
       alignSelf: "center",
+      borderColor: "#D49B35"
     },
     leftFrom: {
       backgroundColor: "#D49B35",
@@ -288,6 +289,8 @@ const styles = StyleSheet.create({
       marginHorizontal: 11,
       borderRadius: 10,
       elevation: 20,
+      borderColor:'#D49B35',
+      borderWidth: 1.5,
     },
 })
 export default Home;
