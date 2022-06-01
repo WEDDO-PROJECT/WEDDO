@@ -7,7 +7,7 @@ import CategoryChoice from "../Screens/CategoryChoice.js";
 import LandingPage from "../Screens/LandingPage.js";
 import AuthWithPhone from "../Screens/AuthWithPhone.js";
 import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
-import StorageUtils from "../Utils/StorageUtils.js";
+// import StorageUtils from "../Utils/StorageUtils.js";
 import Home from "../Screens/Home.js";
 import Profile from "../components/profile.js"
 
@@ -19,7 +19,7 @@ export default function Navigator(){
     const [user, setUser] = useState(null);
   useEffect(() => {
     async function getUser() {
-      let data: any;
+      let data:any;
      // await StorageUtils.retrieveData(userKey).then((value) => (data = value));
       console.log(data);
       if (data === undefined) {

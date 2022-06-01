@@ -18,6 +18,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
 import { useNavigation } from "@react-navigation/native";
+import Profile from "../components/profile.js";
 import axios from 'axios'
 // import GoogleSVG from "../assets/google.svg";
 // import FacebookSVG from "../assets/facebook.svg";
@@ -42,7 +43,7 @@ const LoginScreen = () => {
     const navigation = useNavigation();
     const onLoginPressed =()=>{
       axios
-      .post("http://192.168.254.167:3000/api/sp/login", {
+      .post("http://192.168.11.67:3000/api/sp/login", {
         password,
         email
       })
