@@ -50,9 +50,9 @@ const send=()=>{
   .then(res=>{console.log(res.data)
   //    if(res.data[0]==='succesfully connected')
   //   AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-  const userdata =response.data
+  const userdata =res.data
   StorageUtils.storeData('user',userdata)
-    navigation.navigate("Home")
+  navigation.navigate("Home")
 
   })
   

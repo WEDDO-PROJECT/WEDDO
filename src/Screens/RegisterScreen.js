@@ -30,7 +30,7 @@ const send=()=>{
   axios.post(BasePath + '/api/user/signup',person)
   .then(res=>{
     console.log(res.data);
-    const userdata =response.data.result[0]
+    const userdata =res.data.result[0]
      StorageUtils.storeData('user',userdata)
     navigation.navigate("Home")
   })

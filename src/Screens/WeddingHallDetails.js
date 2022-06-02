@@ -82,56 +82,59 @@ const WeddingHallDetails = ({navigation,route})=>{
 
         <ScrollView>
           
-        <View style={{flexDirection :'row' , marginTop : 30}}>
+        <View style={{flexDirection :'row' , marginTop : 60}}>
         
-        <Title style={{marginLeft : '21%' ,fontSize:23, marginBottom:15,marginTop:15}}> Wedding Hall Details</Title>
+        <Title style={{marginLeft : '21%' ,fontSize:23, marginBottom:15,marginTop:15,color:'#FDC12A'}}> Wedding Hall Details</Title>
          
         </View>
-        <View style={styles.cartCard}>
+        <View style={styles.cartCard1}>
             <View style={{flexDirection :'row'  ,justifyContent:'center'}}>
                 <View style={{marginLeft:20 ,marginTop:10}}>
-            
-                    <Icon name='account-outline' size={35}>
-                     <Title style={[styles.title,{ justifyContent:'center',size:30}]}>Name : {weddinghall?.name}</Title>
-                     </Icon>
+                     <Title style={[styles.title,{ justifyContent:'center',size:30}]}>{weddinghall?.name}</Title>
                 </View>
             </View>
       
-             <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:5 }}>
-                <Icon name='account-cash' size={35}></Icon>
-                <Text style={{marginLeft:20 ,marginTop:10,size:30}}>
-                    Price :  {weddinghall?.price}
+             <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:15 }}>
+                <Icon name='account-cash' size={25}></Icon>
+                <Text style={{marginLeft:5 ,fontSize:18}}>
+                    {weddinghall?.price}
                 </Text>
              </View>
            
         </View>
         <View style={styles.cartCard }>
         
-            <View style={{flexDirection :'row' ,marginTop:10,marginLeft:20}}>
+             <View style={{flexDirection :'row',alignItems:'center' ,marginLeft:20}}> 
             <Image
                    source={require("../assets/SP.png")}
                     style={styles.image}
                   />
+            
+                
               
-              <View style={{flexDirection :'row'  ,justifyContent:'center'}}>
-                    <Title style={[styles.title,{marginTop:15 ,marginBottom :5}]}> {name}</Title>
+              <View style={{flexDirection :'column' ,alignContent:'center' , marginLeft : 30}}>
+                  
+                    <Title style={[styles.title,{marginBottom :5}]}> {name}</Title>
+                    <View style={{marginBottom :5}}></View>
                     <Caption style={styles.caption}>{category}</Caption>
-                </View>
-                <Icon name='map-marker-radius'color='#777777' size={20}></Icon>
-                <Text style={{color:"#777777",marginLeft:20}}>
-                    Ariana , Tunis
-                </Text>
-
-                <Icon name='phone'color='#777777' size={20}></Icon>
-                <Text style={{color:"#777777",marginLeft:40}}>
+                
+                
+                <View style={{marginBottom :5}}></View>
+                <Icon name='phone'color='#777777' size={20}>
+                <Text style={{fontSize :16,color:"#777777" ,marginBottom :5}}>
                     {tel}
                 </Text>
-
-                <Icon name='email'color='#777777' size={20}></Icon>
-                <Text style={{color:"#777777",marginLeft:20}}>
+                </Icon>
+               
+                <View style={{marginBottom :5}}></View>
+                <Icon name='email'color='#777777' size={20}>
+                <Text style={{fontSize :16,color:"#777777" ,marginRight:20}}>
                   {email}
-                </Text>
-                </View>
+                </Text> 
+                </Icon>
+                
+            </View>
+            </View> 
         </View>
        
     
@@ -263,6 +266,18 @@ const styles =StyleSheet.create({
         bottom: 10,
       },
       cartCard: {
+        height: 200,
+        elevation: 15,
+        borderRadius: 10,
+        backgroundColor: COLORS.white,
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingHorizontal: 10,
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:'space-between',
+      },
+      cartCard1: {
         height: 100,
         elevation: 15,
         borderRadius: 10,
@@ -270,5 +285,10 @@ const styles =StyleSheet.create({
         marginVertical: 10,
         marginHorizontal: 20,
         paddingHorizontal: 10,
+        
       },
+    
+    
+
+      
 })

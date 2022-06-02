@@ -19,7 +19,7 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import map from './Map.tsx'
-import StorageUtils from '../Utils/StorageUtils';
+import StorageUtils from '../../Utils/StorageUtils';
 
 const  DrawerContentRoom = ({navigation}) => {
     const [email, setEmail] = useState("");

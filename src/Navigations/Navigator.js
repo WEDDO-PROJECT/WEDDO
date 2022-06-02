@@ -18,12 +18,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import DrawerNavigator from "../Screens/DrawerNavigator.js";
+import DrawerNavigator from "./SPRoom/DrawerNavigator";
 import EditProfileSPRoom from "../Screens/EditProfileRoom.js";
-import MapContent from '../Screens/Map.tsx'
+import MapContent from '../Screens/Map'
+import WeddingHalls from '../Screens/WeddingHall'
 import Rooms from "../Screens/Rooms.js";
 import CustomDrawer from "../components/Navigation/CustomDrawer.js";
 import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
+import DrawerNavigatorClient from "./Client/DrawerNavigator.js";
 const Stack = createStackNavigator();
 export default function Navigator(){
 
@@ -51,6 +53,7 @@ export default function Navigator(){
   if (user) {
     return (
     
+      <NavigationContainer>
         <Stack.Navigator
           initialRouteName={user.id == "notFound" ? "LandingPage" : "DrawerNavigator"}
         >
@@ -64,6 +67,13 @@ export default function Navigator(){
           <Stack.Screen
             name="DrawerNavigator"
             component={DrawerNavigator}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="DrawerNavigatorClient"
+            component={DrawerNavigatorClient}
             options={{
               headerShown: false,
             }}
@@ -213,6 +223,18 @@ export default function Navigator(){
               title: "",
             }}
           />
+          <Stack.Screen
+            name="WeddingHalls"
+            component={WeddingHalls}
+            options={{
+              headerStyle: {
+                backgroundColor: "transparent",
+              },
+              headerTransparent: true,
+              title: "",
+            }}
+          />
+          
            <Stack.Screen
             name="Rooms"
             component={Rooms}
@@ -238,6 +260,8 @@ export default function Navigator(){
           /> */}
 
         </Stack.Navigator>
+      </NavigationContainer>
+        
     
     );
   } else {

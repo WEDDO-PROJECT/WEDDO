@@ -51,7 +51,7 @@ const send=()=>{
   //   if(res.data[0]==='succesfully connected')
    // AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
    const userdata =res.data
-     StorageUtils.storeData('user',userdata)
+    // StorageUtils.storeData('user',userdata)
   navigation.navigate("DrawerNavigator")
  })
   

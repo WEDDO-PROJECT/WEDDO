@@ -1,11 +1,23 @@
 import React,{useEffect, useState} from 'react';
 import { StyleSheet, Text, View,TouchableOpacity,Image,ImageBackground , ScrollView} from 'react-native';
+
+import {Avatar,Title,Caption,TouchableRipple} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Cards from '../components/homeComponents/Cards';
-import Background from "../assets/Background.webp";
+import weddinghall from "../assets/weddinghall.jpg";
+import photographer from "../assets/photographer.jpg";
+import hairdresser from "../assets/hairdresser.webp";
+import music from "../assets/music.jpg";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+const COLORS = {
+  white: '#FFF',
+  dark: '#000',
+  primary: '#F9813A',
+  secondary: '#fedac5',
+  light: '#E5E5E5',
+  grey: '#908e8c',
+};
 import BasePath from "../constants/BasePath";
 // import StorageUtils from '../Utils/StorageUtils';
 const Home =({ navigation})=> {
@@ -85,6 +97,9 @@ if (val===4){
 // }
 
   }
+  const WeddingHalls = ()=>{
+    navigation.navigate("WeddingHalls")
+  }
   let nav = () => {
     navigation.navigate({
       name: "Calendar",
@@ -96,130 +111,82 @@ if (val===4){
     });
   }
     return ( 
-   <ScrollView>
-        <View style={styles.container}>  
-          <View
-            style={{
-              flexDirection: "row",
-              marginTop: 40,
-              // backgroundColor:"#AF9E9E",
-              borderRadius: 10,
-              // backgroundColor: '#f0c5da',
-              height: 60,
-              bottom: 16,
-              // right: 16,
-              // left: 16,
-            }}
-          >
-            <TouchableOpacity
-              title="photographer"
-              onPress={() => buttonFunction(1)}
-              style={view==1&&styles.clicked}
-              
-            >
-             <Image
-                 style={styles.box}
-                 source={imagePh}
-             />
-              <Text style={styles.text}>
-                
-                Photographer
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              title="band"
-              onPress={() => buttonFunction(2)}
-              style={view==2&&styles.clicked}
-            >
-              <Image
-                 style={styles.box}
-                   source={imageBand}
-             />
-              <Text style={styles.text}>
-                
-                Band
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              title="hairSalon"
-              onPress={() => buttonFunction(3)}
-              style={view==3&&styles.clicked}
-            >
-              <Image
-               style={styles.box}
-               source={imageHS}
-               />
-              <Text style={styles.text}>
-                
-                Hair Salon
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                    title="weddingHall"
-                    onPress={() => buttonFunction(4)}
-                    style={view==4&&styles.clicked}
-            >
-                    <Image
-                    style={styles.box}
-                    source={imageHall}
-                    />
-                     <Text style={styles.text}>
-                
-                      Wedding Hall
-                   </Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity
-                    title="weddingHall"
-                    onPress={() => buttonFunction(5)}
-                    style={view==5&&styles.clicked}
-            >
-                    <Image
-                      style={styles.box}
-                      source={imagePack}
-                    />
-                   <Text style={styles.text}>
-                
-                      Packages
-                   </Text>
-            </TouchableOpacity>             */}
+   <ScrollView style={{top:20 ,marginBottom :20}}>
+        <View style={{flexDirection :'row' , marginTop : 0}}>
+        
+        <Title style={{marginLeft : '12%' ,fontSize:23, marginBottom:15,marginTop:15,color:'#D49B35'}}> Choose the service you want</Title>
          
-          </View>
-          <View>
-          <View style={styles.leftFrom}>
-          <Text
-                style={styles.inputFrom}
-                onPress={() => {
-                  nav();
+        </View>
+        <View style={styles.cartCard }>
+              <ImageBackground
+                  style={{
+                    width: "100%",
+                    height: '100%',
+                  }}
+                  source={photographer}
+                  resizeMode="cover"
+            >
+                <Title style={{marginLeft : '5%' ,fontSize:34, marginTop:45,color:'#FFFFFF'}}> Photographers</Title>
+                <TouchableOpacity style={styles.panelButton} >
+                        <Text style={styles.panelButtonTitle}>View here</Text>
+                </TouchableOpacity>
+          </ImageBackground>
+       
+        </View>
+        <View style={styles.cartCard }>
+            <ImageBackground
+                style={{
+                  width: "100%",
+                  height: '100%',
                 }}
-              >{from === "" ? "From" : from}{"   "}<Ionicons name="calendar-outline" size={26}></Ionicons>{"   "}{end === "" ? "To" : end}
-              </Text>
-            </View>
-              </View>
-                  
-          {view==null&&
-             <Cards style={{
-              // flexDirection: "row",
-              // top: 30,
-            }} filtredData={allData} setTView={setView}></Cards> 
-          }
-          {view&&
-          <Cards style={{
-            // flexDirection: "row",
-            // top: 30,
-          }} filtredData={filtredData} setTView={setView}></Cards> 
-          }
-            
-              
-             
+                source={hairdresser}
+                resizeMode="cover"
+            >
 
-
-            
+            <Title style={{marginLeft : '5%' ,fontSize:34, marginTop:45,color:'#FFFFFF'}}> Hair Salons</Title>
+            <TouchableOpacity style={styles.panelButton} >
+                    <Text style={styles.panelButtonTitle}>View here</Text>
+            </TouchableOpacity>
+        </ImageBackground>
+       
+        </View>
+        <View style={styles.cartCard }>
+        
+              <ImageBackground
+                  style={{
+                    width: "100%",
+                    height: '100%',
+                  }}
+                  source={weddinghall}
+                  resizeMode="cover"
+            >
+              <Title style={{marginLeft : '5%' ,fontSize:34, marginTop:45,color:'#FFFFFF'}}>Wedding Halls </Title>
+          <TouchableOpacity style={styles.panelButton} onPress={WeddingHalls} >
+                  <Text style={styles.panelButtonTitle}>View here</Text>
+                </TouchableOpacity>
+    </ImageBackground>
+        </View>
+        <View style={styles.cartCard }>
+        <ImageBackground
+            style={{
+              width: "100%",
+              height: '100%',
+              borderRadius:7
+            }}
+            source={music}
+            resizeMode="cover"
+      >
+        <Title style={{marginLeft : '5%' ,fontSize:34, marginTop:45,color:'#FFFFFF'}}>Musical Bands</Title>
+    <TouchableOpacity style={styles.panelButton} >
+            <Text style={styles.panelButtonTitle}>View here</Text>
+          </TouchableOpacity>
+    </ImageBackground>
+       
         </View>
 
 
 
-
-        </ScrollView>
+   </ScrollView>
         
      );
 }
@@ -237,7 +204,31 @@ const styles = StyleSheet.create({
     text:{
      textAlign: 'center', color: "#AD40AF",fontSize:8
     },
-    
+    cartCard: {
+      height: 200,
+      elevation: 15,
+      borderRadius: 10,
+      backgroundColor: COLORS.white,
+      marginVertical: 6,
+      marginHorizontal: 6,
+      display:'flex',
+      flexDirection:'row',
+      justifyContent:'space-between',
+    },
+    panelButton: {
+      padding: 13,
+      borderRadius: 20,
+      width :180,
+      backgroundColor: 'transparent',
+      alignItems: 'center',
+      left : '57%',
+      top : '34%'
+    },
+    panelButtonTitle: {
+      fontSize: 18,
+      color: '#FFFFFF',
+      fontWeight: "bold",
+    },
     clicked:{
       marginTop:10,
       backgroundColor:'transparent',
@@ -259,7 +250,6 @@ const styles = StyleSheet.create({
       height: 50,
       maxWidth: 340,
       width: 300,
-      elevation: 12,
       alignSelf: "center",
     },
     box: {
@@ -273,7 +263,141 @@ const styles = StyleSheet.create({
       // marginVertical: 30,
       marginHorizontal: 11,
       borderRadius: 10,
-      elevation: 20,
     },
 })
 export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <View style={styles.container}>  
+//           <View
+//             style={{
+//               flexDirection: "row",
+//               marginTop: 40,
+//               // backgroundColor:"#AF9E9E",
+//               borderRadius: 10,
+//               // backgroundColor: '#f0c5da',
+//               height: 60,
+//               bottom: 16,
+//               // right: 16,
+//               // left: 16,
+//             }}
+//           >
+//             <TouchableOpacity
+//               title="photographer"
+//               onPress={() => buttonFunction(1)}
+//               style={view==1&&styles.clicked}
+              
+//             >
+//              <Image
+//                  style={styles.box}
+//                  source={imagePh}
+//              />
+//               <Text style={styles.text}>
+                
+//                 Photographer
+//               </Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               title="band"
+//               onPress={() => buttonFunction(2)}
+//               style={view==2&&styles.clicked}
+//             >
+//               <Image
+//                  style={styles.box}
+//                    source={imageBand}
+//              />
+//               <Text style={styles.text}>
+                
+//                 Band
+//               </Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               title="hairSalon"
+//               onPress={() => buttonFunction(3)}
+//               style={view==3&&styles.clicked}
+//             >
+//               <Image
+//                style={styles.box}
+//                source={imageHS}
+//                />
+//               <Text style={styles.text}>
+                
+//                 Hair Salon
+//               </Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//                     title="weddingHall"
+//                     onPress={() => buttonFunction(4)}
+//                     style={view==4&&styles.clicked}
+//             >
+//                     <Image
+//                     style={styles.box}
+//                     source={imageHall}
+//                     />
+//                      <Text style={styles.text}>
+                
+//                       Wedding Hall
+//                    </Text>
+//             </TouchableOpacity>
+//             {/* <TouchableOpacity
+//                     title="weddingHall"
+//                     onPress={() => buttonFunction(5)}
+//                     style={view==5&&styles.clicked}
+//             >
+//                     <Image
+//                       style={styles.box}
+//                       source={imagePack}
+//                     />
+//                    <Text style={styles.text}>
+                
+//                       Packages
+//                    </Text>
+//             </TouchableOpacity>             */}
+         
+//           </View>
+//           <View>
+//           <View style={styles.leftFrom}>
+//           <Text
+//                 style={styles.inputFrom}
+//                 onPress={() => {
+//                   nav();
+//                 }}
+//               >{from === "" ? "From" : from}{"   "}<Ionicons name="calendar-outline" size={26}></Ionicons>{"   "}{end === "" ? "To" : end}
+//               </Text>
+//             </View>
+//               </View>
+                  
+//           {view==null&&
+//              <Cards style={{
+//               // flexDirection: "row",
+//               // top: 30,
+//             }} filtredData={allData} setTView={setView}></Cards> 
+//           }
+//           {view&&
+//           <Cards style={{
+//             // flexDirection: "row",
+//             // top: 30,
+//           }} filtredData={filtredData} setTView={setView}></Cards> 
+//           }
+            
+              
+             
+
+
+            
+//         </View>

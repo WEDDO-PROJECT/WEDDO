@@ -12,7 +12,7 @@ export default class StorageUtils {
 
   static async retrieveData(key: string): Promise<any> {
     try {
-      const value = await AsyncStorage.getItem(key);
+      const value =0//= await AsyncStorage.getItem(key);
       if (value !== null) {
         return value;
       }
