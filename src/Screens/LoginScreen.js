@@ -10,16 +10,28 @@ import {
   navigation,
   useWindowDimensions,
 } from "react-native";
+<<<<<<< HEAD
 import { AsyncStorage } from 'react-native';
+=======
+// import iP from '../constants/BasePath.js';
+>>>>>>> origin/dev
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
+<<<<<<< HEAD
 import { useNavigation } from "@react-navigation/native";
 import Profile from "../components/profile.js";
 import axios from 'axios'
+=======
+import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import BasePath from "../constants/BasePath";
+// import { useNavigation } from "@react-navigation/native";
+>>>>>>> origin/dev
 // import GoogleSVG from "../assets/google.svg";
 // import FacebookSVG from "../assets/facebook.svg";
 // import TwitterSVG from "../assets/twitter.svg";
@@ -36,6 +48,7 @@ import axios from 'axios'
 // const onConfirmPressed = () => {
 //   navigation.navigate("Home");
 // };
+<<<<<<< HEAD
 // import Icon from "react-native-vector-icons/FontAwesome";
 const LoginScreen = () => {
     const [password,setPassword]=useState("");
@@ -63,7 +76,28 @@ const LoginScreen = () => {
 
 
   };
+=======
+import Icon from "react-native-vector-icons/FontAwesome";
+// import StorageUtils from "../Utils/StorageUtils.js";
+const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+>>>>>>> origin/dev
 
+const send=()=>{
+  let person={email:email, password:password}
+  console.log(person);
+  axios.post(BasePath + '/api/user/login',person)
+  .then(res=>{console.log(res.data)
+    //  if(res.data[0]==='succesfully connected')
+    AsyncStorage.setItem('user',JSON.stringify(res.data))
+  // const userdata =res.data
+  // StorageUtils.storeData('user',userdata)
+    navigation.navigate("drawer")
+
+  })
+  
+}
   const { height } = useWindowDimensions();
   // const navigation = useNavigation();
   //   const myIcon = <Icon name="bird" size={30} color="#900" />;
@@ -133,7 +167,7 @@ const LoginScreen = () => {
           <CustomButton
             label={"Login"}
             title="to homePage"
-            onPress={onLoginPressed }
+            onPress={send}
             // onPress={() => this.props.navigation.navigate("Home")}
           />
           <Text
@@ -208,11 +242,17 @@ const LoginScreen = () => {
           >
             {/* /<Text>New to the app?</Text> */}
 
-            {/* <TouchableOpacity
+             <TouchableOpacity
               title="Register"
+<<<<<<< HEAD
               onPress={() => this.props.navigation.navigate("Register")}
             > */}
               <Text style={{ color: "#AD40AF", fontWeight: "700" }} onPress={()=>{navigation.navigate('RegisterSP')}}>
+=======
+              onPress={() => navigation.navigate("RegisterScreen")}
+            > 
+              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+>>>>>>> origin/dev
                 {" "}
                 Register
                 
@@ -228,8 +268,8 @@ const LoginScreen = () => {
               paddingVertical: 10,
             }}
           >
-            <Google height={24} width={24} />
-          </TouchableOpacity> */}
+            <Google height={24} width={24} />*/}
+          </TouchableOpacity> 
           </View>
         </View>
       </SafeAreaView>

@@ -11,7 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { SocialIcon } from "react-native-elements";
 //import * as Google from "expo-google-app-auth";
 import * as Facebook from "expo-facebook";
-//import * as GoogleSignIn from 'expo-google-sign-in';
+import * as GoogleSignIn from 'expo-google-sign-in';
 
 
 const { width, height } = Dimensions.get("window");

@@ -17,6 +17,10 @@ import Background from "../assets/Background.webp";
 import RNPickerSelect from "react-native-picker-select";
 import axios from "axios";
 import StorageUtils from "../Utils/StorageUtils.js";
+import { CurrentRenderContext } from "@react-navigation/native";
+
+import BasePath from "../constants/BasePath";
+
 const RegisterSP = ({ navigation }) => {
   const [name,setName]=useState("")
   const [email,setEmail]=useState("")
@@ -25,7 +29,6 @@ const RegisterSP = ({ navigation }) => {
   const [confirmPassword,setConfirmPassword]=useState("")
   const [tel,setTel]=useState("")
   const [category,setCategory]=useState("")
-
   const register=async()=>{
     
     const UserRegister ={
@@ -38,18 +41,23 @@ const RegisterSP = ({ navigation }) => {
     // confirmPassword
     }
     axios
+<<<<<<< HEAD
     .post("http://192.168.11.80:3000/api/sp/Register",UserRegister)
+=======
+
+    .post(BasePath + "/api/sp/Register",UserRegister)
+
+>>>>>>> origin/dev
     .then((response)=>{
       //console.log(response.data.result[0])
       const userdata =response.data.result[0]
      StorageUtils.storeData('user',userdata)
-       navigation.navigate("Home")
+       navigation.navigate("DrawerNavigator")
     })
     .catch((error)=>{
       console.log(error)
     })
-    //console.log(UserRegister)
-
+    console.log(UserRegister)
   }
   const onChangeName =(text)=>{
     //console.log(text)
@@ -86,24 +94,28 @@ const RegisterSP = ({ navigation }) => {
       }}
       source={Background}
       resizeMode="cover"
+      
     >
+    
       <SafeAreaView
         style={{
-          justifyContent: "center",
           paddingHorizontal: 50,
           paddingHorizontal: 50,
           marginTop: 150,
         }}
-      >
+      >  
+      
         <View style={{ alignItems: "center" }}>
          
         </View>
         <Text
           style={{
+            textAlign:"center",
+            marginTop:5,
             fontSize: 28,
             fontWeight: "500",
             color: "#333",
-            marginBottom: 21,
+            marginBottom: 5,
           }}
         >
           Register
@@ -153,9 +165,9 @@ const RegisterSP = ({ navigation }) => {
         <RNPickerSelect
                  
                  items={[
-                     { label: "Hairdresser", value: "Hairdresser" },
+                     { label: "Beauty salons", value: "Hairdresser" },
                      { label: "Musical Band", value: "MusicalBand" },
-                     { label: "Party Room", value: "partyroom" },
+                     { label: "Marriage hall", value: "partyroom" },
                      { label: "Photographer", value: "Photographer" },
                      
                  ]}
@@ -214,7 +226,7 @@ const RegisterSP = ({ navigation }) => {
 
             }}
           >
-            <Text> Already registered? </Text>
+            
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
                 {" "}
@@ -244,4 +256,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 20,
   },
+<<<<<<< HEAD
 });
+=======
+  
+});
+>>>>>>> origin/dev

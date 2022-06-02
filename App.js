@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { StyleSheet, Text, View } from "react-native";
 // import RegisterScreen from "./src/Screens/RegisterScreen.js";
 // import LoginScreen from "./src/Screens/LoginScreen.js";
@@ -10,27 +11,40 @@ import { StyleSheet, Text, View } from "react-native";
 // import { createStackNavigator } from "@react-navigation/stack";
 // const Stack = createStackNavigator();
 import Navigator from "./src/Navigations/Navigator.js"
+=======
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+
+const LocalizationContext = React.createContext("");
+
+
+import Navigator from "./src/Navigations/Navigator.js";
+
+>>>>>>> origin/dev
  import { LogBox } from 'react-native';
  
-// Ignore log notification by message
 LogBox.ignoreLogs(['Warning: ...']);
- 
-//Ignore all log notifications
 LogBox.ignoreAllLogs();
 export default function App() {
-  return (
-    
-   
-      <Navigator />
-      
   
+  return (
+   
+      <NavigationContainer independent={true}>
+        <Navigator />
+      </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+<<<<<<< HEAD
     backgroundColor: "#B22222",
+=======
+    backgroundColor: "white",
+>>>>>>> origin/dev
     alignItems: "center",
     justifyContent: "center",
   },
