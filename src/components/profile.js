@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {
   StyleSheet,
@@ -46,10 +45,10 @@ export default class Profile extends Component {
           <Image style={styles.avatar} source={{uri: 'https://scontent.ftun4-2.fna.fbcdn.net/v/t1.15752-9/274980301_1121643038596445_1815628856691352671_n.jpg?stp=dst-jpg_p75x225&_nc_cat=109&ccb=1-7&_nc_sid=aee45a&_nc_ohc=R7nLcS-Z4M8AX9_pi5g&_nc_ht=scontent.ftun4-2.fna&oh=03_AVJYC3VcXrUaAsKgqgyM9FlW16rO8CHYrnvqNaXGxHR6hw&oe=62BB5233'}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.professional_name}>{this.state.user.professional_name}</Text>
-              <Text style={styles.category}>{this.state.user.category}</Text>
-              <Text style={styles.description}>{this.state.user.description}</Text>
-              <Text style={styles.tel}>{this.state.user.tel}</Text>
+              <Text style={styles.professional_name}>{this.state.user[0].professional_name}</Text>
+              <Text style={styles.category}>{this.state.user[0].category}</Text>
+              <Text style={styles.description}>{this.state.user[0].description}</Text>
+              <Text style={styles.tel}>{this.state.user[0].tel}</Text>
               <TouchableOpacity style={styles.buttonContainer}>
                 <Text>Contact Me</Text>  
               </TouchableOpacity>              

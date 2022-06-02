@@ -4,69 +4,36 @@ import {
   View,
   Text,
   SafeAreaView,
-  TextInput,
   TouchableOpacity,
-  Dimensions,
-  navigation,
   useWindowDimensions,
 } from "react-native";
-import { AsyncStorage } from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
-import { useNavigation } from "@react-navigation/native";
-import Profile from "../components/profile.js";
-import axios from 'axios'
-// import GoogleSVG from "../assets/google.svg";
-// import FacebookSVG from "../assets/facebook.svg";
-// import TwitterSVG from "../assets/twitter.svg";
-// import Google from "./google.js"
-// import Roboto-Medium from '../assets/font/Roboto-Medium.ttf'
-// import { TextInput } from "react-native-web";
-// import {
-//   GoogleSignin,
-//   GoogleSigninButton,
-//   statusCodes,
-// } from "react-native-google-signin";
-// const navigation = useNavigation();
+import axios from "axios";
+import BasePath from "../constants/BasePath";
+import StorageUtils from "../Utils/StorageUtils.js";
+const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-// const onConfirmPressed = () => {
-//   navigation.navigate("Home");
-// };
-// import Icon from "react-native-vector-icons/FontAwesome";
-const LoginScreen = () => {
-    const [password,setPassword]=useState("");
-    const [email, setEmail] = useState("");
-    const navigation = useNavigation();
-    const onLoginPressed =()=>{
-      axios
-      .post("http://192.168.11.67:3000/api/sp/login", {
-        password,
-        email
-      })
-      .then(async(res)=>{
-        if(res.data ==="Email or password is incorrect!"){
-          // console.log(data)
-          // console.log(res.result)
-          console.warn("wrong password or email")
-        }else{
-  console.log(res.data)
+const send=()=>{
+  let person={email:email, password:password}
+  console.log(person);
+  axios.post(BasePath + '/api/user/login',person)
+  .then(res=>{console.log(res.data)
 
-  await AsyncStorage.setItem("response",JSON.stringify(res.data))
+  const userdata =response.data
+  StorageUtils.storeData('user',userdata)
+    navigation.navigate("Home")
 
-  navigation.navigate("Profile")
-        }
-      }).catch((err)=>console.log(err))
-
-
-  };
-
+  })
+  
+}
   const { height } = useWindowDimensions();
-  // const navigation = useNavigation();
-  //   const myIcon = <Icon name="bird" size={30} color="#900" />;
   return (
     <ImageBackground
       style={{
@@ -133,71 +100,15 @@ const LoginScreen = () => {
           <CustomButton
             label={"Login"}
             title="to homePage"
-            onPress={onLoginPressed }
-            // onPress={() => this.props.navigation.navigate("Home")}
+            // onPress={onLoginPressed }
+            onPress={send}
           />
           <Text
             style={{ textAlign: "center", color: "#EBBAD2", marginBottom: 20 }}
           >
             Or, login with ...
           </Text>
-          {/* <Icon.Button
-            name="facebook"
-            backgroundColor="#3b5998"
-            style={{
-              borderColor: "#ffff",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          >
-            Login with Facebook
-          </Icon.Button> */}
-          {/* <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginBottom: 30,
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <GoogleSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <FacebookSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <TwitterSVG height={24} width={24} />
-            </TouchableOpacity>
-          </View> */}
+
 
           <View
             style={{
@@ -206,30 +117,18 @@ const LoginScreen = () => {
               marginBottom: 30,
             }}
           >
-            {/* /<Text>New to the app?</Text> */}
 
-            {/* <TouchableOpacity
+             <TouchableOpacity
               title="Register"
-              onPress={() => this.props.navigation.navigate("Register")}
-            > */}
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }} onPress={()=>{navigation.navigate('RegisterSP')}}>
+              onPress={() => navigation.navigate("RegisterScreen")}
+            > 
+              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
                 {" "}
                 Register
                 
               </Text>
-            {/* </TouchableOpacity> */}
-            {/* <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: "#ddd",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          >
-            <Google height={24} width={24} />
-          </TouchableOpacity> */}
+           
+          </TouchableOpacity> 
           </View>
         </View>
       </SafeAreaView>
@@ -237,22 +136,3 @@ const LoginScreen = () => {
   );
 };
 export default LoginScreen;
-
-//faceBookLogin
-/*        <Icon.Button
-            name="facebook"
-            backgroundColor="#3b5998"
-        
-          >
-            Login with Facebook
-          </Icon.Button>
-          */
-//faceBookLogin
-/*        <Icon.Button
-            name="google"
-            backgroundColor="red"
-        
-          >
-            Login with Google
-          </Icon.Button>
-          */

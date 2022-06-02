@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import RegisterScreen from "../Screens/RegisterScreen.js";
 import LoginScreen from "../Screens/LoginScreen.js";
@@ -7,10 +8,8 @@ import CategoryChoice from "../Screens/CategoryChoice.js";
 import LandingPage from "../Screens/LandingPage.js";
 import AuthWithPhone from "../Screens/AuthWithPhone.js";
 import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
-// import StorageUtils from "../Utils/StorageUtils.js";
 import Home from "../Screens/Home.js";
-import Profile from "../components/profile.js"
-
+import Profile from "../components/profile.js";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
@@ -19,7 +18,7 @@ export default function Navigator(){
     const [user, setUser] = useState(null);
   useEffect(() => {
     async function getUser() {
-      let data:any;
+      let data
      // await StorageUtils.retrieveData(userKey).then((value) => (data = value));
       console.log(data);
       if (data === undefined) {
@@ -37,20 +36,13 @@ export default function Navigator(){
 
   if (user) {
     return (
-      <NavigationContainer>
+      // <NavigationContainer>
         <Stack.Navigator
           initialRouteName={user.id == "notFound" ? "LandingPage" : "CategoryChoice"}
         >
           <Stack.Screen
             name="LandingPage"
             component={LandingPage}
-            options={{
-              headerShown: false,
-            }}
-          />
-           <Stack.Screen
-            name="Profile"
-            component={Profile}
             options={{
               headerShown: false,
             }}
@@ -145,10 +137,20 @@ export default function Navigator(){
               title: "",
             }}
           />
-       
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              headerStyle: {
+                backgroundColor: "transparent",
+              },
+              headerTransparent: true,
+              title: "",
+            }}
+          />
 
         </Stack.Navigator>
-      </NavigationContainer>
+      // </NavigationContainer>
     );
   } else {
     return null;

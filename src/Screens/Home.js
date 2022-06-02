@@ -1,138 +1,141 @@
 import React,{useEffect, useState} from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,Image,ImageBackground } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,Image,ImageBackground , ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Cards from '../components/homeComponents/Cards';
 import Background from "../assets/Background.webp";
-import StorageUtils from '../Utils/StorageUtils';
-const Home = () => {
-  let imagePh = '../assets/iconPhotogrape.png';
-  let imageBand = '../assets/band.png';
-  let imageHS = '../assets/hair.jpg';
-  let imageHall = '../assets/hall.png'
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BasePath from "../constants/BasePath";
+// import StorageUtils from '../Utils/StorageUtils';
+const Home =({ navigation})=> {
+  let imagePh = require('../assets/iconPhotogrape.png');
+  let imageBand = require('../assets/band.png');
+  let imageHS = require('../assets/hair.png');
+  let imageHall = require('../assets/hall.png')
+  let imagePack = require('../assets/package.png')
 
   const [person,setPerson]=useState(null)
   const [allData,setAllData]=useState([])
   const [filtredData,setFIltredData]=useState([])
   const [view,setView]=useState(null)
-  const array=[
-    {
-    logo:'/',
-    professional_name:'the dreamer',
-   description:'photographe professionnel',
-    category:'photographer',
-    pack_title:'VIP',
-    pack_price:'700 DTN'
-},{
-  logo:'/',
-  professional_name:'boudinar',
- description:'stambali mezwed fatma bouseha',
-  category:'band',
-  pack_title:'VIP',
-  pack_price:'700 DTN'
-},
-{
-  logo:'/',
-  professional_name:'islem',
- description:'hair + hsjkqsqks+qsdkjdksjd+',
-  category:'hairSalon',
-  pack_title:'VIP',
-  pack_price:'700 DTN'
-},
-{
-  logo:'/',
-  professional_name:'darna',
- description:'surface 1200 person',
-  category:'weddingHall',
-  pack_title:'VIP',
-  pack_price:'700 DTN'
-}
-  ]
-  useEffect(()=>{         // bring the url from the backend 
+  const [from, setFrom] = useState("");
+  const [end, setEnd] = useState("");
+  const array=[]
+  useEffect(()=>{         // bring the url from the backend  
+  // useEffect(()=>{         // bring the url from the backend 
      
-      StorageUtils.retrieveData('user').then((value) =>
-     //setUser(JSON.parse(value))
-     console.log(value)
-   );
-    // axios.get('')
-    // .then(res=>setAllData(res.data))
-    // .catch(err=>console.log(err))
+  //     StorageUtils.retrieveData('user').then((value) =>
+  //    //setUser(JSON.parse(value))
+  //    console.log(value)
+  //  );
+    axios.get(BasePath + '/api/sp/all')
+    .then(res=>{console.log(res.data)
+      setAllData(res.data)})
+    .catch(err=>console.log(err))
+    
     setAllData(array);
-    // AsyncStorage.getItem('person')
-    // .then(res=>console.log(res))
+    AsyncStorage.getItem('user')
+   .then(res=>console.log(res))
+   
+  
 
   },[])
   const buttonFunction=(val)=>{
     var array=[]
 if (val==1){
-  array=allData.filter((elem,i)=> elem.category=='photographer')
+  array=allData.filter((elem,i)=> elem.category == 'photographer')
   setFIltredData(array)
+  if(view===1)
+  setView(null)
+  else
   setView(1)
 }
 if (val===2){
-  array=allData.filter((elem,i)=> elem.category=='band')
+  array=allData.filter((elem,i)=> elem.category == 'band')
   setFIltredData(array)
-  setView(1)
+  if(view===2)
+  setView(null)
+  else
+  setView(2)
 }
 if (val===3){
-  array=allData.filter((elem,i)=> elem.category=='hairSalon')
+  array=allData.filter((elem,i)=> elem.category == 'hairSalon')
   setFIltredData(array)
-  setView(1)
+  if(view===3)
+  setView(null)
+  else
+  setView(3)
 }
 if (val===4){
-  array=allData.filter((elem,i)=> elem.category=='weddingHall')
+  array=allData.filter((elem,i)=> elem.category == 'weddingHall')
   setFIltredData(array)
-  setView(1)
+  if(view===4)
+  setView(null)
+  else
+  setView(4)
 }
+// if (val===5){
+//   array=allData.filter((elem,i)=> elem.category == 'Package')
+//   setFIltredData(array)
+//   if(view===5)
+//   setView(null)
+//   else
+//   setView(5)
+// }
 
   }
-
-
+  let nav = () => {
+    navigation.navigate({
+      name: "Calendar",
+      params: {
+        start: setFrom,
+        end: setEnd,
+      },
+      merge: true,
+    });
+  }
     return ( 
-      <ImageBackground
-      style={{
-        width: "100%",
-        height: "100%",
-      }}
-      source={Background}
-      resizeMode="cover"
-    >
-        <View style={styles.container}>
-          
-          {view==null&&<View
+   <ScrollView>
+        <View style={styles.container}>  
+          <View
             style={{
-              // flexDirection: "row",
-              justifyContent: "center",
-              marginBottom: 30,
-              // height:"50px",
-              // width:"50px",
-              // borderColor:'black'
+              flexDirection: "row",
+              marginTop: 40,
+              // backgroundColor:"#AF9E9E",
+              borderRadius: 10,
+              // backgroundColor: '#f0c5da',
+              height: 60,
+              bottom: 16,
+              // right: 16,
+              // left: 16,
             }}
           >
-            
-
             <TouchableOpacity
               title="photographer"
               onPress={() => buttonFunction(1)}
+              style={view==1&&styles.clicked}
+              
             >
              <Image
-        style={{width: 50, height: 50}}
-        source={require(imagePh)}
-      />
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+                 style={styles.box}
+                 source={imagePh}
+             />
+              <Text style={styles.text}>
                 
-                photographer
+                Photographer
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               title="band"
               onPress={() => buttonFunction(2)}
+              style={view==2&&styles.clicked}
             >
               <Image
-        style={{width: 50, height: 50}}
-        source={require(imageBand)}
-      />
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+                 style={styles.box}
+                   source={imageBand}
+             />
+              <Text style={styles.text}>
                 
                 Band
               </Text>
@@ -140,35 +143,74 @@ if (val===4){
             <TouchableOpacity
               title="hairSalon"
               onPress={() => buttonFunction(3)}
+              style={view==3&&styles.clicked}
             >
               <Image
-        style={{width: 50, height: 50}}
-        source={require(imageHS)}
-      />
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+               style={styles.box}
+               source={imageHS}
+               />
+              <Text style={styles.text}>
                 
                 Hair Salon
               </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
+            </TouchableOpacity>
+            <TouchableOpacity
                     title="weddingHall"
                     onPress={() => buttonFunction(4)}
-                  >
+                    style={view==4&&styles.clicked}
+            >
                     <Image
-                 style={{width: 50, height: 50}}
-                 source={require(imageHall)}
-              />
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+                    style={styles.box}
+                    source={imageHall}
+                    />
+                     <Text style={styles.text}>
                 
-                Wedding Hall
-              </Text>
+                      Wedding Hall
+                   </Text>
             </TouchableOpacity>
+            {/* <TouchableOpacity
+                    title="weddingHall"
+                    onPress={() => buttonFunction(5)}
+                    style={view==5&&styles.clicked}
+            >
+                    <Image
+                      style={styles.box}
+                      source={imagePack}
+                    />
+                   <Text style={styles.text}>
+                
+                      Packages
+                   </Text>
+            </TouchableOpacity>             */}
          
-            </View>}
-            {view&&<View>
+          </View>
+          <View>
+          <View style={styles.leftFrom}>
+          <Text
+                style={styles.inputFrom}
+                onPress={() => {
+                  nav();
+                }}
+              >{from === "" ? "From" : from}{"   "}<Ionicons name="calendar-outline" size={26}></Ionicons>{"   "}{end === "" ? "To" : end}
+              </Text>
+            </View>
+              </View>
+                  
+          {view==null&&
+             <Cards style={{
+              // flexDirection: "row",
+              // top: 30,
+            }} filtredData={allData} setTView={setView}></Cards> 
+          }
+          {view&&
+          <Cards style={{
+            // flexDirection: "row",
+            // top: 30,
+          }} filtredData={filtredData} setTView={setView}></Cards> 
+          }
+            
               
-             <Cards view={view} filtredData={filtredData} setTView={setView}></Cards> 
-             </View>}
+             
 
 
             
@@ -177,16 +219,61 @@ if (val===4){
 
 
 
-</ImageBackground>
+        </ScrollView>
         
      );
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      // flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor:"white"
     
     },
-  });
+    image:{
+     margin:5, width: 50, height: 50, borderRadius:30,
+    },
+    text:{
+     textAlign: 'center', color: "#AD40AF",fontSize:8
+    },
+    
+    clicked:{
+      marginTop:10,
+      backgroundColor:'transparent',
+      borderRadius:5
+    },
+    inputFrom:{
+      fontFamily: "sans-serif-thin",
+      fontWeight: "bold",
+      textAlign:"center",
+      left:-6,
+    },
+    leftFrom: {
+      backgroundColor: "white",
+      borderWidth: 0.5,
+      borderColor: "#777",
+      padding: 8,
+      margin: 10,
+      borderRadius: 6,
+      height: 50,
+      maxWidth: 340,
+      width: 300,
+      elevation: 12,
+      alignSelf: "center",
+    },
+    box: {
+      backgroundColor:'#f0c5da',
+      justifyContent: "center",
+      alignSelf: "center",
+      height: 55,
+      width: 55,
+      paddingVertical: 12,
+      paddingHorizontal: 18,
+      // marginVertical: 30,
+      marginHorizontal: 11,
+      borderRadius: 10,
+      elevation: 20,
+    },
+})
 export default Home;
