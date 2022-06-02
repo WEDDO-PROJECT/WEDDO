@@ -5,7 +5,6 @@ import CalendarInput from "./Calendar";
 
 
 const Stack = createStackNavigator();
-console.log('how');
 const NavHome = () => {
   return (
     <Stack.Navigator independent={true} screenOptions={{

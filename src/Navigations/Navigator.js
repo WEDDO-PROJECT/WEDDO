@@ -174,7 +174,7 @@ export default function Navigator(){
           /> */}
          
            
-         {/* <Stack.Screen
+         <Stack.Screen
             name="ProfileRoom"
             component={ProfileRoom}
             options={{
@@ -184,8 +184,8 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          /> */}
-           {/* <Stack.Screen
+          />
+           <Stack.Screen
             name="EditProfileSPRoom"
             component={EditProfileSPRoom}
             options={{
@@ -195,8 +195,8 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          /> */}
-            {/* <Stack.Screen
+          />
+            <Stack.Screen
             name="MapContent"
             component={MapContent}
             options={{
@@ -206,7 +206,7 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          /> */}
+          />
            {/* <Stack.Screen
             name="Rooms"
             component={Rooms}

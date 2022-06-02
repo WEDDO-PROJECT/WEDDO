@@ -6,9 +6,10 @@ import LoginScreen from "../../Screens/LoginScreen";
 // import Home from "../../Screens/Home";
 import CustomDrawer from "./CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Tabnavigation from '../Navigation/Tabnavigation.js';
- import Navigator from "../../Navigations/Navigator"
- import Checklist from "../../Screens/Checklist.js";
+import Tabnavigation from '../Navigation/Tabnavigation.js'; 
+import Navigator from "../../Navigations/Navigator"
+import Checklist from "../../Screens/Checklist.js";
+import Settings from "../homeComponents/Settings.js"
 
 const Drawer = createDrawerNavigator();
 
@@ -48,12 +49,12 @@ const DrawerNavigator = () => {
         )
       }} />
       
-      <Drawer.Screen name="About Us" component={LoginScreen} options = {{
+      <Drawer.Screen name="About Us" component={Settings} options = {{
         drawerIcon:({color}) => (
           <Ionicons name="alert-circle-outline" size={22} color={color} />
         )
       }} />
-      <Drawer.Screen name="Settings" component={LoginScreen} options = {{
+      <Drawer.Screen name="Settings" component={Settings} options = {{
         drawerIcon:({color}) => (
           <Ionicons name="settings-outline" size={22} color={color} />
         )
