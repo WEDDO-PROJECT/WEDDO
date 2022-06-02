@@ -9,7 +9,9 @@ import {
   Dimensions,
   navigation,
   useWindowDimensions,
+  StyleSheet,
 } from "react-native";
+// import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
@@ -57,7 +59,7 @@ const send=()=>{
     // AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
   const userdata =res.data
   StorageUtils.storeData('user',userdata)
-    navigation.navigate("Home")
+    navigation.navigate("drawer")
 
   }).catch(err=>{console.log('error', err.message)})
   
@@ -66,14 +68,7 @@ const send=()=>{
   // const navigation = useNavigation();
   //   const myIcon = <Icon name="bird" size={30} color="#900" />;
   return (
-    <ImageBackground
-      style={{
-        width: "100%",
-        height: height,
-      }}
-      source={Background}
-      resizeMode="cover"
-    >
+  
       <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
         <View style={{ paddingHorizontal: 25 }}>
           <View style={{ alignItems: "center" }}>
@@ -134,69 +129,7 @@ const send=()=>{
             onPress={send}
             // onPress={() => this.props.navigation.navigate("Home")}
           />
-          <Text
-            style={{ textAlign: "center", color: "#EBBAD2", marginBottom: 20 }}
-          >
-            Or, login with ...
-          </Text>
-          {/* <Icon.Button
-            name="facebook"
-            backgroundColor="#3b5998"
-            style={{
-              borderColor: "#ffff",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          >
-            Login with Facebook
-          </Icon.Button> */}
-          {/* <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginBottom: 30,
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <GoogleSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <FacebookSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <TwitterSVG height={24} width={24} />
-            </TouchableOpacity>
-          </View> */}
-
+          
           <View
             style={{
               flexDirection: "row",
@@ -214,42 +147,24 @@ const send=()=>{
                 {" "}
                 Register
               </Text>
-            {/* </TouchableOpacity> */}
-            {/* <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: "#ddd",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          >
-            <Google height={24} width={24} />*/}
+         
           </TouchableOpacity> 
           </View>
         </View>
       </SafeAreaView>
-    </ImageBackground>
+   
   );
 };
+const styles = StyleSheet.create({
+  input: {
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    backgroundColor: '#fff',
+    borderRadius: 60,
+    borderColor: '#C0C0C0',
+    borderWidth: 1,
+    width: 250,
+},
+backgroundColor:'white'
+})
 export default LoginScreen;
-
-//faceBookLogin
-/*        <Icon.Button
-            name="facebook"
-            backgroundColor="#3b5998"
-        
-          >
-            Login with Facebook
-          </Icon.Button>
-          */
-//faceBookLogin
-/*        <Icon.Button
-            name="google"
-            backgroundColor="red"
-        
-          >
-            Login with Google
-          </Icon.Button>
-          */
