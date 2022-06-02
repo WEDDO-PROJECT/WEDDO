@@ -15,7 +15,9 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Background from "../assets/Background.webp";
 import axios from 'axios'
+import StorageUtils from "../Utils/StorageUtils.js";
 
+import BasePath from "../constants/BasePath";
 const RegisterScreen = ({ navigation }) => {
 const [name,setName]=useState(null)
 const [password,setPassword]=useState(null)
@@ -24,12 +26,16 @@ const [confirme_Password,setConfirme_Password]=useState(null)
 const [tel_number,setTel_number]=useState(null)
 
 const send=()=>{
-  let person={email,name,password,confirme_Password,tel_number}
-  // axios.post('http://localhost:3000/api/user/signup',person)
-  // .then(res=>{
-  //   console.log(res.data);
-    navigation.navigate("Home")
-  // })
+  let person={email,name,password,tel_number}
+
+  axios.post(BasePath + '/api/user/signup',person)
+
+  .then(res=>{
+    console.log(res.data);
+    const userdata =res.data.result[0]
+     StorageUtils.storeData('user',userdata)
+    navigation.navigate("drawer")
+  })
 }
   return (
     <ImageBackground
@@ -119,7 +125,7 @@ const send=()=>{
           }
         />
         <InputField
-          label={"Email ID"}
+          label={"Email "}
           setValue={setEmail}
           icon={
             <MaterialIcons
@@ -188,7 +194,7 @@ const send=()=>{
             color="#666"
             style={{ marginRight:  }}
           /> */}
-          <CustomButton label={"Register"} onPress={send} />
+          <CustomButton label={"Register"} onPress={ send } />
           <View
             style={{
               flexDirection: "row",
