@@ -3,13 +3,13 @@ import RegisterScreen from "../Screens/RegisterScreen.js";
 import LoginScreen from "../Screens/LoginScreen.js";
 import LoginScreenSP from "../Screens/LoginScreenSP.js";
 import RegisterSP from "../Screens/RegisterSP.js";
-import AuthenticationChoice from "../Screens/AuthChoice.js";
+// import AuthenticationChoice from "../Screens/AuthChoice.js";
 import CategoryChoice from "../Screens/CategoryChoice.js";
 import LandingPage from "../Screens/LandingPage.js";
-import AuthWithPhone from "../Screens/AuthWithPhone.js";
-import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
-import StorageUtils from "../Utils/StorageUtils.js";
-import Tabnavigation from "../components/Navigation/Tabnavigation";
+// import AuthWithPhone from "../Screens/AuthWithPhone.js";
+// import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
+// import StorageUtils from "../Utils/StorageUtils.js";
+// import Tabnavigation from "../components/Navigation/Tabnavigation";
 //import ProfileScreen1 from "../Screens/profile.js";
 import ProfileRoom from "../Screens/SpRoomProfile";
 import ProfileScreen1 from "../Screens/profile.js"
@@ -55,6 +55,18 @@ export default function Navigator(){
           initialRouteName={user.id == "notFound" ? "LandingPage" : "DrawerNavigator"}
         >
           <Stack.Screen
+            name="drawer"
+            component={drawer}
+            options={{
+              // headerStyle: {
+              //   backgroundColor: "transparent",
+              // },
+              // headerTransparent: true,
+              // title: "",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
             name="LandingPage"
             component={LandingPage}
             options={{
@@ -77,7 +89,7 @@ export default function Navigator(){
             }}
           />
 
-          <Stack.Screen
+          {/* <Stack.Screen
             name="AuthenticationChoice"
             component={AuthenticationChoice}
             options={{
@@ -87,7 +99,7 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
+          /> */}
           <Stack.Screen
             name="RegisterSP"
             component={RegisterSP}
@@ -136,6 +148,8 @@ export default function Navigator(){
               title: "",
             }}
           />
+
+        {/* <Stack.Screen
  <Stack.Screen
             name="WeddingHallDetails"
             component={WeddingHallDetails}
@@ -157,29 +171,9 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
-         <Stack.Screen
-            name="AuthWithPhone"
-            component={AuthWithPhone}
-            options={{
-              headerStyle: {
-                backgroundColor: "transparent",
-              },
-              headerTransparent: true,
-              title: "",
-            }}
-          />
-           <Stack.Screen
-            name="Home"
-            component={drawer}
-            options={{
-              headerStyle: {
-                backgroundColor: "transparent",
-              },
-              headerTransparent: true,
-              title: "",
-            }}
-          />
+          /> */}
+         
+           
          <Stack.Screen
             name="ProfileRoom"
             component={ProfileRoom}
@@ -213,7 +207,7 @@ export default function Navigator(){
               title: "",
             }}
           />
-           <Stack.Screen
+           {/* <Stack.Screen
             name="Rooms"
             component={Rooms}
             options={{
@@ -223,20 +217,9 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
-          
-          {/* <Stack.Screen
-            name="ProfileScreen1"
-            component={ProfileScreen1}
-            options={{
-              headerStyle: {
-                backgroundColor: "transparent",
-              },
-              headerTransparent: true,
-              title: "",
-            }}
           /> */}
-
+          
+          
         </Stack.Navigator>
     
     );

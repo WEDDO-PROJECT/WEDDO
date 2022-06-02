@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import CardExemple from '../components/Card.js'; 
+// import CardExemple from '../components/Card.js'; 
 
 import BasePath from "../constants/BasePath";
 
@@ -27,7 +27,7 @@ const Rooms =({navigation})=>{
             <View style={{alignItems:'center'}}>
           { rooms.map((room)=>(
               <View style={{marginBottom : 4}}>
-                <CardExemple  name = {room.name} from = {room.price} to={to} />
+                {/* <CardExemple  name = {room.name} from = {room.price} to={to} /> */}
                 </View>
           )) }
           </View>
