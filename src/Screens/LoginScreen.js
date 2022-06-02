@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
+// import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
@@ -15,7 +16,25 @@ import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
 import axios from "axios";
 import BasePath from "../constants/BasePath";
-import StorageUtils from "../Utils/StorageUtils.js";
+// import { useNavigation } from "@react-navigation/native";
+// import GoogleSVG from "../assets/google.svg";
+// import FacebookSVG from "../assets/facebook.svg";
+// import TwitterSVG from "../assets/twitter.svg";
+// import Google from "./google.js"
+// import Roboto-Medium from '../assets/font/Roboto-Medium.ttf'
+// import { TextInput } from "react-native-web";
+// import {
+//   GoogleSignin,
+//   GoogleSigninButton,
+//   statusCodes,
+// } from "react-native-google-signin";
+// const navigation = useNavigation();
+
+// const onConfirmPressed = () => {
+//   navigation.navigate("Home");
+// };
+import Icon from "react-native-vector-icons/FontAwesome";
+// import StorageUtils from "../Utils/StorageUtils.js";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,10 +44,11 @@ const send=()=>{
   console.log(person);
   axios.post(BasePath + '/api/user/login',person)
   .then(res=>{console.log(res.data)
-
-  const userdata =response.data
-  StorageUtils.storeData('user',userdata)
-    navigation.navigate("Home")
+    //  if(res.data[0]==='succesfully connected')
+    AsyncStorage.setItem('user',JSON.stringify(res.data))
+  // const userdata =res.data
+  // StorageUtils.storeData('user',userdata)
+    navigation.navigate("drawer")
 
   })
   
