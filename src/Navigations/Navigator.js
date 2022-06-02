@@ -9,6 +9,11 @@ import LandingPage from "../Screens/LandingPage.js";
 // import AuthWithPhone from "../Screens/AuthWithPhone.js";
 // import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
 // import StorageUtils from "../Utils/StorageUtils.js";
+import Home from "../Screens/Home.js";
+import Profile from "../components/profile.js"
+// import AuthWithPhone from "../Screens/AuthWithPhone.js";
+// import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
+// import StorageUtils from "../Utils/StorageUtils.js";
 // import Tabnavigation from "../components/Navigation/Tabnavigation";
 //import ProfileScreen1 from "../Screens/profile.js";
 import ProfileRoom from "../Screens/SpRoomProfile";
@@ -69,6 +74,13 @@ export default function Navigator(){
           <Stack.Screen
             name="LandingPage"
             component={LandingPage}
+            options={{
+              headerShown: false,
+            }}
+          />
+           <Stack.Screen
+            name="Profile"
+            component={Profile}
             options={{
               headerShown: false,
             }}

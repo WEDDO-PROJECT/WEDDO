@@ -126,7 +126,10 @@ const send=()=>{
         />
         <InputField
           label={"Email "}
+<<<<<<< HEAD
+=======
           setValue={setEmail}
+>>>>>>> origin/dev
           icon={
             <MaterialIcons
               name="alternate-email"
