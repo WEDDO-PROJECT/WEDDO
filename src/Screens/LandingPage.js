@@ -67,7 +67,7 @@ export default function LandingPage({navigation}){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#063970",
+      backgroundColor: "#d49b35",
     },
     slider: {
       height: 0.5 * height,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     },
     footerContent: {
       flex: 1,
-      backgroundColor: "#063970",
+      backgroundColor: "#d49b35",
       borderTopLeftRadius: 75,
       alignItems: "center",
     },

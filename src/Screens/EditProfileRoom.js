@@ -1,5 +1,5 @@
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, Platform} from 'react';
 import {
   View,
   Text,
@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
       flex: 1,
-      marginTop: Platform.OS === 'ios' ? 0 : -12,
+      // marginTop: Platform.OS === 'ios' ? 0 : -12,
       paddingLeft: 10,
       color: '#05375a',
     },

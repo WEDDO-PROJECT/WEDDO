@@ -1,7 +1,7 @@
 import React from "react";
 import {
   StyleSheet,
-  ImageBackground,
+  // ImageBackground,
   Text,
   View,
   Image,
@@ -17,7 +17,7 @@ export default function  CategoryChoice ({navigation}){
 
         return (
     <View style={styles.container}>
-    <ImageBackground
+    {/* <ImageBackground
       style={{
         width: width,
         height: 0.3 * height,
@@ -26,7 +26,7 @@ export default function  CategoryChoice ({navigation}){
       resizeMode="cover"
     >
         <View style={styles.slider}></View>
-    </ImageBackground>
+    </ImageBackground> */}
             
             <View style={styles.footer}>
               <View

@@ -20,6 +20,11 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import BasePath from "../constants/BasePath";
+import { NativeModules } from 'react-native';
+
+// const { scriptURL } = NativeModules.SourceCode;
+// const scriptHostname = scriptURL.split('://')[1].split(':')[0];
+// console.log(scriptHostname)
 // import { useNavigation } from "@react-navigation/native";
 // import GoogleSVG from "../assets/google.svg";
 // import FacebookSVG from "../assets/facebook.svg";
@@ -47,14 +52,14 @@ const send=()=>{
   let person={email:email, password:password}
   console.log(person);
   axios.post(BasePath + '/api/user/login',person)
-  .then(res=>{console.log(res.data)
-  //    if(res.data[0]==='succesfully connected')
-  //   AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-  const userdata =response.data
+  .then(res=>{console.log('data',res.data)
+    //  if(res.data[0]==='succesfully connected')
+    // AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
+  const userdata =res.data
   StorageUtils.storeData('user',userdata)
     navigation.navigate("Home")
 
-  })
+  }).catch(err=>{console.log('error', err.message)})
   
 }
   const { height } = useWindowDimensions();
