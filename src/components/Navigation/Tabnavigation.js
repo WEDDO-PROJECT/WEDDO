@@ -9,6 +9,7 @@ import Home from '../../Screens/Home';
 
 const Tab= createBottomTabNavigator();
 function Tabnavigation(props) {
+    console.log('hi');
     return (
         <Tab.Navigator screenOptions={{
             tabBarShowLabel: false,
@@ -25,7 +26,8 @@ function Tabnavigation(props) {
             tabBarInactiveTintColor: 'white',
             tabBarActiveTintColor: 'white',
             tabBarShowLabel:true,
-        }}>
+        }}
+        >
             <Tab.Screen name='Home' component={NavHome} options={{
                 tabBarIcon: ({color,size}) => (
                     <Ionicons name="home-outline" color={color} size={size} />

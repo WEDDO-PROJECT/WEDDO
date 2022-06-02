@@ -23,6 +23,7 @@ import EditProfileSPRoom from "../Screens/EditProfileRoom.js";
 import MapContent from '../Screens/Map.tsx'
 import Rooms from "../Screens/Rooms.js";
 import CustomDrawer from "../components/Navigation/CustomDrawer.js";
+import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
 const Stack = createStackNavigator();
 export default function Navigator(){
 
@@ -53,6 +54,18 @@ export default function Navigator(){
         <Stack.Navigator
           initialRouteName={user.id == "notFound" ? "LandingPage" : "DrawerNavigator"}
         >
+          <Stack.Screen
+            name="drawer"
+            component={drawer}
+            options={{
+              // headerStyle: {
+              //   backgroundColor: "transparent",
+              // },
+              // headerTransparent: true,
+              // title: "",
+              headerShown: false,
+            }}
+          />
           <Stack.Screen
             name="LandingPage"
             component={LandingPage}
@@ -137,6 +150,18 @@ export default function Navigator(){
           />
 
         {/* <Stack.Screen
+ <Stack.Screen
+            name="WeddingHallDetails"
+            component={WeddingHallDetails}
+            options={{
+              headerStyle: {
+                backgroundColor: "transparent",
+              },
+              headerTransparent: true,
+              title: "",
+            }}
+          />
+        <Stack.Screen
             name="VerifyOTPScreen"
             component={VerifyOTPScreen}
             options={{
@@ -147,32 +172,9 @@ export default function Navigator(){
               title: "",
             }}
           /> */}
+         
+           
          {/* <Stack.Screen
-            name="AuthWithPhone"
-            component={AuthWithPhone}
-            options={{
-              headerStyle: {
-                backgroundColor: "transparent",
-              },
-              headerTransparent: true,
-              title: "",
-            }}
-          /> */}
-           <Stack.Screen
-            name="drawer"
-            component={drawer}
-            options={{
-              headerStyle: {
-                backgroundColor: "transparent",
-              },
-              headerTransparent: true,
-              title: "",
-              // headerShown: false,
-            }}
-            
-            
-          />
-         <Stack.Screen
             name="ProfileRoom"
             component={ProfileRoom}
             options={{
@@ -182,8 +184,8 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
-           <Stack.Screen
+          /> */}
+           {/* <Stack.Screen
             name="EditProfileSPRoom"
             component={EditProfileSPRoom}
             options={{
@@ -193,8 +195,8 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
-            <Stack.Screen
+          /> */}
+            {/* <Stack.Screen
             name="MapContent"
             component={MapContent}
             options={{
@@ -204,8 +206,8 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
-           <Stack.Screen
+          /> */}
+           {/* <Stack.Screen
             name="Rooms"
             component={Rooms}
             options={{
@@ -215,20 +217,9 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
-          
-          {/* <Stack.Screen
-            name="ProfileScreen1"
-            component={ProfileScreen1}
-            options={{
-              headerStyle: {
-                backgroundColor: "transparent",
-              },
-              headerTransparent: true,
-              title: "",
-            }}
           /> */}
-
+          
+          
         </Stack.Navigator>
     
     );

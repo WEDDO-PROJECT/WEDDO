@@ -13,6 +13,7 @@ import Tabnavigation from '../Navigation/Tabnavigation.js';
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
+  console.log('hello');
   return (
     <Drawer.Navigator 
       drawerContent = {props => <CustomDrawer {...props}/>}
@@ -36,7 +37,7 @@ const DrawerNavigator = () => {
       // initialRouteName="TabNav" 
       >
         
-      <Drawer.Screen name="TabNav" component={Tabnavigation} options = {{
+      <Drawer.Screen name="Home" component={Tabnavigation} options = {{
         drawerIcon:({color}) => (
           <Ionicons name ="home-outline" size={22} color={color }/>
         )

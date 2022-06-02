@@ -62,7 +62,7 @@ return (
               name="cash-outline"
               size={20}
               color="#666"
-              style={{ marginRight: 5, color:'#D49B35' }}
+              // style={{ marginRight: 5, color:'#D49B35' }}
             />
           }
         />
@@ -76,7 +76,7 @@ return (
               name="cash-outline"
               size={20}
               color="#666"
-              style={{ marginRight: 5, color:'#D49B35' }}
+              // style={{ marginRight: 5, color:'#D49B35' }}
             />
           }
         />
@@ -91,37 +91,37 @@ return (
 
             <View
             style={{
-              margin:15, 
-              // backgroundColor:'white',
-              height: 120,
-              shadowColor: '#000',
-              shadowOffset: {
-                width:1,
-                height: 1,
-              },
-              shadowOpacity:0.75,
-              elevation:9,
-              borderRadius:10
+              // margin:15, 
+              // // backgroundColor:'white',
+              // height: 120,
+              // shadowColor: '#000',
+              // shadowOffset: {
+              //   width:1,
+              //   height: 1,
+              // },
+              // shadowOpacity:0.75,
+              // elevation:9,
+              // borderRadius:10
               }}
               >
                <ImageBackground
                   style={{
-                    marginTop:10,
-                    width: "100%",
-                    height: "100%",
-                    borderRadius:10,
-                    borderColor: "#D49B35",
-                    borderWidth: 1.5,
+                    // marginTop:10,
+                    // width: "100%",
+                    // height: "100%",
+                    // borderRadius:10,
+                    // borderColor: "#D49B35",
+                    // borderWidth: 1.5,
                   
                   }}
                   source={golden}
                   resizeMode="cover"
                 > 
                       <Text style={{
-                            fontSize:20,
-                            fontWeight:'500',
-                            color : '#D49B35',
-                            marginHorizontal:'10'
+                            // fontSize:20,
+                            // fontWeight:'500',
+                            // color : '#D49B35',
+                            // marginHorizontal:'10'
                            }}>{elem.professional_name}</Text>
                       
                       {/* <Image  style={{width:"50",height:"50"}} source={{uri:elem.logo}} /><Image/> */}
@@ -152,17 +152,17 @@ return (
 }
 const styles= StyleSheet.create({
   title: {
-    fontSize:20,
-    fontWeight:'800',
-    marginHorizontal:'10'
+    // fontSize:20,
+    // fontWeight:'800',
+    // marginHorizontal:'10'
   },
   input: {
-    backgroundColor: 'white',
-    borderColor:'#D49B35',
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+    // backgroundColor: 'white',
+    // borderColor:'#D49B35',
+    // height: 40,
+    // margin: 12,
+    // borderWidth: 1,
+    // padding: 10,
   },
 })
   export default Cards;

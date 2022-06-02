@@ -35,8 +35,8 @@ const Home =({ navigation})=> {
       setAllData(res.data)})
     .catch(err=>console.log(err))
     setAllData(array);
-    AsyncStorage.getItem('user')
-    .then(res=>console.log(res))
+    // AsyncStorage.getItem('user')
+    // .then(res=>console.log(res))
   },[])
   const buttonFunction=(val)=>{
     var array=[]
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
       fontFamily: "sans-serif-thin",
       // fontWeight: "bold",
       textAlign:"center",
-      fontColor:'#D49B35',
+      // fontColor:'#D49B35',
       left:-6,
       borderWidth: 0.5,
       borderColor: "#777",
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
       // marginVertical: 30,
       marginHorizontal: 11,
       borderRadius: 10,
-      elevation: 20,
+      // elevation: 20,
       borderColor:'#D49B35',
       borderWidth: 1.5,
     },

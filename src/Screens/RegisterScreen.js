@@ -34,7 +34,7 @@ const send=()=>{
     console.log(res.data);
     const userdata =res.data.result[0]
      StorageUtils.storeData('user',userdata)
-    navigation.navigate("Home")
+    navigation.navigate("drawer")
   })
 }
   return (
