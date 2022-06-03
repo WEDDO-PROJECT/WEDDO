@@ -1,5 +1,5 @@
 import React,{ useEffect, useState} from 'react';
-import { View, Text,TouchableOpacity } from 'react-native';
+import { View, Text,TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import BasePath from "../constants/BasePath";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -27,20 +27,18 @@ refresh()
     }
 
     return (
-        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+      <ScrollView> 
+        <View style={{flex:1, justifyContent: 'center', alignItems: 'center',backgroundColor:"white"}}>
             <Text>Basket screen</Text>
             <TouchableOpacity onPress={refresh}>
                 <Text>Refresh</Text>
             </TouchableOpacity>
             {
                 list.map((elem,i)=>(
-                    <View key={i}>
-                        <Text style={{
-                            // fontSize:20,
-                            // fontWeight:'500',
-                            // color : '#D49B35',
-                            // marginHorizontal:'10'
-                           }}>{elem.professional_name}</Text>
+                    <View key={i}
+                        style={styles.card}
+                    >
+                        <Text style={styles.title}>{elem.professional_name}</Text>
                         <Text>{elem.description} </Text>
                       <Text>{elem.pack_title}</Text>
                       <Text>{elem.pack_price} DT</Text>
@@ -48,7 +46,28 @@ refresh()
                 ))
             }
         </View>
+      </ScrollView>   
     );
 }
+
+const styles= StyleSheet.create({
+    card: {
+    margin:20, 
+    backgroundColor:'white',
+    elevation:9,
+    borderRadius:10,
+    padding:10,
+    width: 300,
+    height: 250,
+  },
+  title: {
+    fontSize:20,
+    fontWeight:'500',
+    color : '#D49B35',
+    marginBottom:10,
+    paddingTop:130,
+  },
+})
+
 
 // Basket;

@@ -87,7 +87,7 @@ if (val===4){
     });
   }
     return (
-  <ScrollView>
+  <ScrollView style={{backgroundColor:"white"}}>
      <SafeAreaView>    
    
         <View style={styles.container}>  
