@@ -285,7 +285,7 @@ const RegisterSP = ({ navigation }) => {
                  items={[
                      { label: "Beauty salons", value: "Hairdresser" },
                      { label: "Musical Band", value: "MusicalBand" },
-                     { label: "Marriage hall", value: "partyroom" },
+                     { label: "Wedding hall", value: "partyroom" },
                      { label: "Photographer", value: "Photographer" },
                      
                  ]}
