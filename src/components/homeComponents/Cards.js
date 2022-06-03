@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from 'react';
-import {View,Text,TouchableOpacity,Image, StyleSheet, ImageBackground} from 'react-native';
+import {View,Text,TouchableOpacity,Image, StyleSheet, ImageBackground,Alert} from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import InputField from "../input.js";
 import golden from "../../assets/golden.webp";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Cards(props) {
   const [minPrice,setMinPrice]=useState(null)
@@ -29,9 +30,29 @@ function Cards(props) {
   console.log(data,'data');
     
   },[props.filtredData,minPrice,maxPrice])
-    const goProfile=()=>{
-
-    // to profile 
+    const goProfile=(sp)=>{
+      console.log(sp);
+      if(props.start==''){
+console.log('sp')
+        Alert.alert(
+          "Alert Title",
+          "My Alert Msg",
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ]
+        );
+      }
+      else {
+        console.log('sp');
+        AsyncStorage.setItem('response',JSON.stringify(sp))
+        props.navigation.navigate('Profile')
+      }
+    
 
     }
     
@@ -87,7 +108,7 @@ return (
                     <TouchableOpacity
                         key={i}
                         title="photographer"
-                        onPress={goProfile}>
+                        onPress={()=>goProfile(elem)}>
 
             <View
             style={{

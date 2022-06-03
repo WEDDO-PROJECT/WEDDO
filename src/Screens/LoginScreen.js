@@ -10,28 +10,18 @@ import {
   navigation,
   useWindowDimensions,
 } from "react-native";
-<<<<<<< HEAD
-import { AsyncStorage } from 'react-native';
-=======
 // import iP from '../constants/BasePath.js';
->>>>>>> origin/dev
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
-<<<<<<< HEAD
-import { useNavigation } from "@react-navigation/native";
-import Profile from "../components/profile.js";
-import axios from 'axios'
-=======
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import BasePath from "../constants/BasePath";
 // import { useNavigation } from "@react-navigation/native";
->>>>>>> origin/dev
 // import GoogleSVG from "../assets/google.svg";
 // import FacebookSVG from "../assets/facebook.svg";
 // import TwitterSVG from "../assets/twitter.svg";
@@ -48,41 +38,11 @@ import BasePath from "../constants/BasePath";
 // const onConfirmPressed = () => {
 //   navigation.navigate("Home");
 // };
-<<<<<<< HEAD
-// import Icon from "react-native-vector-icons/FontAwesome";
-const LoginScreen = () => {
-    const [password,setPassword]=useState("");
-    const [email, setEmail] = useState("");
-    const navigation = useNavigation();
-    const onLoginPressed =()=>{
-      axios
-      .post("http://192.168.11.67:3000/api/sp/login", {
-        password,
-        email
-      })
-      .then(async(res)=>{
-        if(res.data ==="Email or password is incorrect!"){
-          // console.log(data)
-          // console.log(res.result)
-          console.warn("wrong password or email")
-        }else{
-  console.log(res.data)
-
-  await AsyncStorage.setItem("response",JSON.stringify(res.data))
-
-  navigation.navigate("Profile")
-        }
-      }).catch((err)=>console.log(err))
-
-
-  };
-=======
 import Icon from "react-native-vector-icons/FontAwesome";
 // import StorageUtils from "../Utils/StorageUtils.js";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
->>>>>>> origin/dev
 
 const send=()=>{
   let person={email:email, password:password}
@@ -244,15 +204,9 @@ const send=()=>{
 
              <TouchableOpacity
               title="Register"
-<<<<<<< HEAD
-              onPress={() => this.props.navigation.navigate("Register")}
-            > */}
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }} onPress={()=>{navigation.navigate('RegisterSP')}}>
-=======
               onPress={() => navigation.navigate("RegisterScreen")}
             > 
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
->>>>>>> origin/dev
                 {" "}
                 Register
                 
