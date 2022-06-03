@@ -1,9 +1,10 @@
 import { Text, TouchableOpacity } from "react-native";
 import React from "react";
 
-export default function CustomButton({ label, onPress }) {
+export default function CustomButton({ label, onPress ,disabled}) {
   return (
     <TouchableOpacity
+    disabled={disabled}
       onPress={onPress}
       style={{
         backgroundColor: "#EBBAD2",

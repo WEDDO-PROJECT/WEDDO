@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import react, { useState,useEffect ,useRef} from 'react';
-import {View, SafeAreaView,StyleSheet,Image,TouchableOpacity} from 'react-native';
+import React, { useState,useEffect ,useRef} from 'react';
+import {View, SafeAreaView,StyleSheet,Image,TouchableOpacity, Alert} from 'react-native';
 import {Avatar,Title,Caption,Text,TouchableRipple} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfileSPRoom from './EditProfileRoom.js';
@@ -15,6 +15,14 @@ const LONGITUDE = -73.99033; // Korea Town, New York, NY 10001
 const LATITUDE_DELTA = 0.28;
 const LONGITUDE_DELTA = LATITUDE_DELTA * (width / height);
 import { ScrollView } from 'react-native-gesture-handler';
+
+import BasePath from "../constants/BasePath";
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
+ import axios from 'axios'
+ 
+import * as ImagePicker from 'expo-image-picker';
+//import * as ImagePicker from 'react-native-image-picker';
 const COLORS = {
     white: '#FFF',
     dark: '#000',
@@ -32,6 +40,7 @@ const WeddingHallDetails = ({navigation,route})=>{
   const [tel, setTel] = useState("");
   const [category, setCategory] = useState("");
   const [weddinghall, setWeddinghall] = useState(null);
+  const [image, setImage] = useState(null);
   let region = {
     longitude: 10.1785077,//myLocation.coords.longitude,
     latitude:36.8868947, //myLocation.coords.latitude,
@@ -40,6 +49,9 @@ const WeddingHallDetails = ({navigation,route})=>{
   };
   const [myRegion, setRegion] = useState(undefined);
   const mapRef = useRef(null);
+  
+  const bs = React.createRef();
+ const fall = new Animated.Value(1);
   useEffect(() => {
     async function getUser() {
       let data
@@ -70,6 +82,18 @@ const WeddingHallDetails = ({navigation,route})=>{
       setRegion(region);
     getUser();
   }, []);
+  const takePhotoFromCamera = () => {
+    ImagePicker.openCamera({
+      compressImageMaxWidth: 300,
+      compressImageMaxHeight: 300,
+      cropping: true,
+      compressImageQuality: 0.7
+    }).then(image => {
+      console.log(image);
+      setImage(image.path);
+      bs.current.snapTo(1);
+    });
+  }
     function goBack() {
         console.log('bhvfjnfnvfvn')
         navigation.toggleDrawer();
@@ -78,6 +102,172 @@ const WeddingHallDetails = ({navigation,route})=>{
       function edit () {
           navigation.navigate('EditProfileSPRoom')
       }
+      const choosePhotoFromLibrary = () => {
+        ImagePicker.openPicker({
+          width: 300,
+          height: 300,
+          cropping: true,
+          compressImageQuality: 0.7
+        }).then(image => {
+          console.log(image);
+          setImage(image.path);
+          bs.current.snapTo(1);
+        });
+      }
+      const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+        
+    
+        if (!result.cancelled) {
+            const uri = result.uri;
+            const type = result.type;
+            const name = 'aaaa';
+            const source = {
+              uri,
+              type,
+              name,
+            }
+            cloudinaryUpload(source)
+           // console.log(source)
+          }
+        
+      };
+      const cloudinaryUpload = async (result) => {
+      
+      
+      
+      
+        const data = new FormData()
+        data.append('file', {  type:'image/jpeg', uri : result.uri , name:'file.jpeg'})
+        data.append('upload_preset', 'expopreset')
+        data.append("cloud_name", "pentagon")
+        fetch("https://api.cloudinary.com/v1_1/pentagon/upload", {
+          method: "post",
+          body: data
+        }).then(res => res.json()).
+          then(data => {
+            console.log(data)
+            //setPhoto(data.s ecure_url)
+          }).catch(err => {
+            console.log(err)
+            Alert.alert("An Error Occured While Uploading")
+          })
+      
+      
+      
+      
+        //   console.log(result.base64)
+      //   let base64Img = result.uri
+      
+      // //Add your cloud name
+      // let apiUrl = 'https://api.cloudinary.com/v1_1/pentagon/image/upload';
+  
+      // const body = {
+      //   uri: result.uri,
+      //   name: 'SomeImageName.jpg',
+      //   type: 'image/jpg',
+      // }
+
+      //   const data = new FormData();
+      //   data.append("image", body);
+    
+      //   await fetch(BasePath + "/api/sp/AddImage", {
+      //     method: "POST",
+      //     body: data,
+      //   }).then( r => {
+      //           let data =  r.json()
+      //           console.log(data)
+      //           return data.secure_url
+      //     }).catch(err=>console.log(err))
+        
+
+
+      // axios 
+      //   .post(BasePath + "/api/sp/AddImage",body)
+      //   .then((response)=>{
+      //     console.log(response)
+      //     // const data =response.data.result[0]
+      //     // navigation.navigate("WeddingHallDetails",{weddinghalldata : data})
+      //     // console.log(data)
+      //   })
+      //   .catch((error)=>{
+      //     console.log(error)
+      //   })
+
+    //   let data = {
+    //     "file": base64Img,
+    //     "upload_preset": "expopreset",
+    //   }
+
+    //   fetch(apiUrl, {
+    //     body: JSON.stringify(data),
+    //     headers: {
+    //       'content-type': 'application/json'
+    //     },
+    //     method: 'POST',
+    //   }).then(async r => {
+    //       let data = await r.json()
+    //       console.log(data.secure_url)
+    //       return data.secure_url
+    // }).catch(err=>console.log(err))
+       
+       
+       
+       
+       
+       
+        // const data = new FormData()
+        // data.append('file', photo)
+        // data.append('upload_preset', 'pentagon')
+        // data.append("cloud_name", "pentagon")
+        // fetch("https://api.cloudinary.com/v1_1/pentagon/upload", {
+        //   method: "post",
+        //   body: data
+        // }).then(res => res.json()).
+        //   then(data => {
+        //     setImage(data.secure_url)
+    
+        //   }).catch(err => {
+        //       console.log(err)
+        //     Alert.alert("An Error Occured While Uploading")
+        //   })
+      }
+         const  renderInner = () => (
+        <View style={styles.panel}>
+          <View style={{alignItems: 'center'}}>
+            <Text style={styles.panelTitle}>Upload Photo</Text>
+            <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
+          </View>
+          <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
+            <Text style={styles.panelButtonTitle}>Take Photo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.panelButton} onPress={pickImage}>
+            <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.panelButton}
+            onPress={() => bs.current.snapTo(1)}>
+            <Text style={styles.panelButtonTitle}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      );
+
+      
+ const renderHeader = () => (
+    <View style={styles.header}>
+      <View style={styles.panelHeader}>
+        <View style={styles.panelHandle} />
+      </View>
+    </View>
+  );
+
     return(
 
         <ScrollView>
@@ -164,18 +354,20 @@ const WeddingHallDetails = ({navigation,route})=>{
         
             </MapView>
         </View>
-        {/* <View style={styles.infoBoxWrapper}>
-            <View style={styles.infoBox}>
-                <Title>1000dt</Title>
-                <Caption>Prix</Caption>
-            </View>
-            <View style={styles.infoBox}>
-                <Title>1000</Title>
-                <Caption>Prix</Caption>
-            </View>
-
-            
-        </View> */}
+        <View>
+        <TouchableOpacity style={styles.commandButton} onPress={() => {bs.current.snapTo(0)}}>
+          <Text style={styles.panelButtonTitle}>Add Images</Text>
+        </TouchableOpacity>
+        <BottomSheet
+        ref={bs}
+        snapPoints={[330, 0]}
+        renderContent={renderInner}
+        renderHeader={renderHeader}
+        initialSnap={1}
+        callbackNode={fall}
+        enabledGestureInteraction={true}
+      />
+        </View>
        </ScrollView>
     )
 };
@@ -288,7 +480,89 @@ const styles =StyleSheet.create({
         
       },
     
-    
+      commandButton: {
+        padding: 15,
+        borderRadius: 10,
+        backgroundColor: '#FF6347',
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom:10,
+      },
+      panel: {
+        padding: 20,
+        backgroundColor: '#FFFFFF',
+        paddingTop: 20,
+        // borderTopLeftRadius: 20,
+        // borderTopRightRadius: 20,
+        // shadowColor: '#000000',
+        // shadowOffset: {width: 0, height: 0},
+        // shadowRadius: 5,
+        // shadowOpacity: 0.4,
+      },
+      header: {
+        backgroundColor: '#FFFFFF',
+        shadowColor: '#333333',
+        shadowOffset: {width: -1, height: -3},
+        shadowRadius: 2,
+        shadowOpacity: 0.4,
+        // elevation: 5,
+        paddingTop: 20,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+      },
+      panelHeader: {
+        alignItems: 'center',
+      },
+      panelHandle: {
+        width: 40,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: '#00000040',
+        marginBottom: 10,
+      },
+      panelTitle: {
+        fontSize: 27,
+        height: 35,
+      },
+      panelSubtitle: {
+        fontSize: 14,
+        color: 'gray',
+        height: 30,
+        marginBottom: 10,
+      },
+      panelButton: {
+        padding: 13,
+        borderRadius: 10,
+        backgroundColor: '#FF6347',
+        alignItems: 'center',
+        marginVertical: 7,
+      },
+      panelButtonTitle: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: 'white',
+      },
+      action: {
+        flexDirection: 'row',
+        marginTop: 10,
+        marginBottom: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#f2f2f2',
+        paddingBottom: 5,
+      },
+      actionError: {
+        flexDirection: 'row',
+        marginTop: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#FF0000',
+        paddingBottom: 5,
+      },
+      textInput: {
+        flex: 1,
+        marginTop: Platform.OS === 'ios' ? 0 : -12,
+        paddingLeft: 10,
+        color: '#05375a',
+      },
 
       
 })
