@@ -16,7 +16,7 @@ export default function InputField({
         flexDirection: "row",
         alignContent:"center",
         paddingBottom: 8,
-        marginBottom: 25,
+        marginTop: 12,
       }}
     >
       {icon}

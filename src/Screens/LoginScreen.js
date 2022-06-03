@@ -49,11 +49,11 @@ const send=()=>{
   console.log(person);
   axios.post(BasePath + '/api/user/login',person)
   .then(res=>{console.log(res.data)
-    //  if(res.data[0]==='succesfully connected')
-    AsyncStorage.setItem('user',JSON.stringify(res.data))
-  // const userdata =res.data
-  // StorageUtils.storeData('user',userdata)
-    navigation.navigate("drawer")
+     if(res.data[0]==='success'){
+       AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
+       navigation.navigate("drawer")
+     }
+
 
   })
   
@@ -209,6 +209,7 @@ const send=()=>{
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
                 {" "}
                 Register
+                
               </Text>
             {/* </TouchableOpacity> */}
             {/* <TouchableOpacity
