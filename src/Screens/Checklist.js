@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Platform, TouchableOpacity, Keyboard} from 'react-native';
 import Task from "../components/checklist/Task.js"
+import BasePath from '../constants/BasePath'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 export default function Checklist() {
     const [task, setTask] = useState();
     const [taskItems, setTaskItems] = useState([]);
+    useEffect(()=>{
+        console.log('check_list');
+        AsyncStorage.getItem('user')
+        .then(res=>{
+            console.log(JSON.parse(res))
+            // axios.get(`${BasePath}/api/checkList/selectTasks/${user.id}`)
+        })
 
+    },[])
     const handleAddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, task])
