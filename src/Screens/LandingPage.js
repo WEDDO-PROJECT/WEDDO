@@ -30,11 +30,7 @@ export default function LandingPage({navigation}){
         <View
           style={{
             ...StyleSheet.absoluteFillObject,
-<<<<<<< HEAD
-            backgroundColor: "#B22222",
-=======
             backgroundColor: "white",
->>>>>>> origin/dev
           }}
         />
         <View style={styles.footerContent}>
@@ -77,11 +73,7 @@ const styles = StyleSheet.create({
       height: 0.5 * height,
       backgroundColor: "#B22222",
       borderBottomRightRadius: 75,
-<<<<<<< HEAD
-      backgroundColor:"#B22222",
-=======
       backgroundColor:"white",
->>>>>>> origin/dev
       width:width
     },
     footer: {
@@ -89,11 +81,7 @@ const styles = StyleSheet.create({
     },
     footerContent: {
       flex: 1,
-<<<<<<< HEAD
-      backgroundColor: "#f5f5dc",
-=======
       backgroundColor: "#f0c5da",
->>>>>>> origin/dev
       borderTopLeftRadius: 75,
       alignItems: "center",
     },
@@ -110,11 +98,7 @@ const styles = StyleSheet.create({
       alignSelf: "center",
       width: "50%",
       height: "15%",
-<<<<<<< HEAD
-      backgroundColor: "#B22222",
-=======
       backgroundColor: "white",
->>>>>>> origin/dev
     },
     image: {
       alignSelf: "center",
