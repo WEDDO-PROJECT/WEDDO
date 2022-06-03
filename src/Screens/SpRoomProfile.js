@@ -4,7 +4,7 @@ import {View, SafeAreaView,StyleSheet,Image,TouchableOpacity,ImageBackground} fr
 import {Avatar,Title,Caption,Text,TouchableRipple} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfileSPRoom from './EditProfileRoom.js';
-import CardExemple from '../components/Card.js';
+// import CardExemple from '../components/Card.js';
 import StorageUtils from '../Utils/StorageUtils.js';
 const ProfileRoom = ({navigation})=>{
     

@@ -49,11 +49,12 @@ const send=async()=>{
     tel_number:data.tel
   }
   axios.post(BasePath + '/api/user/signup',person)
+
   .then(res=>{
     console.log(res.data);
     const userdata =res.data.result[0]
      StorageUtils.storeData('user',userdata)
-    navigation.navigate("Home")
+    navigation.navigate("drawer")
   })
 }
 const telChange = (val) => {

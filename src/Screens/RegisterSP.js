@@ -61,7 +61,13 @@ const RegisterSP = ({ navigation }) => {
     // confirmPassword
     }
     axios
+<<<<<<< HEAD
+    .post("http://192.168.11.80:3000/api/sp/Register",UserRegister)
+=======
+
     .post(BasePath + "/api/sp/Register",UserRegister)
+
+>>>>>>> origin/dev
     .then((response)=>{
       console.log("response.data.result[0]")
       console.log(response.data.result[0])
@@ -401,5 +407,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 20,
   },
+<<<<<<< HEAD
+});
+=======
   
 });
+>>>>>>> origin/dev
