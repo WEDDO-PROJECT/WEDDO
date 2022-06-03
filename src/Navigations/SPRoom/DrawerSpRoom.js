@@ -101,7 +101,7 @@ const  DrawerContentRoom = ({navigation}) => {
                                 />
                             )}
                             label="Support"
-                           // onPress={() => {props.navigation.navigate('SupportScreen')}}
+                            onPress={() => {navigation.navigate('WeddingHalls')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (

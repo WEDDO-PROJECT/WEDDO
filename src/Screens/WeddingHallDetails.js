@@ -1,12 +1,15 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState,useEffect ,useRef} from 'react';
-import {View, SafeAreaView,StyleSheet,Image,TouchableOpacity, Alert} from 'react-native';
+import {View, SafeAreaView,StyleSheet,Image,TouchableOpacity,Button, Alert} from 'react-native';
 import {Avatar,Title,Caption,Text,TouchableRipple} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfileSPRoom from './EditProfileRoom.js';
 // import CardExemple from '../components/Card.js';
 import StorageUtils from '../Utils/StorageUtils.js';
 
+import * as Permissions from 'expo-permissions';
+import Modal from "react-native-modal";
+import Gallery from 'react-native-image-gallery';
 import MapView, { Marker, Region ,LatLng, Point} from "react-native-maps";
 import { Dimensions } from 'react-native';
 const { height, width } = Dimensions.get( 'window' );
@@ -41,6 +44,8 @@ const WeddingHallDetails = ({navigation,route})=>{
   const [category, setCategory] = useState("");
   const [weddinghall, setWeddinghall] = useState(null);
   const [image, setImage] = useState(null);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [images, setImages] = React.useState([]);
   let region = {
     longitude: 10.1785077,//myLocation.coords.longitude,
     latitude:36.8868947, //myLocation.coords.latitude,
@@ -56,7 +61,6 @@ const WeddingHallDetails = ({navigation,route})=>{
     async function getUser() {
       let data
       await StorageUtils.retrieveData('user').then((value) => (data = JSON.parse(value)));
-     console.log(data);
       if (data === undefined) {
        console.log('not found')
       } else {
@@ -69,31 +73,52 @@ const WeddingHallDetails = ({navigation,route})=>{
           setCin(data.cin)
           setTel(data.tel)
       }
+
+      
+      const body ={
+        id: 156
+      }
+     
+          axios 
+              .get(BasePath + "/api/sp/getimages/"+body.id)
+              .then((response)=>{
+                console.log('HELLO '+ response.data.result)
+
+                let data = [] 
+                for(let i = 0 ; i< response.data.result.length ; i++){
+                  let s = {
+                    source: { uri:response.data.result[i].image}
+                  }
+                  data.push(s)
+                }
+
+                console.log(data)
+                setImages(data)
+
+
+
+
+                // const data =response.data.result[0]
+                // navigation.navigate("WeddingHallDetails",{weddinghalldata : data})
+                // console.log(data)
+              })
+              .catch((error)=>{
+                console.log(error)
+              })
     }
-    setWeddinghall(weddinghalldata)
-    console.log(weddinghalldata)
-    let region = {
-        longitude:Number(weddinghalldata.longitude) ,//myLocation.coords.longitude,
-        latitude:Number(weddinghalldata.latitude), //myLocation.coords.latitude,
-		latitudeDelta: LATITUDE_DELTA,
-		longitudeDelta: LONGITUDE_DELTA
-      };
-      console.log(region)
-      setRegion(region);
-    getUser();
+
+    
+        setWeddinghall(weddinghalldata)
+        let region = {
+            longitude:Number(weddinghalldata.longitude) ,//myLocation.coords.longitude,
+            latitude:Number(weddinghalldata.latitude), //myLocation.coords.latitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA
+          };
+          setRegion(region);
+        getUser();
   }, []);
-  const takePhotoFromCamera = () => {
-    ImagePicker.openCamera({
-      compressImageMaxWidth: 300,
-      compressImageMaxHeight: 300,
-      cropping: true,
-      compressImageQuality: 0.7
-    }).then(image => {
-      console.log(image);
-      setImage(image.path);
-      bs.current.snapTo(1);
-    });
-  }
+  
     function goBack() {
         console.log('bhvfjnfnvfvn')
         navigation.toggleDrawer();
@@ -135,14 +160,17 @@ const WeddingHallDetails = ({navigation,route})=>{
               name,
             }
             cloudinaryUpload(source)
+            let s = {
+              source: { uri:uri}
+            }
+
+            setImages(images => [...images, s]);
+            bs.current.snapTo(1)
            // console.log(source)
           }
         
       };
       const cloudinaryUpload = async (result) => {
-      
-      
-      
       
         const data = new FormData()
         data.append('file', {  type:'image/jpeg', uri : result.uri , name:'file.jpeg'})
@@ -154,6 +182,23 @@ const WeddingHallDetails = ({navigation,route})=>{
         }).then(res => res.json()).
           then(data => {
             console.log(data)
+
+            const body ={
+              image: data.secure_url,
+              sp_id: weddinghall.id
+            }
+
+            axios 
+              .post(BasePath + "/api/sp/AddImage",body)
+              .then((response)=>{
+                console.log(response)
+                // const data =response.data.result[0]
+                // navigation.navigate("WeddingHallDetails",{weddinghalldata : data})
+                // console.log(data)
+              })
+              .catch((error)=>{
+                console.log(error)
+              })
             //setPhoto(data.s ecure_url)
           }).catch(err => {
             console.log(err)
@@ -239,13 +284,43 @@ const WeddingHallDetails = ({navigation,route})=>{
         //     Alert.alert("An Error Occured While Uploading")
         //   })
       }
+      const pickFromCamera = async ()=>{
+        const {granted} =  await Permissions.askAsync(Permissions.CAMERA)
+        if(granted){
+             let data =  await ImagePicker.launchCameraAsync({
+                  mediaTypes:ImagePicker.MediaTypeOptions.Images,
+                  allowsEditing:true,
+                  aspect:[1,1],
+                  quality:0.5
+              })
+            if(!data.cancelled){
+              const uri = data.uri;
+              const type = data.type;
+              const name = 'aaaa';
+              const source = {
+                uri,
+                type,
+                name,
+              }
+              let s = {
+                source: { uri:uri}
+              }
+              setImages(images => [...images, s]);
+              cloudinaryUpload(data)
+              bs.current.snapTo(1)
+            }
+        }else{
+           Alert.alert("you need to give up permission to work")
+        }
+     }
+  
          const  renderInner = () => (
         <View style={styles.panel}>
           <View style={{alignItems: 'center'}}>
             <Text style={styles.panelTitle}>Upload Photo</Text>
             <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
           </View>
-          <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
+          <TouchableOpacity style={styles.panelButton} onPress={pickFromCamera}>
             <Text style={styles.panelButtonTitle}>Take Photo</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.panelButton} onPress={pickImage}>
@@ -267,6 +342,10 @@ const WeddingHallDetails = ({navigation,route})=>{
       </View>
     </View>
   );
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
     return(
 
@@ -290,7 +369,15 @@ const WeddingHallDetails = ({navigation,route})=>{
                     {weddinghall?.price}
                 </Text>
              </View>
-           
+             <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:15 }}>
+                
+                <TouchableOpacity style={styles.mapButton} onPress={toggleModal}>
+                <Icon name='map-marker-radius-outline' size={30}></Icon>
+                  <Text style={styles.mapButtonTitle}>Show Location</Text>
+                </TouchableOpacity>
+                
+             </View>
+             
         </View>
         <View style={styles.cartCard }>
         
@@ -325,35 +412,46 @@ const WeddingHallDetails = ({navigation,route})=>{
                 
             </View>
             </View> 
+
+        
         </View>
        
     
             <View style={[styles.row ,{marginLeft :35}]}>
                 
             </View>
-        <View >
-        
-        <MapView 
-            onRegionChange={() => mapRef.current.forceUpdate()}
-            ref={mapRef}
-            style={styles.map}
-            
-          initialRegion={myRegion}
-            
-        >
 
-        { weddinghall &&
-                    <Marker
-                    coordinate={{
-                        latitude: Number(weddinghall?.latitude),
-                        longitude: Number(weddinghall?.longitude),
-                    }}
-                    ></Marker>
-                }
+            <View>
+      <Modal isVisible={isModalVisible}>
+        <View style={{ flex: 1 }}>
+          <MapView 
+              onRegionChange={() => mapRef.current.forceUpdate()}
+              ref={mapRef}
+              style={styles.map}
+              
+            initialRegion={myRegion}
+              
+          >
 
-        
-            </MapView>
+          { weddinghall &&
+                      <Marker
+                      coordinate={{
+                          latitude: Number(weddinghall?.latitude),
+                          longitude: Number(weddinghall?.longitude),
+                      }}
+                      ></Marker>
+                  }
+
+          
+          </MapView>
+          <Button title="Hide" onPress={toggleModal} />
         </View>
+      </Modal>
+    </View>
+        <Gallery
+        style={{ flex: 1, height: 270 }}
+        images={images}
+      />
         <View>
         <TouchableOpacity style={styles.commandButton} onPress={() => {bs.current.snapTo(0)}}>
           <Text style={styles.panelButtonTitle}>Add Images</Text>
@@ -367,6 +465,9 @@ const WeddingHallDetails = ({navigation,route})=>{
         callbackNode={fall}
         enabledGestureInteraction={true}
       />
+
+      
+
         </View>
        </ScrollView>
     )
@@ -459,23 +560,22 @@ const styles =StyleSheet.create({
       },
       cartCard: {
         height: 200,
-        elevation: 15,
+        elevation: 5,
         borderRadius: 10,
         backgroundColor: COLORS.white,
-        marginVertical: 10,
-        marginHorizontal: 20,
+        marginVertical: 12,
+        marginHorizontal: 15,
         paddingHorizontal: 10,
         display:'flex',
         flexDirection:'row',
         justifyContent:'space-between',
       },
       cartCard1: {
-        height: 100,
-        elevation: 15,
+        height: 180,
+        elevation: 5,
         borderRadius: 10,
         backgroundColor: COLORS.white,
-        marginVertical: 10,
-        marginHorizontal: 20,
+        marginHorizontal: 15,
         paddingHorizontal: 10,
         
       },
@@ -487,6 +587,13 @@ const styles =StyleSheet.create({
         alignItems: 'center',
         marginTop: 10,
         marginBottom:10,
+      },
+      mapButton: {
+        marginTop : 10,
+        flexDirection :'row',
+        backgroundColor: '#ffffff',
+        alignItems: 'center',
+        
       },
       panel: {
         padding: 20,
@@ -541,6 +648,12 @@ const styles =StyleSheet.create({
         fontSize: 17,
         fontWeight: 'bold',
         color: 'white',
+      },
+      mapButtonTitle: {
+        marginLeft : 10,
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: '#FF6347',
       },
       action: {
         flexDirection: 'row',

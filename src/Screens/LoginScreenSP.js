@@ -43,6 +43,7 @@ import BasePath from "../constants/BasePath";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
 
 const send=()=>{
   let person={email:email, password:password}
@@ -50,11 +51,14 @@ const send=()=>{
   axios.post(BasePath + '/api/sp/login',person)
    .then(res=>{
      console.log(res.data)
-  //   if(res.data[0]==='succesfully connected')
-   // AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-   const userdata =res.data
-    // StorageUtils.storeData('user',userdata)
-  navigation.navigate("DrawerNavigator")
+    if(res.data==="Please fill all the fields" || res.data==="email not found" || res.data==="login failed" ){
+        setErrorMsg(res.data)
+    }else {
+      const userdata =res.data
+      StorageUtils.storeData('user',userdata)
+      navigation.navigate("DrawerNavigator")
+    }
+   
  })
   
 }
@@ -118,22 +122,44 @@ const send=()=>{
             keyboardType="password"
             inputType="password"
           />
-          <InputField
-            fieldButtonLabel={"Forgot?"}
-            fieldButtonFunction={() => {
-              onConfirmPressed();
-            }}
-          />
-          <CustomButton
-            label={"Login"}
-            title="to homePage"
-            onPress={send}
-            // onPress={() => this.props.navigation.navigate("Home")}
-          />
+           {errorMsg && 
+          <Text style={{color: 'red' , marginTop:-20}}>{errorMsg} </Text>}
+          
+         
+        
+
+          
+        <TouchableOpacity
+                disabled={email==="" ||password ===""}  
+                onPress={send} 
+                style={{
+                    backgroundColor: "#EBBAD2",
+                    padding: 5,
+                    borderRadius: 10,
+                    marginBottom: 30,
+                    borderColor: "#ddd",
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    paddingHorizontal: 30,
+                    paddingVertical: 10,
+                }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontWeight: "700",
+                  fontSize: 16,
+                  color: "#fff",
+                }}
+              >
+                Login
+              </Text>
+            </TouchableOpacity>
+
           <Text
             style={{ textAlign: "center", color: "#EBBAD2", marginBottom: 20 }}
           >
-            Or, login with ...
+            
           </Text>
           {/* <Icon.Button
             name="facebook"

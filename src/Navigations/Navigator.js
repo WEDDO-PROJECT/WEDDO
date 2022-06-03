@@ -31,6 +31,7 @@ import Rooms from "../Screens/Rooms.js";
 import CustomDrawer from "../components/Navigation/CustomDrawer.js";
 import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
 import DrawerNavigatorClient from "./Client/DrawerNavigator.js";
+import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
 const Stack = createStackNavigator();
 export default function Navigator(){
 
@@ -171,7 +172,7 @@ export default function Navigator(){
             }}
           />
 
-        {/* <Stack.Screen
+   
  <Stack.Screen
             name="WeddingHallDetails"
             component={WeddingHallDetails}
@@ -193,7 +194,7 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          /> */}
+          /> 
          
            
          <Stack.Screen
@@ -240,8 +241,7 @@ export default function Navigator(){
               title: "",
             }}
           />
-          
-          {/*  <Stack.Screen
+   
            <Stack.Screen
             name="Rooms"
             component={Rooms}
@@ -252,7 +252,7 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          /> */}
+          /> 
           
           
         </Stack.Navigator>
