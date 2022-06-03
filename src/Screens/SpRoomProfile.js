@@ -1,10 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import react, { useState,useEffect } from 'react';
-import {View, SafeAreaView,StyleSheet,Image,TouchableOpacity} from 'react-native';
+import {View, SafeAreaView,StyleSheet,Image,TouchableOpacity,ImageBackground} from 'react-native';
 import {Avatar,Title,Caption,Text,TouchableRipple} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfileSPRoom from './EditProfileRoom.js';
-import CardExemple from '../components/Card.js';
+// import CardExemple from '../components/Card.js';
 import StorageUtils from '../Utils/StorageUtils.js';
 const ProfileRoom = ({navigation})=>{
     
@@ -15,20 +15,21 @@ const ProfileRoom = ({navigation})=>{
   const [tel, setTel] = useState("");
   const [category, setCategory] = useState("");
   
+  const [image, setImage] = useState(null);
  
   useEffect(() => {
     async function getUser() {
       let data
       await StorageUtils.retrieveData('user').then((value) => (data = JSON.parse(value)));
-     console.log(data);
+      console.log(data);
       if (data === undefined) {
        console.log('not found')
       } else {
 
           setName(data.owner_name)
-         // console.log(data.'owner_name')
+          console.log("data : "+data)
           setEmail(data.email)
-        //  console.log(data.email)
+          console.log(data.email)
           setCategory(data.category)
           setCin(data.cin)
           setTel(data.tel)
@@ -57,7 +58,7 @@ const ProfileRoom = ({navigation})=>{
                style={{ marginRight: 5 }}
              />
          </TouchableOpacity>
-            <Title style={{marginLeft : '42%' ,fontSize:23}}>Profile</Title>
+            <Title style={{marginLeft : '42%' ,fontSize:23,marginTop:30}}>Profile</Title>
          <TouchableOpacity onPress={edit} style={styles.roundIconEdit}>
          <Ionicons
                name="md-person-sharp"
@@ -72,11 +73,34 @@ const ProfileRoom = ({navigation})=>{
 
         <View style={styles.userInfoSection}>
         
-            <View style={{flexDirection :'row' ,marginTop:50}}>
-            <Image
-                   source={require("../assets/SP.png")}
-                    style={styles.image}
+            <View style={{flexDirection :'row' ,marginTop:50,justifyContent:'center'}}>
+            <ImageBackground
+                source={{
+                  uri: image,
+                }}
+                style={{height: 100, width: 100}}
+                imageStyle={{borderRadius: 15,backgroundColor:'#D49B35'}}>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Icon
+                    name="camera"
+                    size={35}
+                    color="#fff"
+                    style={{
+                      opacity: 0.7,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1,
+                      borderColor: '#fff',
+                      borderRadius: 10,
+                    }}
                   />
+                </View>
+              </ImageBackground>
               
                 <View style={{marginLeft:20}}>
                     <Title style={[styles.title,{marginTop:15 ,marginBottom :5}]}> {name}</Title>
@@ -85,12 +109,7 @@ const ProfileRoom = ({navigation})=>{
                 </View>
         </View>
         <View style={styles.userInfoSection}>
-            <View style={styles.row}>
-                <Icon name='map-marker-radius'color='#777777' size={20}></Icon>
-                <Text style={{color:"#777777",marginLeft:20}}>
-                    Ariana , Tunis
-                </Text>
-            </View>
+           
             <View style={styles.row}>
                 <Icon name='phone'color='#777777' size={20}></Icon>
                 <Text style={{color:"#777777",marginLeft:20}}>
@@ -142,7 +161,8 @@ const styles =StyleSheet.create({
     },
     row:{
         flexDirection:'row',
-        marginBottom:10,
+        marginBottom:30,
+        marginLeft:70,
     },
     infoBoxWrapper :{
         borderBottomColor :'#dddddd',

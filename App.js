@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, Text, View } from "react-native";
+
 import React from "react";
 import RegisterScreen from "./src/Screens/RegisterScreen.js";
 import LoginScreen from "./src/Screens/LoginScreen.js";
@@ -10,6 +9,10 @@ import Home from "./src/Screens/Home.js"
 import CategoryChoice from "./src/Screens/CategoryChoice.js"
 import DrawerNavigator from './src/components/Navigation/DrawerContent.js'
 
+import i18n from "i18n-js";
+import { fr, en } from "./src/Utils/Localization/I18n";
+import * as Localization from "expo-localization";
+import { LocalizationContext } from "./src/Utils/Localization/LocalizationComponent";
 // import RegisterScreen from "./src/Screens/RegisterScreen.js";
 // import LoginScreen from "./src/Screens/LoginScreen.js";
 // import RegisterSP from "./src/Screens/RegisterSP.js";
@@ -23,19 +26,31 @@ import DrawerNavigator from './src/components/Navigation/DrawerContent.js'
 import SpRoomProfile from "./src/Screens/SpRoomProfile.js"
  //import Navigator from "./src/Navigations/Navigator.js"
 //  import * as Localization from "expo-localization";
-const LocalizationContext = React.createContext("");
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import DrawerNavigatorSP from "./src/Screens/DrawerNavigator.js";
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from '@react-navigation/native';
+
+
+
 import Navigator from "./src/Navigations/Navigator.js";
 
  import { LogBox } from 'react-native';
  
-// Ignore log notification by message
 LogBox.ignoreLogs(['Warning: ...']);
- 
-//Ignore all log notifications
 LogBox.ignoreAllLogs();
 export default function App() {
+
+  i18n.fallbacks = true;
+  i18n.translations = { fr, en };
+  const [locale, setLocale] = React.useState(Localization.locale);
+  const localizationContext = React.useMemo(
+    () => ({
+      t: (scope, options) => i18n.t(scope, { locale, ...options }),
+      locale,
+      setLocale,
+    }),
+    [locale]
+  );
   // const [locale, setLocale] = React.useState(Localization.locale);
   // const localizationContext = React.useMemo(
   //   () => ({
@@ -58,12 +73,11 @@ export default function App() {
     //         />
     // <Navigator />
     
-      <NavigationContainer independent={true}>
+    <LocalizationContext.Provider value={localizationContext}>
         <Navigator />
-         {/* <DrawerNavigator /> */}
          
          
-      </NavigationContainer>
+    </LocalizationContext.Provider>
     
     
  
@@ -77,7 +91,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#B22222",
     alignItems: "center",
     justifyContent: "center",
   },
