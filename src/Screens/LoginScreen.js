@@ -228,9 +228,9 @@ const send=()=>{
 
              <TouchableOpacity
               title="Register"
-              onPress={() => this.props.navigation.navigate("Register")}
+              onPress={() =>navigation.navigate("RegisterScreen")}
             > 
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }} onPress={()=>{navigation.navigate('RegisterSP')}}>
+              <Text style={{ color: "#AD40AF", fontWeight: "700" }} >
                 {" "}
                 Register
                 

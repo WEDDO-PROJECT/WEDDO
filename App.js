@@ -27,13 +27,9 @@ import SpRoomProfile from "./src/Screens/SpRoomProfile.js"
  //import Navigator from "./src/Navigations/Navigator.js"
 //  import * as Localization from "expo-localization";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Navigator from "./src/Navigations/Navigator.js"
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
 
-const LocalizationContext = React.createContext("");
 
 
 import Navigator from "./src/Navigations/Navigator.js";
