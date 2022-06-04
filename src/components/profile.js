@@ -56,6 +56,17 @@ export default class Profile extends Component {
     })
     
   }
+  rating(x){
+let obj={
+  user_id:this.state.user.id,
+  sp_id:this.state.profile.id,
+  rating:x
+}
+axios.post(`${BasePath}/api/rating/create`,obj)
+.then(res=>{
+  console.log(res.data);
+})
+  }
   send(){
     console.log('yes');
     console.log(this.state.profile,'but');
@@ -85,9 +96,23 @@ export default class Profile extends Component {
               <TouchableOpacity style={styles.buttonContainer}>
                 <Text>Contact Me</Text>  
               </TouchableOpacity>              
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text >Posts</Text>  
+              <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={() =>this.rating(1)}>
+                <Text style={{marginRight:10}} >1</Text>  
               </TouchableOpacity> 
+              <TouchableOpacity onPress={() =>this.rating(2)}>
+                <Text style={{marginRight:10}}>2</Text>  
+              </TouchableOpacity> 
+              <TouchableOpacity onPress={() =>this.rating(3)}>
+                <Text style={{marginRight:10}} >3</Text>  
+              </TouchableOpacity> 
+              <TouchableOpacity onPress={() =>this.rating(4)}>
+                <Text style={{marginRight:10}}>4</Text>  
+              </TouchableOpacity> 
+              <TouchableOpacity onPress={() =>this.rating(5)}>
+                <Text style={{marginRight:10}} >5</Text>  
+              </TouchableOpacity> 
+              </View>
               <TouchableOpacity style={styles.buttonContainer}
               onPress={() =>this.send()}>
                 <Text >{this.state.date}</Text>  

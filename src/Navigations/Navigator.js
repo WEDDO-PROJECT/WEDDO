@@ -57,7 +57,7 @@ export default function Navigator(){
     return (
     
         <Stack.Navigator
-          initialRouteName={user.id == "notFound" ? "LandingPage" : "DrawerNavigator"}
+          initialRouteName={user.id == "notFound" ? "drawer" : "DrawerNavigator"}
         >
           <Stack.Screen
             name="drawer"
