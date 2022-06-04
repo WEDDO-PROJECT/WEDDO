@@ -49,7 +49,7 @@ const RegisterSP = ({ navigation }) => {
       //console.log(response.data.result[0])
       const userdata =response.data.result[0]
      StorageUtils.storeData('user',userdata)
-       navigation.navigate("DrawerNavigator")
+       navigation.navigate("Profile")
     })
     .catch((error)=>{
       console.log(error)

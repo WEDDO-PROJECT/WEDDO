@@ -7,7 +7,6 @@ import LoginScreen from "../../Screens/LoginScreen";
 import CustomDrawer from "./CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Tabnavigation from '../Navigation/Tabnavigation.js'; 
-import Navigator from "../../Navigations/Navigator"
 import Checklist from "../../Screens/Checklist.js";
 import Settings from "../homeComponents/Settings.js"
 

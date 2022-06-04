@@ -20,7 +20,6 @@ import Background from "../assets/Background.webp";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome";
 import StorageUtils from "../Utils/StorageUtils.js";
-import AsyncStorage from "@react-native-community/async-storage";
 import BasePath from "../constants/BasePath";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
