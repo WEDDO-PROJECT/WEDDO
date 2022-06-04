@@ -56,7 +56,15 @@ const send=()=>{
     }else {
       const userdata =res.data
       StorageUtils.storeData('user',userdata)
-      navigation.navigate("DrawerNavigator")
+      if(userdata.category=='Hairdresser'){
+        navigation.navigate("DrawerNavigatorHairdresser")
+      }else if(userdata.category=='partyroom'){
+        navigation.navigate("DrawerNavigatorSP")
+      }else if(userdata.category=='Photographer'){
+        navigation.navigate("DrawerNavigatorPhotographer")
+      } if(userdata.category=='MusicalBand'){
+        navigation.navigate("DrawerNavigatorMusicalBand")
+      }
     }
    
  })

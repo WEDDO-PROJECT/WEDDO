@@ -82,40 +82,6 @@ const  DrawerContentRoom = ({navigation}) => {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="bookmark-outline" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="Bookmarks"
-                           // onPress={() => {props.navigation.navigate('BookmarkScreen')}}
-                        />
-                        
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-check-outline" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="Support"
-                           // onPress={() => {props.navigation.navigate('SupportScreen')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="map-marker-radius-outline" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="localisation"
-                            onPress={() => {navigation.navigate('MapContent')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
                                 name="format-list-group" 
                                 color={color}
                                 size={35}
