@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     },
     slider: {
       height: 0.5 * height,
-      backgroundColor: "#FFD804",
+      backgroundColor: "#B22222",
       borderBottomRightRadius: 75,
       backgroundColor:"white",
       width:width

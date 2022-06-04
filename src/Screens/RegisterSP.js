@@ -29,15 +29,35 @@ const RegisterSP = ({ navigation }) => {
   const [confirmPassword,setConfirmPassword]=useState("")
   const [tel,setTel]=useState("")
   const [category,setCategory]=useState("")
+
+  
+  let charactersRegex = /^[a-zA-z]+$/;
+  let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+  const [data, setData] = React.useState({
+                                tel: "",
+                                password: "",
+                                owner_name: "",
+                                email:"",
+                                category:"",
+                                cin:"",
+                                owner_nameChange: false,
+                                passwordChange: false,
+                                emailChange:false,
+                                categoryChange:false,
+                                cinChange:false,
+                                telChange: false,
+                              });
   const register=async()=>{
     
     const UserRegister ={
-    owner_name : name,
-    email : email,
-    cin: cin,
-    tel : tel,
-    category : category,
-    password : password,
+    owner_name :data.owner_name,
+    email : data.email,
+    cin: data.cin,
+    tel :data.tel,
+    category : data.category,
+    password : data.password,
     // confirmPassword
     }
     axios
@@ -45,7 +65,8 @@ const RegisterSP = ({ navigation }) => {
     .post(BasePath + "/api/sp/Register",UserRegister)
 
     .then((response)=>{
-      //console.log(response.data.result[0])
+      console.log("response.data.result[0]")
+      console.log(response.data.result[0])
       const userdata =response.data.result[0]
      StorageUtils.storeData('user',userdata)
        navigation.navigate("DrawerNavigator")
@@ -55,6 +76,95 @@ const RegisterSP = ({ navigation }) => {
     })
     console.log(UserRegister)
   }
+
+  const telChange = (val) => {
+    if (val.length === 8) {
+      setData({
+        ...data,
+        tel: val,
+        telChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        tel: val,
+        telChange: false,
+      });
+    }
+  };
+  const owner_nameChange = (val) => {
+    if (val.length > 3 && charactersRegex.test(val)) {
+      setData({
+        ...data,
+        owner_name: val,
+        owner_nameChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        owner_name: val,
+        owner_nameChange: false,
+      });
+    }
+  };
+  const emailChange = (val) => {
+    if (val.length > 3 && emailRegex.test(val)) {
+      setData({
+        ...data,
+        email: val,
+        emailChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        email: val,
+        emailChange: false,
+      });
+    }
+  };
+  const categoryChange = (val) => {
+   
+      setData({
+        ...data,
+        category: val,
+        categoryChange: true,
+      });
+    
+  };
+  const cinChange = (val) => {
+    if (val.length === 8) {
+      setData({
+        ...data,
+        cin: val,
+        cinChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        cin: val,
+        cinChange: false,
+      });
+    }
+  };
+  const passwordChange = (val) => {
+    if (val.length > 3 && passwordRegex.test(val)) {
+      setData({
+        ...data,
+        password: val,
+        passwordChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        password: val,
+        passwordChange: false,
+      });
+    }
+  };
+
+
+
+
   const onChangeName =(text)=>{
     //console.log(text)
     setName(text)
@@ -118,10 +228,10 @@ const RegisterSP = ({ navigation }) => {
         </Text>
        
         
-      
+        <View>
         <InputField
-          label={"Full Name"}
-          setValue={onChangeName}
+          label={"Name"}
+          setValue={owner_nameChange}
           icon={
             <Ionicons
               name="person-outline"
@@ -131,9 +241,14 @@ const RegisterSP = ({ navigation }) => {
             />
           }
         />
+        {!data.owner_nameChange && data.owner_name!=="" ? (
+          <Text style={{color: 'red' , marginTop : -18}}>Name must only contains Characters </Text>
+        ) : null} 
+        </View>
+        <View>
         <InputField
           label={"Email "}
-          setValue={onChangeEmail}
+          setValue={emailChange}
           icon={
             <MaterialIcons
               name="alternate-email"
@@ -144,9 +259,13 @@ const RegisterSP = ({ navigation }) => {
           }
           keyboardType="email-address"
         />
+        {!data.emailChange && data.email!==""  ? (
+          <Text style={{color: 'red' , marginTop : -18}}>email must be correct</Text>
+        ) : null}</View>
+        <View>
          <InputField
           label={"CIN"}
-          setValue={onChangeCin}
+          setValue={cinChange}
           icon={
             <MaterialIcons
               name="badge"
@@ -157,23 +276,26 @@ const RegisterSP = ({ navigation }) => {
           }
           keyboardType="email-address"
         />
+         {!data.cinChange && data.cin!=="" ? (
+          <Text style={{color: 'red' , marginTop : -18}}>cin has 8 numbers </Text>
+        ) : null}</View>
         <View style={{marginBottom:15, marginTop:-20}}>
         <RNPickerSelect
                  
                  items={[
                      { label: "Beauty salons", value: "Hairdresser" },
                      { label: "Musical Band", value: "MusicalBand" },
-                     { label: "Marriage hall", value: "partyroom" },
+                     { label: "Wedding hall", value: "partyroom" },
                      { label: "Photographer", value: "Photographer" },
                      
                  ]}
-                 onValueChange={(e)=>setCategory(e)}
+                 onValueChange={(e)=>categoryChange(e)}
              />
         </View>
-       
+        <View>
           <InputField
                 label={"Phone Number"}
-                setValue={onChangeTel}
+                setValue={telChange}
                 keyboardType="numeric"
                 icon={
             <Ionicons
@@ -183,10 +305,13 @@ const RegisterSP = ({ navigation }) => {
               style={{ marginRight: 5 }}
             />
           }
-        />
+        />{!data.telChange && data.tel!==""  ? (
+          <Text style={{color: 'red' , marginTop : -18}}>phone must have 8 numbers </Text>
+        ) : null}</View>
+        <View>
         <InputField
           label={"Password"}
-          setValue={onChanePassword}
+          setValue={passwordChange}
           icon={
             <Ionicons
               name="ios-lock-closed-outline"
@@ -197,6 +322,9 @@ const RegisterSP = ({ navigation }) => {
           }
           inputType="password"
         />
+        {!data.passwordChange && data.password!=="" ? (
+          <Text style={{color: 'red' , marginTop : -18}}> password not strong enough </Text>
+        ) : null}</View>
         <InputField
           label={"Confirm Password"}
           setValue={onconfirmPassword}
@@ -210,26 +338,49 @@ const RegisterSP = ({ navigation }) => {
           }
           inputType="password"
         />
+      
        
         
 
         <View>
-           <CustomButton  label= {"Register"}  onPress={register} />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
 
-            }}
-          >
-            
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
-                {" "}
-                Login
-              </Text>
-            </TouchableOpacity>
-          </View>
+        <TouchableOpacity
+              disabled={
+                !data.categoryChange &&
+                !data.cinChange &&
+                !data.telChange &&
+                !data.owner_nameChange &&
+                !data.passwordChange &&
+                !data.emailChange 
+
+                }  onPress={register} 
+                  style={{
+                    backgroundColor: "#EBBAD2",
+                    padding: 5,
+                    borderRadius: 10,
+                    marginBottom: 30,
+                    borderColor: "#ddd",
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    paddingHorizontal: 30,
+                    paddingVertical: 10,
+                  }}
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          fontWeight: "700",
+          fontSize: 16,
+          color: "#fff",
+        }}
+      >
+        Register
+      </Text>
+    </TouchableOpacity>
+
+
+
+
         </View>
       </SafeAreaView>
     </ImageBackground>
@@ -252,5 +403,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 20,
   },
-  
 });

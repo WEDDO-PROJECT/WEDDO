@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   ImageBackground,
   View,
@@ -11,15 +12,18 @@ import {
   useWindowDimensions,
   StyleSheet,
 } from "react-native";
+import { AsyncStorage } from 'react-native';
 // import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import StorageUtils from "../Utils/StorageUtils"
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
-import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
+import Profile from "../components/profile.js";
+import axios from 'axios'
 
 import BasePath from "../constants/BasePath";
 import { NativeModules } from 'react-native';
@@ -44,22 +48,57 @@ import { NativeModules } from 'react-native';
 // const onConfirmPressed = () => {
 //   navigation.navigate("Home");
 // };
-import Icon from "react-native-vector-icons/FontAwesome";
-import StorageUtils from "../Utils/StorageUtils.js";
-const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+// import Icon from "react-native-vector-icons/FontAwesome";
+const LoginScreen = () => {
+    const [password,setPassword]=useState("");
+    const [email, setEmail] = useState("");
+    
+  const [errorMsg, setErrorMsg] = useState(null);
+    const navigation = useNavigation();
+  //   const onLoginPressed =()=>{
+  //     obj={
+  //       password:password,
+  //       email:email
+  //     }
+  //     axios
+  //     .post(BasePath+"/api/sp/login", {
+  //       password,
+  //       email
+  //     })
+  //     .then((res)=>{
+  //       if(res.data[0] ==="Email or password is incorrect!"){
+  //         // console.log(data)
+  //         // console.log(res.result)
+  //         console.warn("wrong password or email")
+  //       }
+  // console.log(res.data)
+
+  // // await AsyncStorage.setItem("response",JSON.stringify(res.data))
+
+  // // navigation.navigate("Profile")
+  // //       }
+  //     })
+  // // .catch((err)=>console.log(err))
+
+
+  // };
 
 const send=()=>{
   let person={email:email, password:password}
   console.log(person);
   axios.post(BasePath + '/api/user/login',person)
-  .then(res=>{console.log('data',res.data)
-    //  if(res.data[0]==='succesfully connected')
-    // AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-  const userdata =res.data
-  StorageUtils.storeData('user',userdata)
-    navigation.navigate("drawer")
+  .then(res=>{console.log(res.data)
+    
+  if(res.data[0]==="Please fill all the fields" || res.data[0]==="email not found" || res.data[0]==="login failed" ){
+    setErrorMsg(res.data)
+  }
+  if(res.data[0]==='success'){
+    var userdata =res.data[1]
+    console.log(userdata);
+    AsyncStorage.setItem('user',JSON.stringify(userdata))
+    navigation.navigate("drawer");
+  }
+    
 
   }).catch(err=>{console.log('error', err.message)})
   
@@ -117,19 +156,99 @@ const send=()=>{
             keyboardType="password"
             inputType="password"
           />
-          <InputField
-            fieldButtonLabel={"Forgot?"}
-            fieldButtonFunction={() => {
-              onConfirmPressed();
-            }}
-          />
-          <CustomButton
-            label={"Login"}
-            title="to homePage"
-            onPress={send}
-            // onPress={() => this.props.navigation.navigate("Home")}
-          />
+          {errorMsg && 
+          <Text style={{color: 'red' , marginTop:-20}}>{errorMsg} </Text>}
           
+          
+        <TouchableOpacity
+                disabled={email==="" ||password ===""}  
+                onPress={send} 
+                style={{
+                    backgroundColor: "#EBBAD2",
+                    padding: 5,
+                    borderRadius: 10,
+                    marginBottom: 30,
+                    borderColor: "#ddd",
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    paddingHorizontal: 30,
+                    paddingVertical: 10,
+                }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontWeight: "700",
+                  fontSize: 16,
+                  color: "#fff",
+                }}
+              >
+                Login
+              </Text>
+            </TouchableOpacity>
+          <Text
+            style={{ textAlign: "center", color: "#EBBAD2", marginBottom: 20 }}
+          >
+           
+          </Text>
+          {/* <Icon.Button
+            name="facebook"
+            backgroundColor="#3b5998"
+            style={{
+              borderColor: "#ffff",
+              borderWidth: 2,
+              borderRadius: 10,
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+            }}
+          >
+            Login with Facebook
+          </Icon.Button> */}
+          {/* <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginBottom: 30,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {}}
+              style={{
+                borderColor: "#ddd",
+                borderWidth: 2,
+                borderRadius: 10,
+                paddingHorizontal: 30,
+                paddingVertical: 10,
+              }}
+            >
+              <GoogleSVG height={24} width={24} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {}}
+              style={{
+                borderColor: "#ddd",
+                borderWidth: 2,
+                borderRadius: 10,
+                paddingHorizontal: 30,
+                paddingVertical: 10,
+              }}
+            >
+              <FacebookSVG height={24} width={24} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {}}
+              style={{
+                borderColor: "#ddd",
+                borderWidth: 2,
+                borderRadius: 10,
+                paddingHorizontal: 30,
+                paddingVertical: 10,
+              }}
+            >
+              <TwitterSVG height={24} width={24} />
+            </TouchableOpacity>
+          </View> */}
+
           <View
             style={{
               flexDirection: "row",
@@ -141,11 +260,12 @@ const send=()=>{
 
              <TouchableOpacity
               title="Register"
-              onPress={() => navigation.navigate("RegisterScreen")}
+              onPress={() =>navigation.navigate("RegisterScreen")}
             > 
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+              <Text style={{ color: "#AD40AF", fontWeight: "700" }} >
                 {" "}
                 Register
+                
               </Text>
          
           </TouchableOpacity> 
