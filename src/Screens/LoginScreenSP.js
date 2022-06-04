@@ -59,7 +59,7 @@ const send=()=>{
       if(userdata.category=='Hairdresser'){
         navigation.navigate("DrawerNavigatorHairdresser")
       }else if(userdata.category=='partyroom'){
-        navigation.navigate("DrawerNavigatorSP")
+        navigation.navigate("DrawerNavigator")
       }else if(userdata.category=='Photographer'){
         navigation.navigate("DrawerNavigatorPhotographer")
       } if(userdata.category=='MusicalBand'){

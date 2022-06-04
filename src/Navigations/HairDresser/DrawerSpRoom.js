@@ -80,6 +80,18 @@ const  DrawerContentRoom = ({navigation}) => {
                             label="Profile"
                            // onPress={() => {props.navigation.navigate('Profile')}}
                         />
+
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="account-outline" 
+                                color={color}
+                                size={35}
+                                />
+                            )}
+                            label="Profile"
+                           // onPress={() => {props.navigation.navigate('Profile')}}
+                        />
                         
                     </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">

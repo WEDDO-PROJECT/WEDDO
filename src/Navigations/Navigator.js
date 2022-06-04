@@ -26,6 +26,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import DrawerNavigator from "./SPRoom/DrawerNavigator";
 import EditProfileSPRoom from "../Screens/EditProfileRoom.js";
 import MapContent from '../Screens/Map'
+import Gallery from '../Screens/Gallery'
 import WeddingHalls from '../Screens/WeddingHall'
 import Rooms from "../Screens/Rooms.js";
 import CustomDrawer from "../components/Navigation/CustomDrawer.js";
@@ -131,6 +132,13 @@ export default function Navigator(){
           <Stack.Screen
             name="CategoryChoice"
             component={CategoryChoice}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Gallery"
+            component={Gallery}
             options={{
               headerShown: false,
             }}
