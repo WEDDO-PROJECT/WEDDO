@@ -165,7 +165,11 @@ const emailChange = (val) => {
         <View>
         <InputField
           label={"Email "}
+
+          setValue={setEmail}
+
           setValue={emailChange}
+
           icon={
             <MaterialIcons
               name="alternate-email"

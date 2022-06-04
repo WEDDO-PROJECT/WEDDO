@@ -10,7 +10,9 @@ import {
   navigation,
   useWindowDimensions,
 } from "react-native";
+
 import { AsyncStorage } from 'react-native';
+
 // import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
@@ -18,29 +20,25 @@ import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
+
+import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { useNavigation } from "@react-navigation/native";
 import Profile from "../components/profile.js";
 import axios from 'axios'
 
+
 import BasePath from "../constants/BasePath";
 import StorageUtils from "../Utils/StorageUtils.js";
-// import { useNavigation } from "@react-navigation/native";
-// import GoogleSVG from "../assets/google.svg";
-// import FacebookSVG from "../assets/facebook.svg";
-// import TwitterSVG from "../assets/twitter.svg";
-// import Google from "./google.js"
-// import Roboto-Medium from '../assets/font/Roboto-Medium.ttf'
-// import { TextInput } from "react-native-web";
-// import {
-//   GoogleSignin,
-//   GoogleSigninButton,
-//   statusCodes,
-// } from "react-native-google-signin";
-// const navigation = useNavigation();
 
-// const onConfirmPressed = () => {
-//   navigation.navigate("Home");
-// };
+
+import Icon from "react-native-vector-icons/FontAwesome";
+// import StorageUtils from "../Utils/StorageUtils.js";
+const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
 // import Icon from "react-native-vector-icons/FontAwesome";
 const LoginScreen = () => {
     const [password,setPassword]=useState("");
@@ -67,15 +65,21 @@ const LoginScreen = () => {
   navigation.navigate("Profile")
         }
       }).catch((err)=>console.log(err))
-
-
   };
+
 
 const send=()=>{
   let person={email:email, password:password}
   console.log(person);
   axios.post(BasePath + '/api/user/login',person)
   .then(res=>{console.log(res.data)
+
+     if(res.data[0]==='success'){
+       AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
+       navigation.navigate("drawer")
+     }
+
+
     
   if(res.data==="Please fill all the fields" || res.data==="email not found" || res.data==="login failed" ){
     setErrorMsg(res.data)
@@ -84,7 +88,7 @@ const send=()=>{
     StorageUtils.storeData('user',userdata)
     navigation.navigate("drawer")
   }
-    
+
 
   })
   
@@ -253,9 +257,15 @@ const send=()=>{
 
              <TouchableOpacity
               title="Register"
+
+              onPress={() => navigation.navigate("RegisterScreen")}
+            > 
+              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+
               onPress={() =>navigation.navigate("RegisterScreen")}
             > 
               <Text style={{ color: "#AD40AF", fontWeight: "700" }} >
+
                 {" "}
                 Register
                 

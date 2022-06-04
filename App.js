@@ -27,6 +27,7 @@ import SpRoomProfile from "./src/Screens/SpRoomProfile.js"
  //import Navigator from "./src/Navigations/Navigator.js"
 //  import * as Localization from "expo-localization";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -91,7 +92,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white,
     backgroundColor: "#B22222",
+
     alignItems: "center",
     justifyContent: "center",
   },
