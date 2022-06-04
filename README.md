@@ -2,9 +2,8 @@
 jjg
 test
 #Mourad
-// Color Codes : 
+// Color Codes // 
 
-grey   : '#696969'
-pink :   '#f0c5da'
-test
-owwwTest
+    White : 'white'
+    Gold :   '#D49B35'
+    Red : #64182b

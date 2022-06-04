@@ -10,6 +10,7 @@ import {
   navigation,
   useWindowDimensions,
 } from "react-native";
+// import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
@@ -18,6 +19,8 @@ import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import BasePath from "../constants/BasePath";
 // import { useNavigation } from "@react-navigation/native";
 // import GoogleSVG from "../assets/google.svg";
 // import FacebookSVG from "../assets/facebook.svg";
@@ -36,6 +39,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //   navigation.navigate("Home");
 // };
 import Icon from "react-native-vector-icons/FontAwesome";
+// import StorageUtils from "../Utils/StorageUtils.js";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,11 +47,13 @@ const LoginScreen = ({navigation}) => {
 const send=()=>{
   let person={email:email, password:password}
   console.log(person);
-  axios.post('http://192.168.28.15:3000/api/user/login',person)
+  axios.post(BasePath + '/api/user/login',person)
   .then(res=>{console.log(res.data)
-     if(res.data[0]==='succesfully connected')
-    AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-   navigation.navigate("Home")
+     if(res.data[0]==='success'){
+       AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
+       navigation.navigate("drawer")
+     }
+
 
   })
   
@@ -203,6 +209,7 @@ const send=()=>{
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
                 {" "}
                 Register
+                
               </Text>
             {/* </TouchableOpacity> */}
             {/* <TouchableOpacity

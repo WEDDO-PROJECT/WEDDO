@@ -10,6 +10,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text } from "../components/Themed";
 import axios from "axios";
 
+import BasePath from "../constants/BasePath";
 const  MapContent = ({navigation}) => {
     const [myLocation, setLocation] = useState<LocationObject>();
     const [myRegion, setRegion] = useState<Region>(undefined);
@@ -91,12 +92,12 @@ const  MapContent = ({navigation}) => {
           longitude:marker.longitude
         }
         axios 
-        .post("http://192.168.11.203:3000/api/sp/addSalle",body)
+        .post(BasePath + "/api/sp/addSalle",body)
         .then((response)=>{
           //console.log(response.data.result[0])
-          const userdata =response.data.result[0]
-          navigation.navigate("Rooms")
-          console.log(userdata)
+          const data =response.data.result[0]
+          navigation.navigate("WeddingHallDetails",{weddinghalldata : data})
+          console.log(data)
         })
         .catch((error)=>{
           console.log(error)
@@ -131,7 +132,7 @@ const  MapContent = ({navigation}) => {
                 <View style={styles.view}>
                 <TextInput
                   style={styles.input}
-                  placeholder={'Room Name'}
+                  placeholder={'Marriege Hall'}
                   value={name}
                   onChangeText={(text) => editName(text)}
                 ></TextInput>
@@ -155,7 +156,7 @@ const  MapContent = ({navigation}) => {
                 <Text
                   style={ styles.switchTextActive }
                 > 
-                Add Room
+                Add 
                 </Text>
               </TouchableOpacity>
             </View>
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
       color: "#FFD804",
       marginLeft: 5,
 
-      
+
     },
     roundButtonActive: {
       borderWidth: 1,

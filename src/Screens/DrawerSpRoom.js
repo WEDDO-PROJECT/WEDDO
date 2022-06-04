@@ -119,7 +119,7 @@ const  DrawerContentRoom = ({navigation}) => {
                                 size={size}
                                 />
                             )}
-                            label="AddRoomParty"
+                            label="localisation"
                             onPress={() => {navigation.navigate('MapContent')}}
                         />
                         <DrawerItem 
@@ -130,7 +130,7 @@ const  DrawerContentRoom = ({navigation}) => {
                                 size={size}
                                 />
                             )}
-                            label="Rooms"
+                            label="marriage halls"
                             onPress={() => {navigation.navigate('Rooms')}}
                         />
                     </Drawer.Section>

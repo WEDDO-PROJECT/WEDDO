@@ -1,10 +1,13 @@
 import React,{useEffect, useState} from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,Image,ImageBackground , ScrollView} from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,Image,ImageBackground , ScrollView, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Cards from '../components/homeComponents/Cards';
-import Background from "../assets/Background.webp";
+// import iP from '../constants/BasePath.js';
+
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BasePath from "../constants/BasePath";
 // import StorageUtils from '../Utils/StorageUtils';
 const Home =({ navigation})=> {
   let imagePh = require('../assets/iconPhotogrape.png');
@@ -17,27 +20,18 @@ const Home =({ navigation})=> {
   const [allData,setAllData]=useState([])
   const [filtredData,setFIltredData]=useState([])
   const [view,setView]=useState(null)
-  const [from, setFrom] = useState("");
-  const [end, setEnd] = useState("");
+  const [start, setStart] = useState("");
+
   const array=[]
   useEffect(()=>{         // bring the url from the backend  
-  // useEffect(()=>{         // bring the url from the backend 
-     
-  //     StorageUtils.retrieveData('user').then((value) =>
-  //    //setUser(JSON.parse(value))
-  //    console.log(value)
-  //  );
-    axios.get('http://localhost:3000/api/sp/all')
+  setStart('')
+    axios.get(BasePath + '/api/sp/all')
     .then(res=>{console.log(res.data)
       setAllData(res.data)})
     .catch(err=>console.log(err))
-    
     setAllData(array);
-    AsyncStorage.getItem('user')
-   .then(res=>console.log(res))
-   
-  
-
+    // AsyncStorage.getItem('user')
+    // .then(res=>console.log(res))
   },[])
   const buttonFunction=(val)=>{
     var array=[]
@@ -87,14 +81,15 @@ if (val===4){
     navigation.navigate({
       name: "Calendar",
       params: {
-        start: setFrom,
-        end: setEnd,
+        setStart: setStart
       },
       merge: true,
     });
   }
-    return ( 
-   <ScrollView>
+    return (
+  <ScrollView style={{backgroundColor:"white"}}>
+     <SafeAreaView>    
+   
         <View style={styles.container}>  
           <View
             style={{
@@ -102,7 +97,7 @@ if (val===4){
               marginTop: 40,
               // backgroundColor:"#AF9E9E",
               borderRadius: 10,
-              // backgroundColor: '#f0c5da',
+              // backgroundColor: '#D49B35',
               height: 60,
               bottom: 16,
               // right: 16,
@@ -183,13 +178,13 @@ if (val===4){
          
           </View>
           <View>
-          <View style={styles.leftFrom}>
+          <View>
           <Text
                 style={styles.inputFrom}
                 onPress={() => {
                   nav();
                 }}
-              >{from === "" ? "From" : from}{"   "}<Ionicons name="calendar-outline" size={26}></Ionicons>{"   "}{end === "" ? "To" : end}
+              ><Ionicons name="calendar-outline" style ={{color:'#D49B35'}} size={26}></Ionicons>{"   "}{start === "" ? "Choose date" : start}
               </Text>
             </View>
               </View>
@@ -198,14 +193,24 @@ if (val===4){
              <Cards style={{
               // flexDirection: "row",
               // top: 30,
-            }} filtredData={allData} setTView={setView}></Cards> 
+            }} filtredData={allData} setTView={setView} navigation={navigation}start={start}></Cards> 
           }
           {view&&
           <Cards style={{
             // flexDirection: "row",
             // top: 30,
-          }} filtredData={filtredData} setTView={setView}></Cards> 
+          }} filtredData={filtredData} setTView={setView} navigation={navigation} start={start}></Cards> 
           }
+          
+    
+
+  
+
+  
+
+
+
+
             
               
              
@@ -213,42 +218,63 @@ if (val===4){
 
             
         </View>
-
-
-
-
-        </ScrollView>
-        
+        </SafeAreaView>
+  </ScrollView>
      );
 }
 const styles = StyleSheet.create({
     container: {
       // flex: 1,
-      alignItems: 'center',
+      alignItems:   'center',
       justifyContent: 'center',
       backgroundColor:"white"
     
     },
+    container2: {
+      flex: 1,
+      justifyContent: "space-around",
+      alignItems: "center"
+    },
     image:{
-     margin:5, width: 50, height: 50, borderRadius:30,
+     margin:5,
+     width: 50,
+     height: 50,
+     borderRadius:30,
+     borderWidth: 2,
+     borderColor:'#D49B35',
     },
     text:{
-     textAlign: 'center', color: "#AD40AF",fontSize:8
+     textAlign: 'center',
+     color: "#D49B35",
+     fontSize:10
     },
     
     clicked:{
       marginTop:10,
-      backgroundColor:'transparent',
+      // backgroundColor:'transparent',
       borderRadius:5
     },
     inputFrom:{
+      backgroundColor:'white',
       fontFamily: "sans-serif-thin",
-      fontWeight: "bold",
+      // fontWeight: "bold",
       textAlign:"center",
+      // fontColor:'#D49B35',
       left:-6,
+      borderWidth: 0.5,
+      borderColor: "#777",
+      padding: 8,
+      margin: 10,
+      borderRadius: 6,
+      height: 50,
+      maxWidth: 340,
+      width: 300,
+      elevation: 12,
+      alignSelf: "center",
+      borderColor: "#D49B35"
     },
     leftFrom: {
-      backgroundColor: "white",
+      backgroundColor: "#D49B35",
       borderWidth: 0.5,
       borderColor: "#777",
       padding: 8,
@@ -261,7 +287,7 @@ const styles = StyleSheet.create({
       alignSelf: "center",
     },
     box: {
-      backgroundColor:'#f0c5da',
+      backgroundColor:'white',
       justifyContent: "center",
       alignSelf: "center",
       height: 55,
@@ -271,7 +297,9 @@ const styles = StyleSheet.create({
       // marginVertical: 30,
       marginHorizontal: 11,
       borderRadius: 10,
-      elevation: 20,
+      // elevation: 20,
+      borderColor:'#D49B35',
+      borderWidth: 1.5,
     },
 })
 export default Home;

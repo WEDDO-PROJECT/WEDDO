@@ -19,6 +19,7 @@ import axios from "axios";
 import StorageUtils from "../Utils/StorageUtils.js";
 import { CurrentRenderContext } from "@react-navigation/native";
 
+import BasePath from "../constants/BasePath";
 
 const RegisterSP = ({ navigation }) => {
   const [name,setName]=useState("")
@@ -40,7 +41,9 @@ const RegisterSP = ({ navigation }) => {
     // confirmPassword
     }
     axios
-    .post("http://192.168.11.11:3000/api/sp/Register",UserRegister)
+
+    .post(BasePath + "/api/sp/Register",UserRegister)
+
     .then((response)=>{
       //console.log(response.data.result[0])
       const userdata =response.data.result[0]
@@ -158,9 +161,9 @@ const RegisterSP = ({ navigation }) => {
         <RNPickerSelect
                  
                  items={[
-                     { label: "Hairdresser", value: "Hairdresser" },
+                     { label: "Beauty salons", value: "Hairdresser" },
                      { label: "Musical Band", value: "MusicalBand" },
-                     { label: "Party Room", value: "partyroom" },
+                     { label: "Marriage hall", value: "partyroom" },
                      { label: "Photographer", value: "Photographer" },
                      
                  ]}
@@ -219,7 +222,7 @@ const RegisterSP = ({ navigation }) => {
 
             }}
           >
-            <Text> Already registered? </Text>
+            
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
                 {" "}
