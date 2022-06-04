@@ -1,6 +1,7 @@
 import { StyleSheet, View , ScrollView} from "react-native";
 import React from "react";
 import Calendar from "react-native-calendar-range-picker";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const CUSTOM_LOCALE = {
   monthNames: [
     "January",
@@ -15,6 +16,8 @@ const CUSTOM_LOCALE = {
     "October",
     "November",
     "December",
+    
+    
   ],
   dayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
   today: "Today",
@@ -22,17 +25,16 @@ const CUSTOM_LOCALE = {
 };
 
 export default function CalendarInput({navigation ,route}) {
-const {start , end}=route.params
+const setStart=route.params.setStart
   return (
     <ScrollView style={styles.containerCalendar}>
       <Calendar
         style={styles.calendar}
         locale={CUSTOM_LOCALE}
-        onChange={({ startDate, endDate }) => {
-          start(startDate)
-          end(endDate);
-          console.log({start,end})
-          {endDate && navigation.goBack()}
+        onChange={({ startDate}) => {
+          setStart(startDate)
+          AsyncStorage.setItem('startDate',startDate)
+           navigation.goBack()
         }}
         pastYearRange={0}
         futureYearRange={1}
