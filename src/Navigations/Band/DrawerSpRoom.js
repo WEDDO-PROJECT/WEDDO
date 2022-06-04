@@ -85,11 +85,11 @@ const  DrawerContentRoom = ({navigation}) => {
                                 <Icon 
                                 name="image-multiple-outline" 
                                 color={color}
-                                size={35}
+                                size={30}
                                 />
                             )}
-                            label="Galery"
-                            onPress={() => {navigation.navigate('MapContent')}}
+                            label="My Space"
+                           onPress={() => {navigation.navigate('Gallery')}}
                         />
                         
                     </Drawer.Section>

@@ -9,7 +9,7 @@ import * as Permissions from 'expo-permissions';
 import Gallery from 'react-native-image-gallery';
 import { Dimensions } from 'react-native';
 const { height, width } = Dimensions.get( 'window' );
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 import BasePath from "../constants/BasePath";
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -30,6 +30,7 @@ const SPGallery = ({navigation})=>{
   
   const [images, setImages] = React.useState([]);
   const [id, setId] = React.useState(null);
+  const [price, setPrice] = React.useState(null);
   
   const bs = React.createRef();
   const fall = new Animated.Value(1);
@@ -74,10 +75,7 @@ const SPGallery = ({navigation})=>{
         });
       
     }
-
-    
-       
-        getUser();
+    getUser();
   }, []);
    
     const pickImage = async () => {
@@ -100,13 +98,6 @@ const SPGallery = ({navigation})=>{
               name,
             }
             cloudinaryUpload(source)
-            let s = {
-              source: { uri:uri}
-            }
-
-            console.log(s)
-
-            setImages(images => [...images, s]);
             bs.current.snapTo(1)
           }
         
@@ -206,17 +197,59 @@ const SPGallery = ({navigation})=>{
         </View>
     );
 
+    const updatePrice = ()=>{
 
+        const body = {
+            id : id , 
+            pack_price : price 
+        }
+        console.log(body)
+
+        
+    axios.post(BasePath + "/api/sp/updateprice",body).then((response)=>{
+      console.log("response.data.result[0]")
+      console.log(response.data)
+      Alert.alert("Price Added Successfully")
+      
+    }).catch((error)=>{
+      console.log(error)
+    })
+
+
+
+    }
 
         return(
             <ScrollView >
                 
                 <View style={{flex :1,height : height}}>
-                <View style={{flexDirection :'row' , marginTop : 60}}>
                 
-                <Title style={{marginLeft:"35%",fontSize:23,fontWeight:"bold", marginBottom:15,color:'#FDC12A'}}>
-                    My Gallery
+                <View style={{flexDirection :'row' , marginTop : 60}}>
+
+          <View style={styles.cartCard1}>
+             <View style={{flexDirection :'column' ,justifyContent:'center', }}>
+             <Title style={{fontSize:23,fontWeight:"bold", marginBottom:15,color:'#FDC12A'}}>
+                    My Space
                 </Title>
+                    <TextInput
+                        value={price}
+                        onChangeText={(e)=>setPrice(e)}
+                        placeholder="Price"
+                        keyboardType='numeric'
+                        textAlign={'center'} 
+                        style={{ flex: 0, paddingVertical: 0 , alignItems: 'center', }}
+                        />
+                 
+                
+                <TouchableOpacity style={styles.commandButton} onPress={updatePrice}>
+                  <Text style={styles.panelButtonTitle}>update</Text>
+                </TouchableOpacity>
+                
+             </View>
+             
+        </View>
+                
+              
             
             </View>
                 <Gallery
@@ -250,13 +283,37 @@ const styles =StyleSheet.create({
     container:{
         flex :1
     },
+    mapButton: {
+        marginTop : 10,
+        flexDirection :'row',
+        backgroundColor: '#FF6347',
+        alignItems: 'center',
+        
+      },
       commandButton: {
+        marginTop : 10,
         padding: 15,
+        borderRadius: 25,
+        backgroundColor: '#FF6347',
+        alignItems: 'center',
+      },
+      UPDATEButton: {
+        padding: 5,
         borderRadius: 10,
         backgroundColor: '#FF6347',
         alignItems: 'center',
       },
-      
+      cartCard1: {
+        height: 150,
+        backgroundColor: COLORS.white,
+        width : width*0.92,
+        alignItems: 'center',
+        marginVertical:5,
+        borderRadius: 10,
+        marginHorizontal: 15,
+        paddingHorizontal: 10,
+        
+      },
       panel: {
         padding: 20,
         backgroundColor: '#FFFFFF',
@@ -312,10 +369,9 @@ const styles =StyleSheet.create({
         color: 'white',
       },
       mapButtonTitle: {
-        marginLeft : 10,
         fontSize: 17,
         fontWeight: 'bold',
-        color: '#FF6347',
+        color: '#fff',
       },
       action: {
         flexDirection: 'row',

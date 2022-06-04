@@ -82,12 +82,12 @@ const  DrawerContentRoom = ({navigation}) => {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="account-outline" 
+                                name="image-multiple-outline" 
                                 color={color}
-                                size={35}
+                                size={30}
                                 />
                             )}
-                            label="Gallery"
+                            label="My Space"
                            onPress={() => {navigation.navigate('Gallery')}}
                         />
                         

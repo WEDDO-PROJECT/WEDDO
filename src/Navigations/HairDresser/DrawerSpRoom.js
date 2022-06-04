@@ -84,13 +84,13 @@ const  DrawerContentRoom = ({navigation}) => {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="account-outline" 
+                                name="image-multiple-outline" 
                                 color={color}
-                                size={35}
+                                size={30}
                                 />
                             )}
-                            label="Profile"
-                           // onPress={() => {props.navigation.navigate('Profile')}}
+                            label="My Space"
+                           onPress={() => {navigation.navigate('Gallery')}}
                         />
                         
                     </Drawer.Section>
