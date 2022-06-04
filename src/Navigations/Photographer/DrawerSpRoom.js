@@ -18,7 +18,6 @@ import {
 } from '@react-navigation/drawer';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import map from './Map.tsx'
 import StorageUtils from '../../Utils/StorageUtils';
 
 const  DrawerContentRoom = ({navigation}) => {
@@ -55,7 +54,7 @@ const  DrawerContentRoom = ({navigation}) => {
                     <Drawer.Section style={styles.userInfoSection}>
                         <View style={{flexDirection:'row',marginTop: 15}}>
                         <Image
-                                source={require("../assets/SP.png")}
+                                source={require("../../assets/SP.png")}
                                     style={styles.image}
                           />
                             <View style={{marginLeft:20, flexDirection:'column'}}>
@@ -80,51 +79,7 @@ const  DrawerContentRoom = ({navigation}) => {
                             label="Profile"
                            // onPress={() => {props.navigation.navigate('Profile')}}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="bookmark-outline" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="Bookmarks"
-                           // onPress={() => {props.navigation.navigate('BookmarkScreen')}}
-                        />
                         
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-check-outline" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="Support"
-                           // onPress={() => {props.navigation.navigate('SupportScreen')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="map-marker-radius-outline" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="localisation"
-                            onPress={() => {navigation.navigate('MapContent')}}
-                        />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="format-list-group" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="marriage halls"
-                            onPress={() => {navigation.navigate('Rooms')}}
-                        />
                     </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">
                         <TouchableRipple onPress={() => {toggleTheme()}}>

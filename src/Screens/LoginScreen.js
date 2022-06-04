@@ -12,7 +12,9 @@ import {
   useWindowDimensions,
   StyleSheet,
 } from "react-native";
+
 import { AsyncStorage } from 'react-native';
+
 // import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import StorageUtils from "../Utils/StorageUtils"
@@ -21,11 +23,17 @@ import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
+
+import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { useNavigation } from "@react-navigation/native";
 import Profile from "../components/profile.js";
 import axios from 'axios'
 
+
 import BasePath from "../constants/BasePath";
+
 import { NativeModules } from 'react-native';
 
 // const { scriptURL } = NativeModules.SourceCode;
@@ -45,9 +53,14 @@ import { NativeModules } from 'react-native';
 // } from "react-native-google-signin";
 // const navigation = useNavigation();
 
-// const onConfirmPressed = () => {
-//   navigation.navigate("Home");
-// };
+
+
+import Icon from "react-native-vector-icons/FontAwesome";
+// import StorageUtils from "../Utils/StorageUtils.js";
+const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
 // import Icon from "react-native-vector-icons/FontAwesome";
 const LoginScreen = () => {
     const [password,setPassword]=useState("");
@@ -83,11 +96,19 @@ const LoginScreen = () => {
 
   // };
 
+
 const send=()=>{
   let person={email:email, password:password}
   console.log(person);
   axios.post(BasePath + '/api/user/login',person)
   .then(res=>{console.log(res.data)
+
+     if(res.data[0]==='success'){
+       AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
+       navigation.navigate("drawer")
+     }
+
+
     
   if(res.data[0]==="Please fill all the fields" || res.data[0]==="email not found" || res.data[0]==="login failed" ){
     setErrorMsg(res.data)
@@ -98,7 +119,7 @@ const send=()=>{
     AsyncStorage.setItem('user',JSON.stringify(userdata))
     navigation.navigate("drawer");
   }
-    
+
 
   }).catch(err=>{console.log('error', err.message)})
   
@@ -260,9 +281,15 @@ const send=()=>{
 
              <TouchableOpacity
               title="Register"
+
+              onPress={() => navigation.navigate("RegisterScreen")}
+            > 
+              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+
               onPress={() =>navigation.navigate("RegisterScreen")}
             > 
               <Text style={{ color: "#AD40AF", fontWeight: "700" }} >
+
                 {" "}
                 Register
                 

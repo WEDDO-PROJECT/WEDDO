@@ -69,8 +69,17 @@ const RegisterSP = ({ navigation }) => {
       console.log(response.data.result[0])
       const userdata =response.data.result[0]
      StorageUtils.storeData('user',userdata)
-       navigation.navigate("DrawerNavigator")
+        if(userdata.category=='Hairdresser'){
+          navigation.navigate("DrawerNavigatorHairdresser")
+        }else if(userdata.category=='partyroom'){
+          navigation.navigate("DrawerNavigatorSP")
+        }else if(userdata.category=='Photographer'){
+          navigation.navigate("DrawerNavigatorPhotographer")
+        } if(userdata.category=='MusicalBand'){
+          navigation.navigate("DrawerNavigatorMusicalBand")
+        }
     })
+    
     .catch((error)=>{
       console.log(error)
     })
@@ -403,4 +412,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 20,
   },
+
 });

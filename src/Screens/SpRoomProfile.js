@@ -58,12 +58,13 @@ const ProfileRoom = ({navigation})=>{
                style={{ marginRight: 5 }}
              />
          </TouchableOpacity>
-            <Title style={{marginLeft : '42%' ,fontSize:23,marginTop:30}}>Profile</Title>
+            <Title style={{marginLeft : '30%' ,fontSize:23,marginTop:30}}>Profile</Title>
          <TouchableOpacity onPress={edit} style={styles.roundIconEdit}>
          <Ionicons
-               name="md-person-sharp"
-               size={30}
-               color="#666"
+                name="md-person-sharp"
+                style={{marginTop:30,paddingRight:20}}
+                size={20}
+                color="#666"
              />
          
          </TouchableOpacity>
@@ -195,7 +196,7 @@ const styles =StyleSheet.create({
     roundButtonActive: {
         height: 50,
         width:50,
-        position:'absolute',
+        marginTop:30
       },
       roundIconEdit:{
         height :50,

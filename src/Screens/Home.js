@@ -20,16 +20,11 @@ const Home =({ navigation})=> {
   const [allData,setAllData]=useState([])
   const [filtredData,setFIltredData]=useState([])
   const [view,setView]=useState(null)
-  const [from, setFrom] = useState("");
-  const [end, setEnd] = useState("");
+  const [start, setStart] = useState("");
+
   const array=[]
   useEffect(()=>{         // bring the url from the backend  
-  // useEffect(()=>{         // bring the url from the backend 
-     
-  //     StorageUtils.retrieveData('user').then((value) =>
-  //    //setUser(JSON.parse(value))
-  //    console.log(value)
-  //  );
+  setStart('')
     axios.get(BasePath + '/api/sp/all')
     .then(res=>{console.log(res.data)
       setAllData(res.data)})
@@ -86,14 +81,13 @@ if (val===4){
     navigation.navigate({
       name: "Calendar",
       params: {
-        start: setFrom,
-        end: setEnd,
+        setStart: setStart
       },
       merge: true,
     });
   }
     return (
-  <ScrollView>
+  <ScrollView style={{backgroundColor:"white"}}>
      <SafeAreaView>    
    
         <View style={styles.container}>  
@@ -190,7 +184,7 @@ if (val===4){
                 onPress={() => {
                   nav();
                 }}
-              >{from === "" ? "From" : from}{"   "}<Ionicons name="calendar-outline" style ={{color:'#D49B35'}} size={26}></Ionicons>{"   "}{end === "" ? "To" : end}
+              ><Ionicons name="calendar-outline" style ={{color:'#D49B35'}} size={26}></Ionicons>{"   "}{start === "" ? "Choose date" : start}
               </Text>
             </View>
               </View>
@@ -199,14 +193,24 @@ if (val===4){
              <Cards style={{
               // flexDirection: "row",
               // top: 30,
-            }} filtredData={allData} setTView={setView}></Cards> 
+            }} filtredData={allData} setTView={setView} navigation={navigation}start={start}></Cards> 
           }
           {view&&
           <Cards style={{
             // flexDirection: "row",
             // top: 30,
-          }} filtredData={filtredData} setTView={setView}></Cards> 
+          }} filtredData={filtredData} setTView={setView} navigation={navigation} start={start}></Cards> 
           }
+          
+    
+
+  
+
+  
+
+
+
+
             
               
              
@@ -225,6 +229,11 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       backgroundColor:"white"
     
+    },
+    container2: {
+      flex: 1,
+      justifyContent: "space-around",
+      alignItems: "center"
     },
     image:{
      margin:5,
