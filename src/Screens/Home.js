@@ -20,19 +20,35 @@ const Home =({ navigation})=> {
   const [allData,setAllData]=useState([])
   const [filtredData,setFIltredData]=useState([])
   const [view,setView]=useState(null)
-  const [start, setStart] = useState("");
+  const [start, setStart] = useState('');
 
-  const array=[]
-  useEffect(()=>{         // bring the url from the backend  
-  setStart('')
+  
+  useEffect(()=>{  
+           // bring the url from the backend  
+  // setStart('')
     axios.get(BasePath + '/api/sp/all')
-    .then(res=>{console.log(res.data)
-      setAllData(res.data)})
+    .then(res=>{
+      let array=res.data
+      axios.get(BasePath+'/api/request/all').then((result)=>{
+        var arr=array
+        if (start!==''){
+          // console.log(array[0].id);
+          for (let i=0; i<result.data.length; i++){
+            // console.log(result.data[0].sp_id,'date');
+            if (start===result.data[i].date){
+              var x=result.data[i].sp_id;
+              array=array.filter((elem,i)=>elem.id!==x)
+            }
+          }
+        }
+        setAllData(array)
+        console.log(start,'start')
+      })})
     .catch(err=>console.log(err))
-    setAllData(array);
+    
     // AsyncStorage.getItem('user')
     // .then(res=>console.log(res))
-  },[])
+  },[start])
   const buttonFunction=(val)=>{
     var array=[]
 if (val==1){

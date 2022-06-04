@@ -53,9 +53,9 @@ refresh()
                         <Text style={styles.title}>{elem.professional_name}</Text>
                         <Text>{elem.description} </Text>
                       <Text>{elem.pack_title}</Text>
-                      <Text style={{marginLeft:200}}>{elem.pack_price} DT</Text>
+                      <Text style={styles.price}>{elem.pack_price} DT</Text>
                       <TouchableOpacity onPress={()=>del(elem)}>
-                          <Text>Delete</Text>
+                          <Text style={styles.delete}>Delete</Text>
                       </TouchableOpacity>
                     </View>
                 ))
@@ -72,6 +72,8 @@ const styles= StyleSheet.create({
     backgroundColor:'white',
     elevation:9,
     borderRadius:10,
+    borderWidth:1,
+    borderColor: '#D49B35',
     padding:10,
     width: 300,
     height: 250,
@@ -82,6 +84,42 @@ const styles= StyleSheet.create({
     color : '#D49B35',
     marginBottom:10,
     // paddingTop:130,
+  },
+  price : {
+    marginLeft:190,
+    marginTop:-55,
+    height:30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:80,
+    borderRadius:11,
+    backgroundColor: "#D49B35",
+    textAlign: 'center',
+    color: 'white',
+    borderColor:'white',
+    borderWidth: 1,
+    elevation: 7,
+    paddingTop: 5,
+  },
+  delete : {
+    marginLeft:190,
+    marginTop:-18,
+    height:30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:80,
+    borderRadius:11,
+    backgroundColor: "white",
+    textAlign: 'center',
+    color: '#D49B35',
+    borderColor:'#D49B35',
+    borderWidth: 1,
+    elevation: 7,
+    paddingTop: 5,
   },
 })
 

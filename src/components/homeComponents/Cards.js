@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {View,Text,TouchableOpacity,Image, StyleSheet, ImageBackground,Alert, Modal} from 'react-native';
+import {View,Text,TouchableOpacity,Image, StyleSheet, ImageBackground,Alert, Modal, Pressable} from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import InputField from "../input.js";
 import golden from "../../assets/golden.webp";
@@ -13,7 +13,7 @@ function Cards(props) {
   useEffect(() => {
     var array=[]
     var arr=[]
-    console.log(props.filtredData)
+    // console.log(props.filtredData)
     if(minPrice&&maxPrice){
       array=props.filtredData.filter((elem,i)=> Number(elem.pack_price)>=minPrice)
       arr=array.filter((elem,i)=>Number(elem.pack_price)<=maxPrice)
@@ -28,7 +28,7 @@ function Cards(props) {
   }else{
     setData(props.filtredData)
   }
-  console.log(data,'data');
+  // console.log(data,'data');
     
   },[props.filtredData,minPrice,maxPrice])
     const goProfile=(sp)=>{
@@ -64,15 +64,23 @@ return (
         visible={showAlert}
         transparent
         onRequestClose={() => SetshowAlert(false)}
+        animationType='slide'
         >
           <View style={styles.centeredView}>
             <View style={styles.alertText}>
               <View style={styles.warning}>
-                <Text>Warning </Text>
+                <Text>WARNING </Text>
               </View>
               <View style={styles.warningBody}>
                 <Text style ={styles.warningText}>Please pick a date !</Text>
               </View> 
+              <Pressable
+              onPress={() =>SetshowAlert(false)}
+              style={styles.warningBtn}
+              android_ripple={{color:'#fff'}}
+              >
+                <Text style={styles.btnOK}>OK</Text>
+              </Pressable>
             </View>
           </View>
         </Modal>
@@ -216,7 +224,7 @@ const styles= StyleSheet.create({
   },
   price: {
     marginLeft:190,
-    marginTop:-35,
+    marginTop:-75,
     height:30,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -230,6 +238,7 @@ const styles= StyleSheet.create({
     borderColor:'white',
     borderWidth: 1,
     elevation: 7,
+    paddingTop: 5,
   },
   alertText : {
     width:300,
@@ -266,6 +275,17 @@ const styles= StyleSheet.create({
     fontSize: 20,
     margin: 10,
     textAlign: 'center',
+  },
+  btnOK:{
+    fontSize: 20,
+    margin: 10,
+    textAlign: 'center',
+  },
+  warningBtn:{
+    backgroundColor:'#D49B35' ,
+    borderBottomRightRadius:20,
+    borderBottomLeftRadius:20,
   }
+
 })
   export default Cards;
