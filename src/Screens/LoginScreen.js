@@ -10,6 +10,9 @@ import {
   navigation,
   useWindowDimensions,
 } from "react-native";
+
+import { AsyncStorage } from 'react-native';
+
 // import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
@@ -17,42 +20,75 @@ import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "../components/input.js";
 import Background from "../assets/Background.webp";
+
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import BasePath from "../constants/BasePath";
-// import { useNavigation } from "@react-navigation/native";
-// import GoogleSVG from "../assets/google.svg";
-// import FacebookSVG from "../assets/facebook.svg";
-// import TwitterSVG from "../assets/twitter.svg";
-// import Google from "./google.js"
-// import Roboto-Medium from '../assets/font/Roboto-Medium.ttf'
-// import { TextInput } from "react-native-web";
-// import {
-//   GoogleSignin,
-//   GoogleSigninButton,
-//   statusCodes,
-// } from "react-native-google-signin";
-// const navigation = useNavigation();
+import { useNavigation } from "@react-navigation/native";
+import Profile from "../components/profile.js";
+import axios from 'axios'
 
-// const onConfirmPressed = () => {
-//   navigation.navigate("Home");
-// };
+
+import BasePath from "../constants/BasePath";
+
+
 import Icon from "react-native-vector-icons/FontAwesome";
 // import StorageUtils from "../Utils/StorageUtils.js";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+// import Icon from "react-native-vector-icons/FontAwesome";
+const LoginScreen = () => {
+    const [password,setPassword]=useState("");
+    const [email, setEmail] = useState("");
+    
+  const [errorMsg, setErrorMsg] = useState(null);
+    const navigation = useNavigation();
+    const onLoginPressed =()=>{
+      axios
+      .post("http://192.168.11.67:3000/api/sp/login", {
+        password,
+        email
+      })
+      .then(async(res)=>{
+        if(res.data ==="Email or password is incorrect!"){
+          // console.log(data)
+          // console.log(res.result)
+          console.warn("wrong password or email")
+        }else{
+  console.log(res.data)
+
+  await AsyncStorage.setItem("response",JSON.stringify(res.data))
+
+  navigation.navigate("Profile")
+        }
+      }).catch((err)=>console.log(err))
+
+
+  };
+
+
 const send=()=>{
   let person={email:email, password:password}
   console.log(person);
   axios.post(BasePath + '/api/user/login',person)
   .then(res=>{console.log(res.data)
+
      if(res.data[0]==='success'){
        AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
        navigation.navigate("drawer")
      }
+
+
+    
+  if(res.data==="Please fill all the fields" || res.data==="email not found" || res.data==="login failed" ){
+    setErrorMsg(res.data)
+  }else {
+    const userdata =res.data
+    StorageUtils.storeData('user',userdata)
+    navigation.navigate("drawer")
+  }
 
 
   })
@@ -118,22 +154,40 @@ const send=()=>{
             keyboardType="password"
             inputType="password"
           />
-          <InputField
-            fieldButtonLabel={"Forgot?"}
-            fieldButtonFunction={() => {
-              onConfirmPressed();
-            }}
-          />
-          <CustomButton
-            label={"Login"}
-            title="to homePage"
-            onPress={send}
-            // onPress={() => this.props.navigation.navigate("Home")}
-          />
+          {errorMsg && 
+          <Text style={{color: 'red' , marginTop:-20}}>{errorMsg} </Text>}
+          
+          
+        <TouchableOpacity
+                disabled={email==="" ||password ===""}  
+                onPress={send} 
+                style={{
+                    backgroundColor: "#EBBAD2",
+                    padding: 5,
+                    borderRadius: 10,
+                    marginBottom: 30,
+                    borderColor: "#ddd",
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    paddingHorizontal: 30,
+                    paddingVertical: 10,
+                }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontWeight: "700",
+                  fontSize: 16,
+                  color: "#fff",
+                }}
+              >
+                Login
+              </Text>
+            </TouchableOpacity>
           <Text
             style={{ textAlign: "center", color: "#EBBAD2", marginBottom: 20 }}
           >
-            Or, login with ...
+           
           </Text>
           {/* <Icon.Button
             name="facebook"
@@ -204,9 +258,15 @@ const send=()=>{
 
              <TouchableOpacity
               title="Register"
+
               onPress={() => navigation.navigate("RegisterScreen")}
             > 
               <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+
+              onPress={() =>navigation.navigate("RegisterScreen")}
+            > 
+              <Text style={{ color: "#AD40AF", fontWeight: "700" }} >
+
                 {" "}
                 Register
                 
