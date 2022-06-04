@@ -8,7 +8,7 @@ import {
     Image
   } from "react-native";
   // import Logo from "../components/Logo.js";
-  let imageLogo = require('../assets/weddo.png')
+  let imageLogo = require('../assets/Logo.png')
 
   const { width, height } = Dimensions.get("window");
 
@@ -67,7 +67,7 @@ export default function LandingPage({navigation}){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#f0c5da",
+      backgroundColor: "#d49b35",
     },
     slider: {
       height: 0.5 * height,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     },
     footerContent: {
       flex: 1,
-      backgroundColor: "#f0c5da",
+      backgroundColor: "#d49b35",
       borderTopLeftRadius: 75,
       alignItems: "center",
     },
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     },
     image: {
       alignSelf: "center",
-      width: 150,
+      width: 300,
       height: 150,
       margin:140
     }

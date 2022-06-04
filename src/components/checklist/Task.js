@@ -6,7 +6,7 @@ export default function Task(props) {
         <View style={styles.item}>
             <View style={styles.itemLeft}>
                 <TouchableOpacity style={styles.square}></TouchableOpacity>
-                <Text style={styles.itemText}>{props.text}</Text>
+                <Text style={styles.itemText}>{props.item.todos}</Text>
             </View>
             <View style={styles.circular}></View>
         </View>

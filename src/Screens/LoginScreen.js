@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   ImageBackground,
   View,
@@ -9,12 +10,14 @@ import {
   Dimensions,
   navigation,
   useWindowDimensions,
+  StyleSheet,
 } from "react-native";
 
 import { AsyncStorage } from 'react-native';
 
 // import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import StorageUtils from "../Utils/StorageUtils"
 import CustomButton from "../components/button.js";
 import Logo from "../components/Logo.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -31,6 +34,26 @@ import axios from 'axios'
 
 import BasePath from "../constants/BasePath";
 
+import { NativeModules } from 'react-native';
+
+// const { scriptURL } = NativeModules.SourceCode;
+// const scriptHostname = scriptURL.split('://')[1].split(':')[0];
+// console.log(scriptHostname)
+// import { useNavigation } from "@react-navigation/native";
+// import GoogleSVG from "../assets/google.svg";
+// import FacebookSVG from "../assets/facebook.svg";
+// import TwitterSVG from "../assets/twitter.svg";
+// import Google from "./google.js"
+// import Roboto-Medium from '../assets/font/Roboto-Medium.ttf'
+// import { TextInput } from "react-native-web";
+// import {
+//   GoogleSignin,
+//   GoogleSigninButton,
+//   statusCodes,
+// } from "react-native-google-signin";
+// const navigation = useNavigation();
+
+
 
 import Icon from "react-native-vector-icons/FontAwesome";
 // import StorageUtils from "../Utils/StorageUtils.js";
@@ -45,28 +68,33 @@ const LoginScreen = () => {
     
   const [errorMsg, setErrorMsg] = useState(null);
     const navigation = useNavigation();
-    const onLoginPressed =()=>{
-      axios
-      .post("http://192.168.11.67:3000/api/sp/login", {
-        password,
-        email
-      })
-      .then(async(res)=>{
-        if(res.data ==="Email or password is incorrect!"){
-          // console.log(data)
-          // console.log(res.result)
-          console.warn("wrong password or email")
-        }else{
-  console.log(res.data)
+  //   const onLoginPressed =()=>{
+  //     obj={
+  //       password:password,
+  //       email:email
+  //     }
+  //     axios
+  //     .post(BasePath+"/api/sp/login", {
+  //       password,
+  //       email
+  //     })
+  //     .then((res)=>{
+  //       if(res.data[0] ==="Email or password is incorrect!"){
+  //         // console.log(data)
+  //         // console.log(res.result)
+  //         console.warn("wrong password or email")
+  //       }
+  // console.log(res.data)
 
-  await AsyncStorage.setItem("response",JSON.stringify(res.data))
+  // // await AsyncStorage.setItem("response",JSON.stringify(res.data))
 
-  navigation.navigate("Profile")
-        }
-      }).catch((err)=>console.log(err))
+  // // navigation.navigate("Profile")
+  // //       }
+  //     })
+  // // .catch((err)=>console.log(err))
 
 
-  };
+  // };
 
 
 const send=()=>{
@@ -82,30 +110,25 @@ const send=()=>{
 
 
     
-  if(res.data==="Please fill all the fields" || res.data==="email not found" || res.data==="login failed" ){
+  if(res.data[0]==="Please fill all the fields" || res.data[0]==="email not found" || res.data[0]==="login failed" ){
     setErrorMsg(res.data)
-  }else {
-    const userdata =res.data
-    StorageUtils.storeData('user',userdata)
-    navigation.navigate("drawer")
+  }
+  if(res.data[0]==='success'){
+    var userdata =res.data[1]
+    console.log(userdata);
+    AsyncStorage.setItem('user',JSON.stringify(userdata))
+    navigation.navigate("drawer");
   }
 
 
-  })
+  }).catch(err=>{console.log('error', err.message)})
   
 }
   const { height } = useWindowDimensions();
   // const navigation = useNavigation();
   //   const myIcon = <Icon name="bird" size={30} color="#900" />;
   return (
-    <ImageBackground
-      style={{
-        width: "100%",
-        height: height,
-      }}
-      source={Background}
-      resizeMode="cover"
-    >
+  
       <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
         <View style={{ paddingHorizontal: 25 }}>
           <View style={{ alignItems: "center" }}>
@@ -271,42 +294,24 @@ const send=()=>{
                 Register
                 
               </Text>
-            {/* </TouchableOpacity> */}
-            {/* <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              borderColor: "#ddd",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          >
-            <Google height={24} width={24} />*/}
+         
           </TouchableOpacity> 
           </View>
         </View>
       </SafeAreaView>
-    </ImageBackground>
+   
   );
 };
+const styles = StyleSheet.create({
+  input: {
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    backgroundColor: '#fff',
+    borderRadius: 60,
+    borderColor: '#C0C0C0',
+    borderWidth: 1,
+    width: 250,
+},
+backgroundColor:'white'
+})
 export default LoginScreen;
-
-//faceBookLogin
-/*        <Icon.Button
-            name="facebook"
-            backgroundColor="#3b5998"
-        
-          >
-            Login with Facebook
-          </Icon.Button>
-          */
-//faceBookLogin
-/*        <Icon.Button
-            name="google"
-            backgroundColor="red"
-        
-          >
-            Login with Google
-          </Icon.Button>
-          */
