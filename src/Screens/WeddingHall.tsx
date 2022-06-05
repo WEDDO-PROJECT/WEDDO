@@ -227,8 +227,8 @@ export default WeddingHalls ;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
+      // alignItems: center,
+      // justifyContent: center,
     },
     container1: {
       flex: 1,
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
       flex: 1,
-      marginTop: Platform.OS === 'ios' ? 0 : -12,
+      // marginTop: Platform.OS === 'ios' ? 0 : -12,
       paddingLeft: 10,
       color: '#05375a',
     },

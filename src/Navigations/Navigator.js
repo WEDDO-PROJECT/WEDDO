@@ -29,8 +29,11 @@ import MapContent from '../Screens/Map'
 import WeddingHalls from '../Screens/WeddingHall'
 import Rooms from "../Screens/Rooms.js";
 import CustomDrawer from "../components/Navigation/CustomDrawer.js";
-import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
+// import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
 import DrawerNavigatorClient from "./Client/DrawerNavigator.js";
+import DrawerNavigatorPhotographer from "./Photographer/DrawerNavigator";
+import DrawerNavigatorHairdresser from "./HairDresser/DrawerNavigator";
+import DrawerNavigatorMusicalBand from "./Band/DrawerNavigator";
 import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
 const Stack = createStackNavigator();
 export default function Navigator(){
@@ -99,6 +102,27 @@ export default function Navigator(){
           <Stack.Screen
             name="DrawerNavigatorClient"
             component={DrawerNavigatorClient}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="DrawerNavigatorHairdresser"
+            component={DrawerNavigatorHairdresser}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="DrawerNavigatorMusicalBand"
+            component={DrawerNavigatorMusicalBand}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="DrawerNavigatorPhotographer"
+            component={DrawerNavigatorPhotographer}
             options={{
               headerShown: false,
             }}
@@ -173,7 +197,7 @@ export default function Navigator(){
           />
 
    
- <Stack.Screen
+ {/* <Stack.Screen
             name="WeddingHallDetails"
             component={WeddingHallDetails}
             options={{
@@ -183,7 +207,7 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
+          /> */}
         <Stack.Screen
             name="VerifyOTPScreen"
             component={VerifyOTPScreen}

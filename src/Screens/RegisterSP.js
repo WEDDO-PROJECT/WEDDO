@@ -66,11 +66,20 @@ const RegisterSP = ({ navigation }) => {
 
     .then((response)=>{
       console.log("response.data.result[0]")
-      console.log(response.data.result[0])
+      console.log(response.data)
       const userdata =response.data.result[0]
      StorageUtils.storeData('user',userdata)
-       navigation.navigate("DrawerNavigator")
+        if(userdata.category=='Hairdresser'){
+          navigation.navigate("DrawerNavigatorHairdresser")
+        }else if(userdata.category=='partyroom'){
+          navigation.navigate("DrawerNavigatorSP")
+        }else if(userdata.category=='Photographer'){
+          navigation.navigate("DrawerNavigatorPhotographer")
+        } if(userdata.category=='MusicalBand'){
+          navigation.navigate("DrawerNavigatorMusicalBand")
+        }
     })
+    
     .catch((error)=>{
       console.log(error)
     })
@@ -279,7 +288,7 @@ const RegisterSP = ({ navigation }) => {
          {!data.cinChange && data.cin!=="" ? (
           <Text style={{color: 'red' , marginTop : -18}}>cin has 8 numbers </Text>
         ) : null}</View>
-        <View style={{marginBottom:15, marginTop:-20}}>
+        <View style={{marginBottom:15, marginTop:20}}>
         <RNPickerSelect
                  
                  items={[
@@ -403,4 +412,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 20,
   },
+
 });
