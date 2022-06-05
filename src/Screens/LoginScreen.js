@@ -28,27 +28,7 @@ import axios from 'axios'
 import BasePath from "../constants/BasePath";
 import { NativeModules } from 'react-native';
 
-// const { scriptURL } = NativeModules.SourceCode;
-// const scriptHostname = scriptURL.split('://')[1].split(':')[0];
-// console.log(scriptHostname)
-// import { useNavigation } from "@react-navigation/native";
-// import GoogleSVG from "../assets/google.svg";
-// import FacebookSVG from "../assets/facebook.svg";
-// import TwitterSVG from "../assets/twitter.svg";
-// import Google from "./google.js"
-// import Roboto-Medium from '../assets/font/Roboto-Medium.ttf'
-// import { TextInput } from "react-native-web";
-// import {
-//   GoogleSignin,
-//   GoogleSigninButton,
-//   statusCodes,
-// } from "react-native-google-signin";
-// const navigation = useNavigation();
 
-// const onConfirmPressed = () => {
-//   navigation.navigate("Home");
-// };
-// import Icon from "react-native-vector-icons/FontAwesome";
 const LoginScreen = () => {
     const [password,setPassword]=useState("");
     const [email, setEmail] = useState("");
