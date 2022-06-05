@@ -26,9 +26,43 @@ const Home =({ navigation})=> {
   useEffect(()=>{  
            // bring the url from the backend  
   // setStart('')
+  let obj={}
     axios.get(BasePath + '/api/sp/all')
     .then(res=>{
       let array=res.data
+      axios.get(BasePath+'/api/rating/getAll')
+    .then(res=>{
+      console.log(res.data,'ratings');
+      
+      for (var i=0;i<res.data.length;i++){
+        if (obj[res.data[i].sp_id]){
+          obj[res.data[i].sp_id].counter++;
+          obj[res.data[i].sp_id].total+=Number(res.data[i].rating)
+
+        }else {
+          obj[res.data[i].sp_id]={
+            counter:1,
+            total:Number(res.data[i].rating)
+          }
+        }
+      }
+      console.log(obj);
+      
+      
+      var arrayData=array
+      console.log('data',arrayData);
+      
+      for(var i=0;i<arrayData.length;i++){
+        if(obj[arrayData[i].id]){
+          console.log(obj[arrayData[i].id].total/obj[arrayData[i].id].counter);
+
+          arrayData[i].rating=obj[arrayData[i].id].total/obj[arrayData[i].id].counter
+        }
+      }
+      array=arrayData
+      // console.log('data',arrayData);
+      // console.log(data);
+    })
       axios.get(BasePath+'/api/request/all').then((result)=>{
         var arr=array
         if (start!==''){
@@ -316,6 +350,16 @@ const styles = StyleSheet.create({
       // elevation: 20,
       borderColor:'#D49B35',
       borderWidth: 1.5,
+    },
+    myStarStyle: {
+      color: "grey",
+      backgroundColor: "transparent",
+      textShadowColor: "black",
+      textShadowOffset: { width: 1, height: 1 },
+      textShadowRadius: 2,
+    },
+    myEmptyStarStyle: {
+      color: "white",
     },
 })
 export default Home;

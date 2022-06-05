@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import BasePath from "../constants/BasePath";
+import Stars from "react-native-stars";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   StyleSheet,
   Text,
@@ -16,7 +18,8 @@ export default class Profile extends Component {
     this.state={
       user:[],
       profile:[],
-      date:''
+      date:'',
+      starts:null
     }
    }
   componentDidMount(){
@@ -40,17 +43,17 @@ export default class Profile extends Component {
     await AsyncStorage.getItem("response").then((res)=>{
     var x = JSON.parse(res)
     console.log("Hamady " , x.id)
-    axios.get(`${BasePath}/api/sp/info/${x.id}`).then(({data})=>{
-      console.log('fffff',data)
+    // axios.get(`${BasePath}/api/sp/info/${x.id}`).then(({data})=>{
+    //   console.log('fffff',data)
       this.setState({
-        profile:data[0]
+        profile:x
       })
       console.log(this.state.profile)
       console.log(this.state.user)
       console.log(this.state.date)
     }).catch((err)=>{
       console.log(err)
-    })
+    // })
     
     
     })
@@ -81,7 +84,7 @@ axios.post(`${BasePath}/api/rating/create`,obj)
     .then(res=>console.log('yes'))
   }
   render() {
-    console.log(this.state.data)
+    console.log(this.state.date)
     return (
       <View style={styles.container}>
           <View style={styles.header}></View>
@@ -97,21 +100,34 @@ axios.post(`${BasePath}/api/rating/create`,obj)
                 <Text>Contact Me</Text>  
               </TouchableOpacity>              
               <View style={styles.buttonContainer}>
-              <TouchableOpacity onPress={() =>this.rating(1)}>
-                <Text style={{marginRight:10}} >1</Text>  
-              </TouchableOpacity> 
-              <TouchableOpacity onPress={() =>this.rating(2)}>
-                <Text style={{marginRight:10}}>2</Text>  
-              </TouchableOpacity> 
-              <TouchableOpacity onPress={() =>this.rating(3)}>
-                <Text style={{marginRight:10}} >3</Text>  
-              </TouchableOpacity> 
-              <TouchableOpacity onPress={() =>this.rating(4)}>
-                <Text style={{marginRight:10}}>4</Text>  
-              </TouchableOpacity> 
-              <TouchableOpacity onPress={() =>this.rating(5)}>
-                <Text style={{marginRight:10}} >5</Text>  
-              </TouchableOpacity> 
+              <Stars
+              // half={true}
+              default={this.state.profile.rating}
+              update={(val) => {
+                this.setState({starts:val});
+                console.log(val);
+                this.rating(val)
+              }}
+              spacing={4}
+              count={5}
+              fullStar={
+                <Icon name={"star"} size={40} style={[styles.myStarStyle]} />
+              }
+              emptyStar={
+                <Icon
+                  name={"star-outline"}
+                  size={40}
+                  style={[styles.myStarStyle, styles.myEmptyStarStyle]}
+                />
+              }
+              halfStar={
+                <Icon
+                  name={"star-half"}
+                  size={40}
+                  style={[styles.myStarStyle]}
+                />
+              }
+            />
               </View>
               <TouchableOpacity style={styles.buttonContainer}
               onPress={() =>this.send()}>
@@ -178,5 +194,15 @@ const styles = StyleSheet.create({
     width:250,
     borderRadius:30,
     backgroundColor: "#D49B35",
+  },
+  myStarStyle: {
+    color: "grey",
+    backgroundColor: "transparent",
+    textShadowColor: "black",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  myEmptyStarStyle: {
+    color: "white",
   },
 })

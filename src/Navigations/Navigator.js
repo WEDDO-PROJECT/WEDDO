@@ -29,7 +29,7 @@ import MapContent from '../Screens/Map'
 import WeddingHalls from '../Screens/WeddingHall'
 import Rooms from "../Screens/Rooms.js";
 import CustomDrawer from "../components/Navigation/CustomDrawer.js";
-import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
+// import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
 import DrawerNavigatorClient from "./Client/DrawerNavigator.js";
 import DrawerNavigatorPhotographer from "./Photographer/DrawerNavigator";
 import DrawerNavigatorHairdresser from "./HairDresser/DrawerNavigator";
@@ -197,7 +197,7 @@ export default function Navigator(){
           />
 
    
- <Stack.Screen
+ {/* <Stack.Screen
             name="WeddingHallDetails"
             component={WeddingHallDetails}
             options={{
@@ -207,7 +207,7 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
+          /> */}
         <Stack.Screen
             name="VerifyOTPScreen"
             component={VerifyOTPScreen}

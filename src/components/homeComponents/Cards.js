@@ -4,6 +4,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import InputField from "../input.js";
 import golden from "../../assets/golden.webp";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios'
+import BasePath from "../../constants/BasePath";
+import Stars from "react-native-stars";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 function Cards(props) {
   const [minPrice,setMinPrice]=useState(null);
@@ -11,25 +15,60 @@ function Cards(props) {
   const [data,setData]=useState([]);
   const [showAlert,SetshowAlert]=useState(false);
   useEffect(() => {
-    var array=[]
+    var array=props.filtredData
     var arr=[]
+    let obj={}
     // console.log(props.filtredData)
     if(minPrice&&maxPrice){
-      array=props.filtredData.filter((elem,i)=> Number(elem.pack_price)>=minPrice)
+      array=array.filter((elem,i)=> Number(elem.pack_price)>=minPrice)
       arr=array.filter((elem,i)=>Number(elem.pack_price)<=maxPrice)
       setData(arr)
     }else
     if (maxPrice&&!minPrice){
-      array=props.filtredData.filter((elem,i)=> Number(elem.pack_price)<=maxPrice)
+      array=array.filter((elem,i)=> Number(elem.pack_price)<=maxPrice)
       setData(array)
     }else if(minPrice&&!maxPrice){
-    array=props.filtredData.filter((elem,i)=> Number(elem.pack_price)>=minPrice)
+    array=array.filter((elem,i)=> Number(elem.pack_price)>=minPrice)
       setData(array)
   }else{
-    setData(props.filtredData)
+    setData(array)
   }
   // console.log(data,'data');
-    
+
+  // axios.get(BasePath+'/api/rating/getAll')
+  //   .then(res=>{
+  //     console.log(res.data,'ratings');
+      
+  //     for (var i=0;i<res.data.length;i++){
+  //       if (obj[res.data[i].sp_id]){
+  //         obj[res.data[i].sp_id].counter++;
+  //         obj[res.data[i].sp_id].total+=Number(res.data[i].rating)
+
+  //       }else {
+  //         obj[res.data[i].sp_id]={
+  //           counter:1,
+  //           total:Number(res.data[i].rating)
+  //         }
+  //       }
+  //     }
+  //     console.log(obj);
+      
+      
+  //     var arrayData=array
+  //     console.log('data',arrayData);
+      
+  //     for(var i=0;i<arrayData.length;i++){
+  //       if(obj[arrayData[i].id]){
+  //         console.log(obj[arrayData[i].id].total/obj[arrayData[i].id].counter);
+
+  //         arrayData[i].rating=obj[arrayData[i].id].total/obj[arrayData[i].id].counter
+  //       }
+  //     }
+  //     setData(arrayData)
+  //     console.log('data',arrayData);
+  //     console.log(data);
+  //   })
+
   },[props.filtredData,minPrice,maxPrice])
     const goProfile=(sp)=>{
       console.log(sp);
@@ -50,7 +89,7 @@ console.log('sp')
         SetshowAlert(true)
       }
       else {
-        console.log('sp');
+        console.log(sp);
         AsyncStorage.setItem('response',JSON.stringify(sp))
         props.navigation.navigate('Profile')
       }
@@ -142,6 +181,35 @@ return (
                 >  */}
             
                       <Image  style={{width:150,height:150}} source={{uri:elem.logo}} /><Image/>
+                      
+                     <Stars
+              // half={true}
+              default={elem.rating}
+              // update={(val) => {
+              //   this.setState({starts:val});
+              //   console.log(val);
+              //   this.rating(val)
+              // }}
+              spacing={4}
+              count={5}
+              fullStar={
+                <Icon name={"star"} size={40} style={[styles.myStarStyle]} />
+              } 
+              emptyStar={
+                <Icon
+                  name={"star-outline"}
+                  size={40}
+                  style={[styles.myStarStyle, styles.myEmptyStarStyle]}
+                />
+              }
+              // halfStar={
+              //   <Icon
+              //     name={"star-half"}
+              //     size={40}
+              //     style={[styles.myStarStyle]}
+              //   />
+              // }
+            />
                       <Text style={styles.title}>{elem.professional_name}</Text>
                       
                       <Text style={{
