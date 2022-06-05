@@ -1,21 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, Platform, TouchableOpacity, Keyboard} from 'react-native';
 import Task from "../components/checklist/Task.js"
+import BasePath from '../constants/BasePath'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 export default function Checklist() {
     const [task, setTask] = useState();
     const [taskItems, setTaskItems] = useState([]);
+    const [user,setUser]=useState(null)
+    useEffect(()=>{
+        console.log('check_list')
+        refresh()
 
-    const handleAddTask = () => {
-        Keyboard.dismiss();
-        setTaskItems([...taskItems, task])
+    },[])
+    const refresh=()=>{
+        AsyncStorage.getItem('user')
+        .then(res=>{
+            var x=JSON.parse(res)
+            console.log(x)
+            setUser(x)
+            var obj={
+                id:x.id,
+            }
+            console.log(obj);
+            axios.post(BasePath+'/api/check/select',obj)
+            .then(res=>{
+                console.log(res.data)
+                setTaskItems(res.data)
         setTask(null);
+            })
+        })
+    }
+    const handleAddTask = () => {
+        var obj={
+            user_id:user.id,
+            todos:task
+        }
+
+        axios.post(BasePath+'/api/check/addinChecklist',obj)
+        .then(res=>{console.log(res.data)
+            refresh()
+        }
+        )
+        Keyboard.dismiss();
+        
     }
 
     const completeTask = (index) => {
-        let itemsCopy = [...taskItems];
-        itemsCopy.splice(index, 1);
-        setTaskItems(itemsCopy)
+        axios.delete(BasePath+'/api/check/deleteTask/'+index)
+        .then(res=>{
+            console.log(res.data);
+            refresh()
+        })
+        // itemsCopy.splice(index, 1):
+        // setTaskItems(itemsCopy)
     }
 
     return (
@@ -27,8 +66,8 @@ export default function Checklist() {
                 <View style={styles.items}>
                     {taskItems.map((item, index) => {
                         return (
-                            <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                                <Task  text={item}/>
+                            <TouchableOpacity key={index} onPress={() => completeTask(item.id)}>
+                                <Task  item={item}/>
                             </TouchableOpacity>
                         ) 
                     })
@@ -42,7 +81,7 @@ export default function Checklist() {
 
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
                 <TextInput style={styles.input} placeholder={'write a task'} value={task} onChangeText={text => setTask(text)} />
-                <TouchableOpacity onPress={() => handleAddTask()}>
+                <TouchableOpacity onPress={handleAddTask}>
                     <View style={styles.addWrapper}>
                         <Text style={styles.addText}>+</Text>
                     </View>

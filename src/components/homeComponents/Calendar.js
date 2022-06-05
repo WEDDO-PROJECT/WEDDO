@@ -33,6 +33,7 @@ const setStart=route.params.setStart
         locale={CUSTOM_LOCALE}
         onChange={({ startDate}) => {
           setStart(startDate)
+          console.log(startDate);
           AsyncStorage.setItem('startDate',startDate)
            navigation.goBack()
         }}

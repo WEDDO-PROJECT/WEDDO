@@ -10,6 +10,7 @@ import Tabnavigation from '../Navigation/Tabnavigation.js';
 import Navigator from "../../Navigations/Navigator"
 import Checklist from "../../Screens/Checklist.js";
 import Settings from "../homeComponents/Settings.js"
+import LandingPage from "../../Screens/LandingPage"
 
 const Drawer = createDrawerNavigator();
 
@@ -33,7 +34,7 @@ const DrawerNavigator = () => {
           fontSize: 15
         } 
       }}
-      // initialRouteName="Home"
+      initialRouteName="Home"
       //  >
       // initialRouteName="TabNav" 
       >
@@ -49,17 +50,17 @@ const DrawerNavigator = () => {
         )
       }} />
       
-      <Drawer.Screen name="About Us" component={Settings} options = {{
+      {/* <Drawer.Screen name="About Us" component={Settings} options = {{
         drawerIcon:({color}) => (
           <Ionicons name="alert-circle-outline" size={22} color={color} />
         )
-      }} />
-      <Drawer.Screen name="Settings" component={Settings} options = {{
+      }} /> */}
+      {/* <Drawer.Screen name="Settings" component={Settings} options = {{
         drawerIcon:({color}) => (
           <Ionicons name="settings-outline" size={22} color={color} />
         )
-      }} />
-      <Drawer.Screen name="Logout" component={LoginScreen} options = {{
+      }} /> */}
+      <Drawer.Screen name="Logout" component={LandingPage} options = {{
         drawerIcon:({color}) => (
           <Ionicons name="log-out-outline" size={22} color={color} />
         )
