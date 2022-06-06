@@ -179,10 +179,11 @@ return (
                   source={golden}
                   resizeMode="cover"
                 >  */}
+                <View style={{display:'flex',flexDirection:'row',}}>
             
-                      <Image  style={{width:150,height:150}} source={{uri:elem.logo}} /><Image/>
+                      <Image  style={{borderRadius:10,width:100,height:100,borderWidth:1,borderColor:'#D49B35',marginBottom:15}} source={{uri:elem.logo}} /><Image/>
                       
-                     <Stars
+                     <Stars style={{paddingLeft:20}} 
               // half={true}
               default={elem.rating}
               // update={(val) => {
@@ -193,12 +194,12 @@ return (
               spacing={4}
               count={5}
               fullStar={
-                <Icon name={"star"} size={40} style={[styles.myStarStyle]} />
+                <Icon name={"star"} size={20} style={[styles.myStarStyle]} />
               } 
               emptyStar={
                 <Icon
                   name={"star-outline"}
-                  size={40}
+                  size={20}
                   style={[styles.myStarStyle, styles.myEmptyStarStyle]}
                 />
               }
@@ -210,13 +211,18 @@ return (
               //   />
               // }
             />
+            </View>
                       <Text style={styles.title}>{elem.professional_name}</Text>
                       
                       <Text style={{
-                        // marginHorizontal:'10',
-                        // marginVertical:'10',
+                        color:'black',
+                        fontSize: 20,
                       }}>{elem.description} </Text>
-                      <Text>{elem.pack_title}</Text>
+                      <Text style={{
+                        color:'black',
+                        // fontStyle: 'italic',
+                        fontSize: 20,
+                      }}>{elem.pack_title}</Text>
                       <TouchableOpacity 
                         key={i}
                         title="price"
@@ -241,10 +247,15 @@ return (
 }
 const styles= StyleSheet.create({
   title: {
-    fontSize:20,
+    fontSize:25,
     fontWeight:'500',
     color : '#D49B35',
-    marginBottom:10,
+    marginBottom:110,
+    marginTop:-115,
+    marginLeft: 110,
+    // fontStyle: 'italic',
+    
+
     // paddingTop:130,
   },
   input: {
@@ -292,12 +303,11 @@ const styles= StyleSheet.create({
   },
   price: {
     marginLeft:190,
-    marginTop:-75,
+    marginTop:3,
     height:30,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:20,
     width:80,
     borderRadius:11,
     backgroundColor: "#D49B35",
@@ -353,7 +363,22 @@ const styles= StyleSheet.create({
     backgroundColor:'#D49B35' ,
     borderBottomRightRadius:20,
     borderBottomLeftRadius:20,
-  }
+  },
+  myStarStyle: {
+    color: "#D49B35",
+    backgroundColor: "transparent",
+    textShadowColor: "black",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+    marginTop: 30,
+    // marginRight: 7,
+
+    
+  },
+  myEmptyStarStyle: {
+    color: "#D49B35",
+  },
+  
 
 })
   export default Cards;

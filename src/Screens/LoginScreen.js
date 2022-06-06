@@ -138,7 +138,7 @@ const send=()=>{
               <MaterialIcons
                 name="alternate-email"
                 size={20}
-                color="#666"
+                color="#D49B35"
                 style={{ marginRight: 5 }}
               />
             }
