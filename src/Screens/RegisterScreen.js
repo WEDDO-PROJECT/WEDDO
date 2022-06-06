@@ -4,52 +4,117 @@ import {
   SafeAreaView,
   View,
   Text,
+  StyleSheet,
+  TextInput,
   TouchableOpacity,
 } from "react-native";
+// import DatePicker from "react-native-date-picker";
 import InputField from "../components/input.js";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomButton from "../components/button.js";
 import Background from "../assets/Background.webp";
+import axios from "axios";
+import StorageUtils from "../Utils/StorageUtils.js";
+
+import BasePath from "../constants/BasePath";
 
 const RegisterScreen = ({ navigation }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [tel, setTel] = useState("");
-  const register = async () => {
-    const Register = {
-      name: name,
-      email: email,
-      tel: tel,
-      password: password,
+  const [name, setName] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [confirme_Password, setConfirme_Password] = useState(null);
+  const [tel_number, setTel_number] = useState(null);
+
+  let charactersRegex = /^[a-zA-z]+$/;
+  let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+  const [data, setData] = React.useState({
+    tel: "",
+    password: "",
+    name: "",
+    email: "",
+    nameChange: false,
+    passwordChange: false,
+    emailChange: false,
+    telChange: false,
+  });
+  const send = async () => {
+    let person = {
+      email: data.email,
+      name: data.name,
+      password: data.password,
+      tel_number: data.tel,
     };
     axios
-      .post("http://192.168.11.4:3000/api/users", Register)
-      .then((response) => {
-        const data = response.data.result[0];
-        StorageUtils.storeData("user", data);
-        navigation.navigate("Home");
-      })
-      .catch((error) => {
-        console.log(error);
+      .post(BasePath + "/api/user/signup", person)
+
+      .then((res) => {
+        console.log(res.data);
+        const userdata = res.data.result[0];
+        StorageUtils.storeData("user", userdata);
+        navigation.navigate("drawer");
       });
   };
-  const CreateName = (value) => {
-    setName(value);
+  const telChange = (val) => {
+    if (val.length === 8) {
+      setData({
+        ...data,
+        tel: val,
+        telChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        tel: val,
+        telChange: false,
+      });
+    }
   };
-  const createEmail = (value) => {
-    setEmail(value);
+  const nameChange = (val) => {
+    if (val.length > 3 && charactersRegex.test(val)) {
+      setData({
+        ...data,
+        name: val,
+        nameChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        name: val,
+        nameChange: false,
+      });
+    }
   };
-  const createTel = (value) => {
-    setTel(value);
+  const passwordChange = (val) => {
+    if (val.length > 3 && passwordRegex.test(val)) {
+      setData({
+        ...data,
+        password: val,
+        passwordChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        password: val,
+        passwordChange: false,
+      });
+    }
   };
-  const createPass = (value) => {
-    setPassword(value);
-  };
-  const onconfirmPassword = (value) => {
-    setConfirmPassword(value);
+  const emailChange = (val) => {
+    if (val.length > 3 && emailRegex.test(val)) {
+      setData({
+        ...data,
+        email: val,
+        emailChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        email: val,
+        emailChange: false,
+      });
+    }
   };
   return (
     <ImageBackground
@@ -68,7 +133,6 @@ const RegisterScreen = ({ navigation }) => {
           marginTop: 150,
         }}
       >
-        <View style={{ alignItems: "center" }}></View>
         <Text
           style={{
             fontSize: 28,
@@ -79,83 +143,141 @@ const RegisterScreen = ({ navigation }) => {
         >
           Register
         </Text>
+        <View>
+          <InputField
+            label={"Name"}
+            setValue={nameChange}
+            icon={
+              <Ionicons
+                name="person-outline"
+                size={20}
+                color="#666"
+                style={{ marginRight: 5 }}
+              />
+            }
+          />
+          {!data.nameChange && data.name !== "" ? (
+            <Text style={{ color: "red", marginTop: -18 }}>
+              Name must only contains Characters{" "}
+            </Text>
+          ) : (
+            <Text></Text>
+          )}
+        </View>
+        <View>
+          <InputField
+            label={"Email "}
+            setValue={emailChange}
+            icon={
+              <MaterialIcons
+                name="alternate-email"
+                size={20}
+                color="#666"
+                style={{ marginRight: 5 }}
+              />
+            }
+            keyboardType="email-address"
+          />
+          {!data.emailChange && data.email !== "" ? (
+            <Text style={{ color: "red", marginTop: -18 }}>
+              email must be correct
+            </Text>
+          ) : (
+            <Text></Text>
+          )}
+        </View>
+        <View>
+          <InputField
+            label={"Phone Number"}
+            setValue={telChange}
+            keyboardType="numeric"
+            icon={
+              <Ionicons
+                name="call"
+                size={20}
+                color="#666"
+                style={{ marginRight: 5 }}
+              />
+            }
+          />
+          {!data.telChange && data.tel !== "" ? (
+            <Text style={{ color: "red", marginTop: -18 }}>
+              phone must have 8 numbers{" "}
+            </Text>
+          ) : (
+            <Text></Text>
+          )}
+        </View>
+        <View>
+          <InputField
+            label={"Password"}
+            setValue={passwordChange}
+            icon={
+              <Ionicons
+                name="ios-lock-closed-outline"
+                size={20}
+                color="#666"
+                style={{ marginRight: 5 }}
+              />
+            }
+            inputType="password"
+          />
+          {!data.passwordChange && data.password !== "" ? (
+            <Text style={{ color: "red", marginTop: -18 }}>
+              password not strong enough
+            </Text>
+          ) : (
+            <Text></Text>
+          )}
+        </View>
+        <View>
+          <InputField
+            label={"Confirm Password"}
+            setValue={setConfirme_Password}
+            icon={
+              <Ionicons
+                name="ios-lock-closed-outline"
+                size={20}
+                color="#666"
+                style={{ marginRight: 5 }}
+              />
+            }
+            inputType="password"
+          />
+        </View>
 
-        <InputField
-          label={"Full Name"}
-          setValue={CreateName}
-          icon={
-            <Ionicons
-              name="person-outline"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
-        />
-        <InputField
-          label={"Email ID"}
-          setValue={createEmail}
-          icon={
-            <MaterialIcons
-              name="alternate-email"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
-          keyboardType="email-address"
-        />
-        <InputField
-          label={"Password"}
-          setValue={createPass}
-          icon={
-            <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
-          inputType="password"
-        />
-        <InputField
-          label={"Confirm Password"}
-          setValue={onconfirmPassword}
-          icon={
-            <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
-          inputType="password"
-        />
-        <InputField
-          label={"Phone Number"}
-          setValue={createTel}
-          keyboardType="numeric"
-          icon={
-            <Ionicons
-              name="call"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
-        />
-        <CustomButton
-          label={"Register"}
-          onPress={() => navigation.navigate("Home")}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text style={{ color: "#AD40AF", fontWeight: "700" }}> </Text>
+        <View>
+          <TouchableOpacity
+            disabled={
+              !data.cinChange &&
+              !data.telChange &&
+              !data.nameChange &&
+              !data.passwordChange &&
+              !data.emailChange
+            }
+            onPress={send}
+            style={{
+              backgroundColor: "#EBBAD2",
+              padding: 5,
+              borderRadius: 10,
+              marginBottom: 30,
+              borderColor: "#ddd",
+              borderWidth: 2,
+              borderRadius: 10,
+              paddingHorizontal: 30,
+              paddingVertical: 10,
+            }}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: "700",
+                fontSize: 16,
+                color: "#fff",
+              }}
+            >
+              Register
+            </Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
