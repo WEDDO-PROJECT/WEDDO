@@ -118,7 +118,7 @@ const send=()=>{
                 disabled={email==="" ||password ===""}  
                 onPress={send} 
                 style={{
-                    backgroundColor: "#EBBAD2",
+                    backgroundColor: "#D49B35",
                     padding: 5,
                     borderRadius: 10,
                     marginBottom: 30,
@@ -146,63 +146,6 @@ const send=()=>{
           >
             
           </Text>
-          {/* <Icon.Button
-            name="facebook"
-            backgroundColor="#3b5998"
-            style={{
-              borderColor: "#ffff",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          >
-            Login with Facebook
-          </Icon.Button> */}
-          {/* <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginBottom: 30,
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <GoogleSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <FacebookSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <TwitterSVG height={24} width={24} />
-            </TouchableOpacity>
-          </View> */}
 
           <View
             style={{
@@ -216,7 +159,7 @@ const send=()=>{
               title="Register"
               onPress={() => navigation.navigate("RegisterSP")}
             > 
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+              <Text style={{ color: "#D49B35", fontWeight: "700" }}>
                 {" "}
                 Register
               </Text>
