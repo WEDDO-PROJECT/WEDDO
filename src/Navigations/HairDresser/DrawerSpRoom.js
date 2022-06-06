@@ -82,6 +82,21 @@ const  DrawerContentRoom = ({navigation}) => {
                         />
                         
                     </Drawer.Section>
+                    <Drawer.Section style={styles.drawerSection}>
+                        
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="account-outline" 
+                                color={color}
+                                size={35}
+                                />
+                            )}
+                            label="Calendar"
+                           onPress={() => {navigation.navigate('Calendar')}}
+                        />
+                        
+                    </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">
                         <TouchableRipple onPress={() => {toggleTheme()}}>
                             <View style={styles.preference}>
