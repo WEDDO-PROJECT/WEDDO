@@ -49,10 +49,16 @@ refresh()
                     <View key={i}
                         style={styles.card}
                     >
-                        <Image  style={{width:150,height:150}} source={{uri:elem.logo}} /><Image/>
+                        <Image  style={{borderRadius:10,width:100,height:100,borderWidth:1,borderColor:'#D49B35',marginBottom:15}} source={{uri:elem.logo}} /><Image/>
                         <Text style={styles.title}>{elem.professional_name}</Text>
-                        <Text>{elem.description} </Text>
-                      <Text>{elem.pack_title}</Text>
+                        <Text style={{
+                        color:'black',
+                        fontSize: 20,
+                      }}>{elem.description} </Text>
+                      <Text style={{
+                        color:'black',
+                        fontSize: 20,
+                      }}>{elem.pack_title}</Text>
                       <Text style={styles.price}>{elem.pack_price} DT</Text>
                       <TouchableOpacity onPress={()=>del(elem)}>
                           <Text style={styles.delete}>Delete</Text>
@@ -79,20 +85,20 @@ const styles= StyleSheet.create({
     height: 250,
   },
   title: {
-    fontSize:20,
+    fontSize:25,
     fontWeight:'500',
     color : '#D49B35',
-    marginBottom:10,
+    marginBottom:80,
+    marginTop:-115,
+    marginLeft: 110,
     // paddingTop:130,
   },
-  price : {
+  price: {
     marginLeft:190,
-    marginTop:-55,
     height:30,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:20,
     width:80,
     borderRadius:11,
     backgroundColor: "#D49B35",
@@ -102,6 +108,7 @@ const styles= StyleSheet.create({
     borderWidth: 1,
     elevation: 7,
     paddingTop: 5,
+    marginBottom:20
   },
   delete : {
     marginLeft:190,
