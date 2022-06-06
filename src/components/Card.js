@@ -1,5 +1,5 @@
 
-import ImagedCardView from "react-native-imaged-card-view";
+// import ImagedCardView from "react-native-imaged-card-view";
 import { StatusBar, ScrollView, SafeAreaView } from "react-native";
 
 

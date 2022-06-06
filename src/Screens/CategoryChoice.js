@@ -17,17 +17,7 @@ export default function  CategoryChoice ({navigation}){
 
         return (
     <View style={styles.container}>
-    {/* <ImageBackground
-      style={{
-        width: width,
-        height: 0.3 * height,
-      }}
-      source={back}
-      resizeMode="cover"
-    >
-        <View style={styles.slider}></View>
-    </ImageBackground> */}
-            
+       
             <View style={styles.footer}>
               <View
                 style={{
@@ -53,7 +43,7 @@ export default function  CategoryChoice ({navigation}){
                   onPress={() => navigation.navigate("LoginScreen")}
                 >
                   <Image
-                   source={require("../assets/user.png")}
+                   source={require("../assets/icon-coupleremovebg.png")}
                     style={styles.image}
                   />
                   <Text style={styles.text}>Client</Text>
@@ -64,7 +54,7 @@ export default function  CategoryChoice ({navigation}){
                   onPress={() => navigation.navigate("LoginScreenSP")}
                 >
                   <Image
-                   source={require("../assets/SP.png")}
+                   source={require("../assets/SPremovebg.png")}
                     style={styles.image}
                   />
                   <Text style={styles.text}>Service Provider</Text>
@@ -81,7 +71,7 @@ export default function  CategoryChoice ({navigation}){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "white",
+      backgroundColor: "#D49B35",
     },
     slider: {
       
@@ -93,7 +83,7 @@ const styles = StyleSheet.create({
     },
     footerContent: {
       flex: 1,
-      backgroundColor: "white",
+      backgroundColor: "#D49B35",
       borderTopLeftRadius: 75,
     },
     textBtn: {
@@ -128,7 +118,7 @@ const styles = StyleSheet.create({
       borderWidth: 2,
       marginLeft: "5%",
     },
-    image: { height: 80, width: 80, marginLeft: 20 },
+    image: { height: 120, width: 100, marginLeft: 10 },
     background: {
       position: "absolute",
       left: 0,

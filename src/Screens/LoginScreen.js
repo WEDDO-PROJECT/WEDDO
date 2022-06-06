@@ -13,7 +13,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { AsyncStorage } from 'react-native';
+
 
 // import iP from '../constants/BasePath.js';
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -29,45 +29,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNavigation } from "@react-navigation/native";
 import Profile from "../components/profile.js";
-import axios from 'axios'
+
 
 
 import BasePath from "../constants/BasePath";
 
 import { NativeModules } from 'react-native';
 
-// const { scriptURL } = NativeModules.SourceCode;
-// const scriptHostname = scriptURL.split('://')[1].split(':')[0];
-// console.log(scriptHostname)
-// import { useNavigation } from "@react-navigation/native";
-// import GoogleSVG from "../assets/google.svg";
-// import FacebookSVG from "../assets/facebook.svg";
-// import TwitterSVG from "../assets/twitter.svg";
-// import Google from "./google.js"
-// import Roboto-Medium from '../assets/font/Roboto-Medium.ttf'
-// import { TextInput } from "react-native-web";
-// import {
-//   GoogleSignin,
-//   GoogleSigninButton,
-//   statusCodes,
-// } from "react-native-google-signin";
-// const navigation = useNavigation();
 
 
 
+// import Icon from "react-native-vector-icons/FontAwesome";
 import Icon from "react-native-vector-icons/FontAwesome";
 // import StorageUtils from "../Utils/StorageUtils.js";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-// import Icon from "react-native-vector-icons/FontAwesome";
-const LoginScreen = () => {
-    const [password,setPassword]=useState("");
-    const [email, setEmail] = useState("");
+
     
   const [errorMsg, setErrorMsg] = useState(null);
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
   //   const onLoginPressed =()=>{
   //     obj={
   //       password:password,
@@ -103,10 +85,10 @@ const send=()=>{
   axios.post(BasePath + '/api/user/login',person)
   .then(res=>{console.log(res.data)
 
-     if(res.data[0]==='success'){
-       AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
-       navigation.navigate("drawer")
-     }
+    //  if(res.data[0]==='success'){
+    //    AsyncStorage.setItem('user',JSON.stringify(res.data[1]))
+    //    navigation.navigate("drawer")
+    //  }
 
 
     
@@ -162,6 +144,7 @@ const send=()=>{
             }
             keyboardType="password"
           />
+          
           <InputField
             value={password}
             setValue={setPassword}
@@ -170,7 +153,7 @@ const send=()=>{
               <Ionicons
                 name="ios-lock-closed-outline"
                 size={20}
-                color="#666"
+                color="#D49B35"
                 style={{ marginRight: 5 }}
               />
             }
@@ -185,11 +168,11 @@ const send=()=>{
                 disabled={email==="" ||password ===""}  
                 onPress={send} 
                 style={{
-                    backgroundColor: "#EBBAD2",
+                    backgroundColor: "#D49B35",
                     padding: 5,
                     borderRadius: 10,
                     marginBottom: 30,
-                    borderColor: "#ddd",
+                    borderColor: "#D49B35",
                     borderWidth: 2,
                     borderRadius: 10,
                     paddingHorizontal: 30,
@@ -208,73 +191,15 @@ const send=()=>{
               </Text>
             </TouchableOpacity>
           <Text
-            style={{ textAlign: "center", color: "#EBBAD2", marginBottom: 20 }}
+            style={{ textAlign: "center", color: "#D49B35", marginBottom: 20 }}
           >
-           
           </Text>
-          {/* <Icon.Button
-            name="facebook"
-            backgroundColor="#3b5998"
-            style={{
-              borderColor: "#ffff",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          >
-            Login with Facebook
-          </Icon.Button> */}
-          {/* <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginBottom: 30,
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <GoogleSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <FacebookSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <TwitterSVG height={24} width={24} />
-            </TouchableOpacity>
-          </View> */}
-
+        
           <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
-              marginBottom: 30,
+              marginBottom: 1,
             }}
           >
             {/* /<Text>New to the app?</Text> */}
@@ -284,12 +209,7 @@ const send=()=>{
 
               onPress={() => navigation.navigate("RegisterScreen")}
             > 
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
-
-              onPress={() =>navigation.navigate("RegisterScreen")}
-            > 
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }} >
-
+              <Text style={{ color: "#D49B35", fontWeight: "700" }} >
                 {" "}
                 Register
                 
@@ -312,6 +232,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 250,
 },
-backgroundColor:'white'
+
 })
 export default LoginScreen;

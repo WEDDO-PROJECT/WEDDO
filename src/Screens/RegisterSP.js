@@ -66,7 +66,7 @@ const RegisterSP = ({ navigation }) => {
 
     .then((response)=>{
       console.log("response.data.result[0]")
-      console.log(response.data.result[0])
+      console.log(response.data)
       const userdata =response.data.result[0]
      StorageUtils.storeData('user',userdata)
         if(userdata.category=='Hairdresser'){
@@ -288,7 +288,7 @@ const RegisterSP = ({ navigation }) => {
          {!data.cinChange && data.cin!=="" ? (
           <Text style={{color: 'red' , marginTop : -18}}>cin has 8 numbers </Text>
         ) : null}</View>
-        <View style={{marginBottom:15, marginTop:-20}}>
+        <View style={{marginBottom:15, marginTop:20}}>
         <RNPickerSelect
                  
                  items={[

@@ -95,7 +95,7 @@ export default function Checklist() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f0c5da',
+        backgroundColor: '#D49B35',
     },
     tasksWrapper: {
         paddingTop: 80,
