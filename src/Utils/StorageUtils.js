@@ -1,5 +1,5 @@
 
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default class StorageUtils {
   constructor() {}
   static async storeData(key: string, value: any) {
