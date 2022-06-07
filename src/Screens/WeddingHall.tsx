@@ -14,6 +14,7 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 import BasePath from "../constants/BasePath";
+import StorageUtils from "../Utils/StorageUtils";
 const  WeddingHalls = ({navigation}) => {
     const [myLocation, setLocation] = useState<LocationObject>();
     const [myRegion, setRegion] = useState<Region>(undefined);
@@ -24,6 +25,13 @@ const  WeddingHalls = ({navigation}) => {
     const [markers, setMarkers] = React.useState<any>(undefined);
     const [weddingHalls, setweddingHalls] = React.useState<any>(undefined);
     const [weddingHall, setweddingHall] = React.useState<any>(undefined);
+
+
+    const navigate = ()=> {
+      
+      StorageUtils.storeData('weddingHall',marker)
+      navigation.navigate("WeddingHallDetails")
+    }
 
    const  bs = React.createRef();
     
@@ -50,12 +58,12 @@ const  WeddingHalls = ({navigation}) => {
       <View style={styles.panel}>
         {marker && <View style={{alignItems: 'center'}}>
           <Text style={styles.panelTitle}>{marker.name}</Text>
-          <Text style={styles.panelSubtitle}>{marker.price}</Text>
+          <Text style={styles.panelSubtitle}>{marker.pack_price}</Text>
         </View>}
         
         <TouchableOpacity
           style={styles.panelButton}
-          onPress={() => navigation.navigate("WeddingHallDetails",{weddinghalldata : marker})}>
+          onPress={navigate}>
           <Text style={styles.panelButtonTitle}>View Details</Text>
         </TouchableOpacity>
       </View>
@@ -73,9 +81,12 @@ const  WeddingHalls = ({navigation}) => {
 
       useEffect(()=>{        
         axios
-          .get(BasePath + "/api/sp/SelectSalle")
+          .get(BasePath + "/api/sp/all")
           .then((response) => {
-            let orders  =response.data.result
+            console.log(response.data)
+            let orders  =response.data
+              orders = orders.filter((elem,i)=> elem.category == 'partyroom')
+            console.log(orders)
             // setweddingHalls(response.data.result);
             console.log(response.data.result)
            // console.log(response.data)
@@ -85,11 +96,15 @@ const  WeddingHalls = ({navigation}) => {
     
             orders.map((hall) => {
               const marker = {
-                key: hall.id,
+                id: hall.id,
                 latitude: Number(hall.latitude),
                 longitude: Number(hall.longitude),
                 name: hall.name,
-                price: hall.price,
+                pack_price: hall.pack_price,
+                category: hall.category,
+                tel: hall.tel,
+                email : hall.email,
+                owner_name : hall.owner_name
               };
               markerss.push(marker);
             });
@@ -143,6 +158,7 @@ const  WeddingHalls = ({navigation}) => {
       function markerClick(marker) {
 
        bs.current.snapTo(0)
+       console.log(marker)
        setMarker(marker)
 
         // let khatwa = khatwas.find((element) => {
@@ -195,13 +211,13 @@ const  WeddingHalls = ({navigation}) => {
        { markers &&
               markers.map((marker) => (
                 <Marker
-                  key={marker.key}
+                  key={marker.id}
                   coordinate={{
                     latitude: marker.latitude,
                     longitude: marker.longitude,
                   }}
                   title={marker.name}
-                  description={marker.price}
+                  description={marker.pack_price}
                   onPress={() => {
                     markerClick(marker);
                   }}
@@ -212,7 +228,7 @@ const  WeddingHalls = ({navigation}) => {
         </MapView>
         <BottomSheet
         ref={bs}
-        snapPoints={[330, 0]}
+        snapPoints={[392, 0]}
         renderContent={renderInner}
         renderHeader={renderHeader}
         initialSnap={1}

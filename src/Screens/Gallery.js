@@ -5,6 +5,7 @@ import {Avatar,Title,Caption,Text,TouchableRipple} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import StorageUtils from '../Utils/StorageUtils.js';
 
+import Stars from "react-native-stars";
 import * as Permissions from 'expo-permissions';
 import Gallery from 'react-native-image-gallery';
 import { Dimensions } from 'react-native';
@@ -31,23 +32,55 @@ const SPGallery = ({navigation})=>{
   const [images, setImages] = React.useState([]);
   const [id, setId] = React.useState(null);
   const [price, setPrice] = React.useState(null);
+  const [nom, setNom] = React.useState(null);
+  const [category, setCategory] = React.useState(null);
+  const [tel, setTel] = React.useState(null);
+  const [email, setEmail] = React.useState(null);
+  const [rating, setRating] = React.useState(null);
+  const [isClient, setIsClient] = useState(true);
   
   const bs = React.createRef();
   const fall = new Animated.Value(1);
 
+  const updaterating = (val)=> {
+
+    let obj={
+      user_id:109,
+      sp_id:id,
+      rating:val
+    }
+    
+    axios.post(`${BasePath}/api/sp/rating/create`,obj)
+    .then(res=>{
+      console.log(res.data);
+    })
+
+  }
+
   useEffect(() => {
     async function getUser() {
       let data
-      await StorageUtils.retrieveData('user').then((value) => {
+      await StorageUtils.retrieveData('weddingHall').then((value) => {
           
         data = JSON.parse(value)
+        console.log(data)
 
         setId(data.id)
         const body ={
           id:id
         }
 
-        console.log(id)
+        setPrice(data.pack_price)
+        setNom(data.owner_name)
+        setCategory(data.category)
+        setEmail(data.email)
+        setTel(data.tel)
+        setRating(Math.floor(Math.random() * 6) + 1)
+
+        StorageUtils.retrieveData('userRole').then((value) => {
+          data = JSON.parse(value)
+          setIsClient(data === 'client')
+        })
 
         axios 
         .get(BasePath + "/api/sp/getimages/"+data.id)
@@ -219,6 +252,18 @@ const SPGallery = ({navigation})=>{
 
     }
 
+
+    const addRequest = ()=> {
+
+      let obj={
+        user_id:113,
+        sp_id:id,
+        date:"07/06/2022"
+      }
+      axios.post(`${BasePath}/api/sp/request/create`,obj)
+      .then(res=>console.log(res))
+    }
+
         return(
             <ScrollView >
                 
@@ -226,28 +271,77 @@ const SPGallery = ({navigation})=>{
                 
                 <View style={{flexDirection :'row' , marginTop : 60}}>
 
-          <View style={styles.cartCard1}>
-             <View style={{flexDirection :'column' ,justifyContent:'center', }}>
-             <Title style={{fontSize:23,fontWeight:"bold", marginBottom:15,color:'#FDC12A'}}>
-                    My Space
-                </Title>
-                    <TextInput
-                        value={price}
-                        onChangeText={(e)=>setPrice(e)}
-                        placeholder="Price"
-                        keyboardType='numeric'
-                        textAlign={'center'} 
-                        style={{ flex: 0, paddingVertical: 0 , alignItems: 'center', }}
-                        />
                  
                 
-                <TouchableOpacity style={styles.commandButton} onPress={updatePrice}>
-                  <Text style={styles.panelButtonTitle}>update</Text>
-                </TouchableOpacity>
+                {!isClient ? 
+                          <View style={{flexDirection :'column' ,justifyContent:'center', }}>
+                              <Title style={{fontSize:23,fontWeight:"bold", marginBottom:15,color:'#FDC12A'}}>
+                                  My Space
+                              </Title>
+                              <TextInput
+                              value={price}
+                              onChangeText={(e)=>setPrice(e)}
+                              placeholder="Price"
+                              keyboardType='numeric'
+                              textAlign={'center'} 
+                              style={{ flex: 0, paddingVertical: 0 , alignItems: 'center', }}
+                              />
+                              <TouchableOpacity style={styles.commandButton} onPress={updatePrice}>
+                                <Text style={styles.panelButtonTitle}>update</Text>
+                              </TouchableOpacity>
+                              
+                              
+                          </View>
+                 : 
+
+                    <View style={styles.cartCard }>
+                      
+                    <Title style={{fontSize:23,fontWeight:"bold", color:'#FDC12A'}}>
+                                                        Service Provider Details
+                    </Title>
+                    <View style={{flexDirection :'row',alignItems:'center' ,marginLeft:20}}> 
+                    <Image
+                          source={require("../assets/SP.png")}
+                          style={styles.image}
+                        />
+
+                      
+                    
+                    <View style={{flexDirection :'column' ,alignContent:'center' , marginLeft : 30}}>
+                        
+                          <Title style={[styles.title,{marginBottom :5}]}> {nom}</Title>
+                          <View style={{marginBottom :5}}></View>
+                          <Caption style={styles.caption}>{category}</Caption>
+                      
+                      
+                      <View style={{marginBottom :5}}></View>
+                      <Icon name='phone'color='#777777' size={20}>
+                      <Text style={{fontSize :16,color:"#777777" ,marginBottom :5}}>
+                          {tel}
+                      </Text>
+                      </Icon>
+                      
+                      <View style={{marginBottom :5}}></View>
+                      <Icon name='email'color='#777777' size={20}>
+                      <Text style={{fontSize :16,color:"#777777" ,marginRight:20}}>
+                        {email}
+                      </Text> 
+                      </Icon>
+
+                      <View style={{marginBottom :5}}></View>
+                      <Icon name='account-cash'color='#000000' size={20}>
+                      <Text style={{fontSize :18,color:"#000000" ,fontWeight : 'bold',marginLeft:20}}>
+                        {price}
+                      </Text> 
+                      </Icon>
+                      
+                    </View>
+                    </View> 
+
+
+                    </View>
+              }
                 
-             </View>
-             
-        </View>
                 
               
             
@@ -257,9 +351,57 @@ const SPGallery = ({navigation})=>{
                     images={images}
                 />
             <View>
+
+                    {!isClient ? 
+                    
                     <TouchableOpacity style={styles.commandButton} onPress={() => {bs.current.snapTo(0)}}>
-                        <Text style={styles.panelButtonTitle}>Add Images</Text>
+                                <Text style={styles.panelButtonTitle}>Add Images</Text>
+                            </TouchableOpacity>
+                    : 
+                    
+                    <View>
+
+                    <TouchableOpacity style={styles.commandButton} onPress={() => {addRequest}}>
+                    <Stars
+              // half={true}
+              default={4}
+              update={(val) => {
+                // this.setState({starts:val});
+                updaterating(val)
+                console.log(val);
+                // this.rating(val)
+              }}
+              spacing={4}
+              count={5}
+              fullStar={
+                <Icon name={"star"} size={40} style={[styles.myStarStyle]} />
+              }
+              emptyStar={
+                <Icon
+                  name={"star-outline"}
+                  size={40}
+                  style={[styles.myStarStyle, styles.myEmptyStarStyle]}
+                />
+              }
+              halfStar={
+                <Icon
+                  name={"star-half"}
+                  size={40}
+                  style={[styles.myStarStyle]}
+                />
+              }
+            />
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.commandButton} onPress={() => {addRequest}}>
+                            <Text style={styles.panelButtonTitle}>Send Request</Text>
+                    </TouchableOpacity>
+
+
+
+                    </View>
+                    
+                    }
+                    
                     <BottomSheet
                         ref={bs}
                         snapPoints={[330, 0]}
@@ -290,6 +432,7 @@ const styles =StyleSheet.create({
         alignItems: 'center',
         
       },
+    image: { height: 70, width: 70, borderRadius:60 },
       commandButton: {
         marginTop : 10,
         padding: 15,
@@ -302,6 +445,16 @@ const styles =StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#FF6347',
         alignItems: 'center',
+      },
+      myStarStyle: {
+        color: "grey",
+        backgroundColor: "transparent",
+        textShadowColor: "black",
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 2,
+      },
+      myEmptyStarStyle: {
+        color: "white",
       },
       cartCard1: {
         height: 150,
@@ -393,6 +546,20 @@ const styles =StyleSheet.create({
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         paddingLeft: 10,
         color: '#05375a',
+      },
+      cartCard: {
+        height: 250,
+        width:'94%',
+        elevation: 5,
+        borderRadius: 10,
+        backgroundColor: COLORS.white,
+        marginVertical: 12,
+        paddingHorizontal: 50,
+        paddingBottom :20,
+        marginHorizontal: 12,
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'space-between',
       },
 
       

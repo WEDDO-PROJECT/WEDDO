@@ -36,6 +36,7 @@ import DrawerNavigatorPhotographer from "./Photographer/DrawerNavigator";
 import DrawerNavigatorHairdresser from "./HairDresser/DrawerNavigator";
 import DrawerNavigatorMusicalBand from "./Band/DrawerNavigator";
 import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
+import CalendarInput from "../components/homeComponents/Calendar.js";
 const Stack = createStackNavigator();
 export default function Navigator(){
 
@@ -265,6 +266,17 @@ export default function Navigator(){
           <Stack.Screen
             name="WeddingHalls"
             component={WeddingHalls}
+            options={{
+              headerStyle: {
+                backgroundColor: "transparent",
+              },
+              headerTransparent: true,
+              title: "",
+            }}
+          />
+          <Stack.Screen
+            name="Calendar"
+            component={CalendarInput}
             options={{
               headerStyle: {
                 backgroundColor: "transparent",

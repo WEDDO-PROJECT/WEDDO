@@ -93,19 +93,9 @@ const  DrawerContentRoom = ({navigation}) => {
                             label="localisation"
                             onPress={() => {navigation.navigate('MapContent')}}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="image-multiple-outline" 
-                                color={color}
-                                size={30}
-                                />
-                            )}
-                            label="My Space"
-                           onPress={() => {navigation.navigate('Gallery')}}
-                        />
+                        
                        
-                    </Drawer.Section>
+                        </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">
                         <TouchableRipple onPress={() => {toggleTheme()}}>
                             <View style={styles.preference}>

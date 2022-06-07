@@ -29,12 +29,12 @@ function Tabnavigation(props) {
             tabBarShowLabel:true,
         }}
         >
-            <Tab.Screen name='Home' component={NavHome} options={{
+            <Tab.Screen name='Home' component={Home} options={{
                 tabBarIcon: ({color,size}) => (
                     <Ionicons name="home-outline" color={color} size={size} />
                 )
             }} />
-            <Tab.Screen name='Selected' component={Profile} options={{
+            <Tab.Screen name='Selected' component={Basket} options={{
                 tabBarIcon: ({color,size}) => (
                     <Ionicons name="bookmarks-outline" color={color} size={size} />
                 )

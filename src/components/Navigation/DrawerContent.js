@@ -10,6 +10,7 @@ import Tabnavigation from '../Navigation/Tabnavigation.js';
 import Navigator from "../../Navigations/Navigator"
 import Checklist from "../../Screens/Checklist.js";
 import Settings from "../homeComponents/Settings.js"
+import WeddingHalls from "../../Screens/WeddingHall";
 
 const Drawer = createDrawerNavigator();
 
@@ -48,7 +49,11 @@ const DrawerNavigator = () => {
           <Ionicons name="reader-outline" size={22} color={color} />
         )
       }} />
-      
+      <Drawer.Screen name="WeddingHalls" component={WeddingHalls} options = {{
+        drawerIcon:({color}) => (
+          <Ionicons name="reader-outline" size={22} color={color} />
+        )
+      }} />
       <Drawer.Screen name="About Us" component={Settings} options = {{
         drawerIcon:({color}) => (
           <Ionicons name="alert-circle-outline" size={22} color={color} />

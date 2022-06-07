@@ -11,23 +11,17 @@ import { Text } from "../components/Themed";
 import axios from "axios";
 
 import BasePath from "../constants/BasePath";
+import StorageUtils from "../Utils/StorageUtils";
 const  MapContent = ({navigation}) => {
     const [myLocation, setLocation] = useState<LocationObject>();
     const [myRegion, setRegion] = useState<Region>(undefined);
     const [marker, setMarker] = React.useState<any>(undefined);
     const [name, setName] = React.useState<string>("");
-    const [price, setPrice] = React.useState<string>("");
+    const [price, setPrice] = React.useState<Number>(null);
+    const [id, setId] = React.useState<Number>(null);
     const [markerSelected, setMarkerSelected] = React.useState<boolean>(false);
 
-    
-    
-  const [errorMsg, setErrorMsg] = useState<string>("");
     const mapRef = useRef(null);
-    const [departureEvent, setDepartureEvent] = React.useState<
-     {
-      coordinate: LatLng;
-    }
-  >();
   const  setPosition=(coordinate: LatLng)=>{
       console.log(coordinate)
       const marker = {
@@ -38,24 +32,53 @@ const  MapContent = ({navigation}) => {
       setMarkerSelected(true)
     }
     useEffect(() => {
-        (async () => {
-          let status= await Location.hasServicesEnabledAsync();
-          // if (!status ) {
-          //   setErrorMsg("Permission to access location was denied");
-          //   return;
-          // }
+      async function getUser()   {
+          
+          let data 
+           StorageUtils.retrieveData('user').then((value) => {
+
+            data = JSON.parse(value)
+            if (data === undefined) {
+              console.log('not found')
+             } else {
+              setId(data.id)
+              if (data.latitude && data.longitude){
+                const marker = {
+                  latitude: Number(data?.latitude),
+                  longitude: Number(data?.longitude)
+                };
+  
+                setMarker(marker)
+                setName(data.name)
+                setPrice(data.pack_price)
+  
+                
+                setMarkerSelected(true)
+              }
+             }
+
+           }  )
+            
+            
+          
+            let status= await Location.hasServicesEnabledAsync()
     
-          let myLocation = await Location.getCurrentPositionAsync({});
-          setLocation(myLocation);
-          let region = {
-            longitude: 10.1785077,//myLocation.coords.longitude,
-            latitude:36.8868947, //myLocation.coords.latitude,
-            latitudeDelta: 0.0043,
-            longitudeDelta: 0.0034,
-          };
-          setRegion(region);
-        })();
-      });
+            let myLocation = await Location.getCurrentPositionAsync({});
+            setLocation(myLocation);
+            let region = {
+              longitude: 10.1785077,
+              latitude:36.8868947,
+              latitudeDelta: 0.0043,
+              longitudeDelta: 0.0034,
+            };
+            setRegion(region);
+  
+          
+         
+            
+        };
+        getUser();
+      }, []);
 
       const changeUserLocation = async () => {
         let previousLocation = myLocation;
@@ -90,6 +113,7 @@ const  MapContent = ({navigation}) => {
     
       const AddSalle =async()=>{
         const body ={
+          id : id,
           name:name,
           price:price,
           latitude:marker.latitude,
@@ -100,8 +124,8 @@ const  MapContent = ({navigation}) => {
         .then((response)=>{
           //console.log(response.data.result[0])
           const data =response.data.result[0]
-          navigation.navigate("WeddingHallDetails",{weddinghalldata : data})
-          console.log(data)
+          navigation.navigate("WeddingHallDetails")
+          StorageUtils.storeData('weddingHall',data)
         })
         .catch((error)=>{
           console.log(error)
@@ -234,7 +258,7 @@ const styles = StyleSheet.create({
       height: 50,
       padding: 10,
       borderRadius: 50,
-      backgroundColor: "#FFD804",
+      backgroundColor: "#EBBAD2",
       flexDirection: "row",
       paddingRight: 10,
     },
