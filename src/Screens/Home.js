@@ -14,22 +14,17 @@ const Home =({ navigation})=> {
   let imageBand = require('../assets/band.png');
   let imageHS = require('../assets/hair.png');
   let imageHall = require('../assets/hall.png')
-  let imagePack = require('../assets/package.png')
+  let imagePack = require('../assets/map1.png')
 
   const [person,setPerson]=useState(null)
   const [allData,setAllData]=useState([])
   const [filtredData,setFIltredData]=useState([])
   const [view,setView]=useState(null)
-  const [from, setFrom] = useState("");
-  const [end, setEnd] = useState("");
+  const [start, setStart] = useState("");
+
   const array=[]
   useEffect(()=>{         // bring the url from the backend  
-  // useEffect(()=>{         // bring the url from the backend 
-     
-  //     StorageUtils.retrieveData('user').then((value) =>
-  //    //setUser(JSON.parse(value))
-  //    console.log(value)
-  //  );
+  setStart('')
     axios.get(BasePath + '/api/sp/all')
     .then(res=>{console.log(res.data)
       setAllData(res.data)})
@@ -41,7 +36,7 @@ const Home =({ navigation})=> {
   const buttonFunction=(val)=>{
     var array=[]
 if (val==1){
-  array=allData.filter((elem,i)=> elem.category == 'photographer')
+  array=allData.filter((elem,i)=> elem.category == 'Photographer')
   setFIltredData(array)
   if(view===1)
   setView(null)
@@ -49,7 +44,7 @@ if (val==1){
   setView(1)
 }
 if (val===2){
-  array=allData.filter((elem,i)=> elem.category == 'band')
+  array=allData.filter((elem,i)=> elem.category == 'MusicalBand')
   setFIltredData(array)
   if(view===2)
   setView(null)
@@ -57,7 +52,7 @@ if (val===2){
   setView(2)
 }
 if (val===3){
-  array=allData.filter((elem,i)=> elem.category == 'hairSalon')
+  array=allData.filter((elem,i)=> elem.category == 'Hairdresser')
   setFIltredData(array)
   if(view===3)
   setView(null)
@@ -65,7 +60,7 @@ if (val===3){
   setView(3)
 }
 if (val===4){
-  array=allData.filter((elem,i)=> elem.category == 'weddingHall')
+  array=allData.filter((elem,i)=> elem.category == 'partyroom')
   setFIltredData(array)
   if(view===4)
   setView(null)
@@ -83,17 +78,16 @@ if (val===4){
 
   }
   let nav = () => {
-    navigation.navigate({
-      name: "Calendar",
-      params: {
-        start: setFrom,
-        end: setEnd,
-      },
-      merge: true,
-    });
+    // navigation.navigate({
+    //   name: "Calendar",
+    //   // params: {
+    //   //   setStart: setStart
+    //   // },
+    //   // merge: true,
+    // });
   }
     return (
-  <ScrollView>
+  <ScrollView style={{backgroundColor:"white" , marginTop : 40}}>
      <SafeAreaView>    
    
         <View style={styles.container}>  
@@ -166,21 +160,7 @@ if (val===4){
                 
                       Wedding Hall
                    </Text>
-            </TouchableOpacity>
-            {/* <TouchableOpacity
-                    title="weddingHall"
-                    onPress={() => buttonFunction(5)}
-                    style={view==5&&styles.clicked}
-            >
-                    <Image
-                      style={styles.box}
-                      source={imagePack}
-                    />
-                   <Text style={styles.text}>
-                
-                      Packages
-                   </Text>
-            </TouchableOpacity>             */}
+            </TouchableOpacity>         
          
           </View>
           <View>
@@ -190,7 +170,7 @@ if (val===4){
                 onPress={() => {
                   nav();
                 }}
-              >{from === "" ? "From" : from}{"   "}<Ionicons name="calendar-outline" style ={{color:'#D49B35'}} size={26}></Ionicons>{"   "}{end === "" ? "To" : end}
+              ><Ionicons name="calendar-outline" style ={{color:'#D49B35'}} size={26}></Ionicons>{"   "}{start === "" ? "Choose date" : start}
               </Text>
             </View>
               </View>
@@ -199,14 +179,24 @@ if (val===4){
              <Cards style={{
               // flexDirection: "row",
               // top: 30,
-            }} filtredData={allData} setTView={setView}></Cards> 
+            }} filtredData={allData} setTView={setView} navigation={navigation}></Cards> 
           }
           {view&&
           <Cards style={{
             // flexDirection: "row",
             // top: 30,
-          }} filtredData={filtredData} setTView={setView}></Cards> 
+          }} filtredData={filtredData} setTView={setView} navigation={navigation} ></Cards> 
           }
+          
+    
+
+  
+
+  
+
+
+
+
             
               
              
@@ -225,6 +215,11 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       backgroundColor:"white"
     
+    },
+    container2: {
+      flex: 1,
+      justifyContent: "space-around",
+      alignItems: "center"
     },
     image:{
      margin:5,

@@ -47,19 +47,18 @@ const LoginScreen = ({navigation}) => {
 
 const send=()=>{
   let person={email:email, password:password}
-   console.log(person);
   axios.post(BasePath + '/api/sp/login',person)
    .then(res=>{
-     console.log(res.data)
     if(res.data==="Please fill all the fields" || res.data==="email not found" || res.data==="login failed" ){
         setErrorMsg(res.data)
     }else {
       const userdata =res.data
       StorageUtils.storeData('user',userdata)
+      StorageUtils.storeData('userRole','sp')
       if(userdata.category=='Hairdresser'){
         navigation.navigate("DrawerNavigatorHairdresser")
       }else if(userdata.category=='partyroom'){
-        navigation.navigate("DrawerNavigatorSP")
+        navigation.navigate("DrawerNavigator")
       }else if(userdata.category=='Photographer'){
         navigation.navigate("DrawerNavigatorPhotographer")
       } if(userdata.category=='MusicalBand'){

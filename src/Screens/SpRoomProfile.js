@@ -21,15 +21,13 @@ const ProfileRoom = ({navigation})=>{
     async function getUser() {
       let data
       await StorageUtils.retrieveData('user').then((value) => (data = JSON.parse(value)));
-      console.log(data);
+      
       if (data === undefined) {
        console.log('not found')
       } else {
 
           setName(data.owner_name)
-          console.log("data : "+data)
           setEmail(data.email)
-          console.log(data.email)
           setCategory(data.category)
           setCin(data.cin)
           setTel(data.tel)
@@ -75,33 +73,12 @@ const ProfileRoom = ({navigation})=>{
         <View style={styles.userInfoSection}>
         
             <View style={{flexDirection :'row' ,marginTop:50,justifyContent:'center'}}>
-            <ImageBackground
-                source={{
-                  uri: image,
-                }}
-                style={{height: 100, width: 100}}
-                imageStyle={{borderRadius: 15,backgroundColor:'#D49B35'}}>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Icon
-                    name="camera"
-                    size={35}
-                    color="#fff"
-                    style={{
-                      opacity: 0.7,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderWidth: 1,
-                      borderColor: '#fff',
-                      borderRadius: 10,
-                    }}
-                  />
-                </View>
-              </ImageBackground>
+            
+
+                          <Image
+                                source={require("../assets/SP.png")}
+                                    style={styles.image}
+                          />
               
                 <View style={{marginLeft:20}}>
                     <Title style={[styles.title,{marginTop:15 ,marginBottom :5}]}> {name}</Title>
@@ -206,5 +183,5 @@ const styles =StyleSheet.create({
 
       },
       
-    image: { height: 90, width: 90, borderRadius:60 },
+    image: { height: 100, width: 100, borderRadius:20 },
 })

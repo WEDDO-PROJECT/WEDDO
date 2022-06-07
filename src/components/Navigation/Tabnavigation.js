@@ -6,6 +6,7 @@ import Feather from "react-native-vector-icons/Feather";
 import NavHome from '../homeComponents/NavHome';
 import Basket from '../../Screens/Basket';
 import Home from '../../Screens/Home';
+import Profile from '../profile';
 
 const Tab= createBottomTabNavigator();
 function Tabnavigation(props) {
@@ -28,7 +29,7 @@ function Tabnavigation(props) {
             tabBarShowLabel:true,
         }}
         >
-            <Tab.Screen name='Home' component={NavHome} options={{
+            <Tab.Screen name='Home' component={Home} options={{
                 tabBarIcon: ({color,size}) => (
                     <Ionicons name="home-outline" color={color} size={size} />
                 )

@@ -80,29 +80,8 @@ const  DrawerContentRoom = ({navigation}) => {
                             label="Profile"
                            // onPress={() => {props.navigation.navigate('Profile')}}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="bookmark-outline" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="Bookmarks"
-                           // onPress={() => {props.navigation.navigate('BookmarkScreen')}}
-                        />
                         
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="account-check-outline" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="Support"
-                            onPress={() => {navigation.navigate('WeddingHalls')}}
-                        />
+                        
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
@@ -114,18 +93,9 @@ const  DrawerContentRoom = ({navigation}) => {
                             label="localisation"
                             onPress={() => {navigation.navigate('MapContent')}}
                         />
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <Icon 
-                                name="format-list-group" 
-                                color={color}
-                                size={35}
-                                />
-                            )}
-                            label="marriage halls"
-                            onPress={() => {navigation.navigate('Rooms')}}
-                        />
-                    </Drawer.Section>
+                        
+                       
+                        </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">
                         <TouchableRipple onPress={() => {toggleTheme()}}>
                             <View style={styles.preference}>

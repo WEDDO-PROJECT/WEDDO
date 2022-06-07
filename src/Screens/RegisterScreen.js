@@ -54,6 +54,7 @@ const send=async()=>{
     console.log(res.data);
     const userdata =res.data.result[0]
      StorageUtils.storeData('user',userdata)
+     StorageUtils.storeData('userRole','client')
     navigation.navigate("drawer")
   })
 }
@@ -165,7 +166,11 @@ const emailChange = (val) => {
         <View>
         <InputField
           label={"Email "}
+
+          setValue={setEmail}
+
           setValue={emailChange}
+
           icon={
             <MaterialIcons
               name="alternate-email"
