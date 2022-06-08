@@ -29,7 +29,7 @@ import MapContent from '../Screens/Map'
 import WeddingHalls from '../Screens/WeddingHall'
 import Rooms from "../Screens/Rooms.js";
 import CustomDrawer from "../components/Navigation/CustomDrawer.js";
-// import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
+import WeddingHallDetails from "../Screens/WeddingHallDetails.js";
 import DrawerNavigatorClient from "./Client/DrawerNavigator.js";
 import DrawerNavigatorPhotographer from "./Photographer/DrawerNavigator";
 import DrawerNavigatorHairdresser from "./HairDresser/DrawerNavigator";
@@ -40,19 +40,15 @@ export default function Navigator(){
 
     const [user, setUser] = useState(null);
   useEffect(() => {
-    // AsyncStorage.setItem('user',)
-    // async function getUser() {
-    //   let data=[]
-    //  // await StorageUtils.retrieveData(userKey).then((value) => (data = value));
-    //   console.log(data);
-    //   if (data === undefined) {
+    AsyncStorage.getItem('user').then(res=>{
+      if (res === null||res === undefined) {
         setUser({ id: "notFound" });
-        // setUser({ role: "sp" });
-    //   } else {
-    //     setUser(JSON.parse(data));
-    //   }
-    // }
-    // getUser();
+      }
+        else {
+          setUser(JSON.parse(res));
+        }
+    })
+    
   }, []);
 
 
@@ -64,17 +60,13 @@ export default function Navigator(){
     
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={user.id == "notFound" ? "drawer" : "DrawerNavigator"}
+          initialRouteName={user.id == "notFound" ? "LandingPage" :user.category? 'DrawerNavigatorSP': "DrawerNavigatorClient"}
         >
           <Stack.Screen
-            name="drawer"
+            name="DrawerNavigatorClient"
             component={drawer}
             options={{
-              // headerStyle: {
-              //   backgroundColor: "transparent",
-              // },
-              // headerTransparent: true,
-              // title: "",
+             
               headerShown: false,
             }}
           />
@@ -93,40 +85,40 @@ export default function Navigator(){
             }}
           />
           <Stack.Screen
-            name="DrawerNavigator"
+            name="DrawerNavigatorSP"
             component={DrawerNavigator}
             options={{
               headerShown: false,
             }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="DrawerNavigatorClient"
             component={DrawerNavigatorClient}
             options={{
               headerShown: false,
             }}
-          />
-          <Stack.Screen
-            name="DrawerNavigatorHairdresser"
+          /> */}
+          {/* <Stack.Screen
+            name="DrawerNavigatorSP"
             component={DrawerNavigatorHairdresser}
             options={{
               headerShown: false,
             }}
-          />
-          <Stack.Screen
+          /> */}
+          {/* <Stack.Screen
             name="DrawerNavigatorMusicalBand"
             component={DrawerNavigatorMusicalBand}
             options={{
               headerShown: false,
             }}
-          />
-          <Stack.Screen
+          /> */}
+          {/* <Stack.Screen
             name="DrawerNavigatorPhotographer"
             component={DrawerNavigatorPhotographer}
             options={{
               headerShown: false,
             }}
-          />
+          /> */}
 
           <Stack.Screen
             name="CategoryChoice"
@@ -163,6 +155,7 @@ export default function Navigator(){
           <Stack.Screen
             name="LoginScreen"
             component={LoginScreen}
+            independent={true}
             options={{
               headerStyle: {
                 backgroundColor: "transparent",
@@ -197,7 +190,7 @@ export default function Navigator(){
           />
 
    
- {/* <Stack.Screen
+ <Stack.Screen
             name="WeddingHallDetails"
             component={WeddingHallDetails}
             options={{
@@ -207,8 +200,8 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          /> */}
-        <Stack.Screen
+          />
+        {/* <Stack.Screen
             name="VerifyOTPScreen"
             component={VerifyOTPScreen}
             options={{
@@ -218,10 +211,10 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          /> 
+          />  */}
          
            
-         <Stack.Screen
+         {/* <Stack.Screen
             name="ProfileRoom"
             component={ProfileRoom}
             options={{
@@ -231,7 +224,7 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
+          /> */}
            <Stack.Screen
             name="EditProfileSPRoom"
             component={EditProfileSPRoom}
@@ -243,7 +236,7 @@ export default function Navigator(){
               title: "",
             }}
           />
-            <Stack.Screen
+            {/* <Stack.Screen
             name="MapContent"
             component={MapContent}
             options={{
@@ -253,7 +246,7 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          />
+          /> */}
           <Stack.Screen
             name="WeddingHalls"
             component={WeddingHalls}
@@ -266,7 +259,7 @@ export default function Navigator(){
             }}
           />
    
-           <Stack.Screen
+           {/* <Stack.Screen
             name="Rooms"
             component={Rooms}
             options={{
@@ -276,7 +269,7 @@ export default function Navigator(){
               headerTransparent: true,
               title: "",
             }}
-          /> 
+          />  */}
           
           
         </Stack.Navigator>

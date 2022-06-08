@@ -99,7 +99,7 @@ const send=()=>{
     var userdata =res.data[1]
     console.log(userdata);
     AsyncStorage.setItem('user',JSON.stringify(userdata))
-    navigation.navigate("drawer");
+    navigation.navigate("DrawerNavigatorClient");
   }
 
 
