@@ -1,5 +1,4 @@
-
-import React, {useEffect, useState, Platform} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,37 +7,46 @@ import {
   TextInput,
   StyleSheet,Image,
 } from 'react-native';
-
 import {useTheme} from 'react-native-paper';
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-
 import BasePath from "../constants/BasePath";
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
  import axios from 'axios'
- 
+ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
- 
 // import ImagePicker from 'react-native-image-crop-picker';
 const EditProfileSPRoom = ({navigation})=>{
-  
   const [image, setImage] = useState(null);
-    const  [SPRoom,SetSPRoom]=useState([])
+    const  [user,setUser]=useState([])
+    const [professional_name,setProfessional_name] = useState(null)
+    const [email,setEmail] = useState(null)
+    const [description,setDescription] = useState(null)
+    const [pack_price,setPack_price]=useState(null)
+    const [tel, setTel]= useState("")
     useEffect(() => {
-        axios
-        .get('http://192.168.11.203:3000/api/sp/AllServiceProvider')
-        .then((response)=>{
-            console.log(response.data.result)
-            
-            SetSPRoom(response.data.result)
+        AsyncStorage.getItem('user')
+        .then(res=>{
+          x=JSON.parse(res)
+          console.log(x);
+          axios.get(`${BasePath}/api/sp/info/${x.id}`)
+          .then(res=>{
+            var y=res.data[0];
+            console.log(y);
+            setUser(y)
+            setImage(y.logo)
+            setEmail(y.email)
+            setTel(y.tel)
+            setDescription(y.description)
+            setPack_price(y.pack_price)
+            setProfessional_name(y.professional_name)
+            AsyncStorage.setItem('user',JSON.stringify(y))
+          })
         })
-       
      }, []);
     const {colors} = useTheme();
-
     const takePhotoFromCamera = () => {
         ImagePicker.openCamera({
           compressImageMaxWidth: 300,
@@ -51,7 +59,6 @@ const EditProfileSPRoom = ({navigation})=>{
           this.bs.current.snapTo(1);
         });
       }
-
       const choosePhotoFromLibrary = () => {
         ImagePicker.openPicker({
           width: 300,
@@ -72,14 +79,11 @@ const EditProfileSPRoom = ({navigation})=>{
           aspect: [4, 3],
           quality: 1,
         });
-    
         console.log(result);
-    
         if (!result.cancelled) {
           setImage(result.uri);
         }
       };
-
       renderInner = () => (
         <View style={styles.panel}>
           <View style={{alignItems: 'center'}}>
@@ -87,7 +91,7 @@ const EditProfileSPRoom = ({navigation})=>{
             <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
           </View>
           <TouchableOpacity style={styles.panelButton} onPress={takePhotoFromCamera}>
-            <Text style={styles.panelButtonTitle}>Take Photo</Text>
+            <Text style={styles.panelButtonTitle} >Take Photo</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.panelButton} onPress={pickImage}>
             <Text style={styles.panelButtonTitle}>Choose From Library</Text>
@@ -99,8 +103,6 @@ const EditProfileSPRoom = ({navigation})=>{
           </TouchableOpacity>
         </View>
       );
-
-      
   renderHeader = () => (
     <View style={styles.header}>
       <View style={styles.panelHeader}>
@@ -108,10 +110,25 @@ const EditProfileSPRoom = ({navigation})=>{
       </View>
     </View>
   );
-
   bs = React.createRef();
   fall = new Animated.Value(1);
-
+  const send=()=>{
+    let obj={
+      id:user.id,
+      professional_name,
+      email,
+      description,
+      tel,
+      pack_price,
+      image
+    }
+    console.log(obj);
+    axios.post(BasePath+'/api/sp/update',obj)
+    .then(res=>{
+      console.log(res.data);
+    })
+    
+  }
   return (
     <View style={styles.container}>
       <BottomSheet
@@ -126,7 +143,6 @@ const EditProfileSPRoom = ({navigation})=>{
       <Animated.View style={{margin: 20,
         opacity: Animated.add(0.1, Animated.multiply(this.fall, 1.0)),
     }}>
-
     <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
             <View
@@ -167,14 +183,13 @@ const EditProfileSPRoom = ({navigation})=>{
             </View>
           </TouchableOpacity>
           <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
-            John Doe
+            {user.owner_name}
           </Text>
         </View>
-
         <View style={styles.action}>
           <FontAwesome name="user-o" color={colors.text} size={20} />
           <TextInput
-            placeholder="First Name"
+            placeholder="Professional Name"
             placeholderTextColor="#666666"
             autoCorrect={false}
             style={[
@@ -183,12 +198,16 @@ const EditProfileSPRoom = ({navigation})=>{
                 color: colors.text,
               },
             ]}
+            defaultValue={user.professional_name}
+            onChangeText={setProfessional_name}
           />
         </View>
         <View style={styles.action}>
           <FontAwesome name="user-o" color={colors.text} size={20} />
           <TextInput
-            placeholder="Last Name"
+          defaultValue={user.description}
+          onChangeText={setDescription}
+            placeholder="Description"
             placeholderTextColor="#666666"
             autoCorrect={false}
             style={[
@@ -202,6 +221,8 @@ const EditProfileSPRoom = ({navigation})=>{
         <View style={styles.action}>
           <Feather name="phone" color={colors.text} size={20} />
           <TextInput
+          defaultValue={user.tel}
+          onChangeText={setTel}
             placeholder="Phone"
             placeholderTextColor="#666666"
             keyboardType="number-pad"
@@ -217,6 +238,8 @@ const EditProfileSPRoom = ({navigation})=>{
         <View style={styles.action}>
           <FontAwesome name="envelope-o" color={colors.text} size={20} />
           <TextInput
+          defaultValue={user.email}
+          onChangeText={setEmail}
             placeholder="Email"
             placeholderTextColor="#666666"
             keyboardType="email-address"
@@ -229,12 +252,14 @@ const EditProfileSPRoom = ({navigation})=>{
             ]}
           />
         </View>
-        <View style={styles.action}>
+         <View style={styles.action}>
           <FontAwesome name="globe" color={colors.text} size={20} />
           <TextInput
+          defaultValue={user.pack_price}
             placeholder="Country"
             placeholderTextColor="#666666"
             autoCorrect={false}
+            onChangeText={setPack_price}
             style={[
               styles.textInput,
               {
@@ -243,7 +268,7 @@ const EditProfileSPRoom = ({navigation})=>{
             ]}
           />
         </View>
-        <View style={styles.action}>
+        {/*<View style={styles.action}>
           <Icon name="map-marker-outline" color={colors.text} size={20} />
           <TextInput
             placeholder="City"
@@ -256,17 +281,15 @@ const EditProfileSPRoom = ({navigation})=>{
               },
             ]}
           />
-        </View>
-        <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
+        </View> */}
+        <TouchableOpacity style={styles.commandButton} onPress={send}>
           <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
       </Animated.View>
     </View>
   );
 };
-
 export default EditProfileSPRoom;
-
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -337,7 +360,7 @@ const styles = StyleSheet.create({
       marginTop: 10,
       marginBottom: 10,
       borderBottomWidth: 1,
-      borderBottomColor: '#f2f2f2',
+      borderBottomColor: '#F2F2F2',
       paddingBottom: 5,
     },
     actionError: {
@@ -351,6 +374,13 @@ const styles = StyleSheet.create({
       flex: 1,
       // marginTop: Platform.OS === 'ios' ? 0 : -12,
       paddingLeft: 10,
-      color: '#05375a',
+      color: '#05375A',
     },
   });
+
+
+
+
+
+
+

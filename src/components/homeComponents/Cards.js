@@ -33,59 +33,11 @@ function Cards(props) {
   }else{
     setData(array)
   }
-  // console.log(data,'data');
-
-  // axios.get(BasePath+'/api/rating/getAll')
-  //   .then(res=>{
-  //     console.log(res.data,'ratings');
-      
-  //     for (var i=0;i<res.data.length;i++){
-  //       if (obj[res.data[i].sp_id]){
-  //         obj[res.data[i].sp_id].counter++;
-  //         obj[res.data[i].sp_id].total+=Number(res.data[i].rating)
-
-  //       }else {
-  //         obj[res.data[i].sp_id]={
-  //           counter:1,
-  //           total:Number(res.data[i].rating)
-  //         }
-  //       }
-  //     }
-  //     console.log(obj);
-      
-      
-  //     var arrayData=array
-  //     console.log('data',arrayData);
-      
-  //     for(var i=0;i<arrayData.length;i++){
-  //       if(obj[arrayData[i].id]){
-  //         console.log(obj[arrayData[i].id].total/obj[arrayData[i].id].counter);
-
-  //         arrayData[i].rating=obj[arrayData[i].id].total/obj[arrayData[i].id].counter
-  //       }
-  //     }
-  //     setData(arrayData)
-  //     console.log('data',arrayData);
-  //     console.log(data);
-  //   })
-
   },[props.filtredData,minPrice,maxPrice])
     const goProfile=(sp)=>{
       console.log(sp);
       if(props.start==''){
-console.log('sp')
-        // Alert.alert(
-        //   "Alert Title",
-        //   "You should pick a date !",
-        //   [
-        //     {
-        //       text: "Cancel",
-        //       onPress: () => console.log("Cancel Pressed"),
-        //       style: "cancel"
-        //     },
-        //     { text: "OK", onPress: () => console.log("OK Pressed") }
-        //   ]
-        // );
+        console.log('sp')
         SetshowAlert(true)
       }
       else {
@@ -186,11 +138,7 @@ return (
                      <Stars style={{paddingLeft:20}} 
               // half={true}
               default={elem.rating}
-              // update={(val) => {
-              //   this.setState({starts:val});
-              //   console.log(val);
-              //   this.rating(val)
-              // }}
+              disabled={true}
               spacing={4}
               count={5}
               fullStar={
@@ -267,7 +215,7 @@ const styles= StyleSheet.create({
     // padding: 10,
     alignItems: 'center',
     backgroundColor:'white',
-    fontFamily: "sans-serif-thin",
+    // fontFamily: "sans-serif-thin",
     // fontWeight: "bold",
     textAlign:"center",
     alignItems:   'center',

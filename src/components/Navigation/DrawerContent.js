@@ -15,7 +15,7 @@ import LandingPage from "../../Screens/LandingPage"
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
-  console.log('hello');
+  console.log('drawer user');
   return (
     <Drawer.Navigator 
       drawerContent = {props => <CustomDrawer {...props}/>}

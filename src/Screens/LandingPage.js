@@ -1,4 +1,5 @@
-import React from "react"
+import React,{useEffect, useState} from "react"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     StyleSheet,
     Text,
@@ -13,7 +14,9 @@ import {
   const { width, height } = Dimensions.get("window");
 
 export default function LandingPage({navigation}){
-   
+  useEffect(() =>{
+    AsyncStorage.clear()
+  },[])
 
         return(
         <View style={styles.container}>

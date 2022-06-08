@@ -1,12 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState,useEffect ,useRef} from 'react';
+import React, { useState,useEffect ,useRef,ImageBackground} from 'react';
 import {View, SafeAreaView,StyleSheet,Image,TouchableOpacity,Button, Alert} from 'react-native';
 import {Avatar,Title,Caption,Text,TouchableRipple} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfileSPRoom from './EditProfileRoom.js';
 // import CardExemple from '../components/Card.js';
 import StorageUtils from '../Utils/StorageUtils.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import Stars from "react-native-stars";
 import * as Permissions from 'expo-permissions';
 import Modal from "react-native-modal";
 import Gallery from 'react-native-image-gallery';
@@ -35,7 +37,6 @@ const COLORS = {
     grey: '#908e8c',
   };
 const WeddingHallDetails = ({navigation,route})=>{
-    const { weddinghalldata} = route.params;
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [cin, setCin] = useState("");
@@ -46,6 +47,14 @@ const WeddingHallDetails = ({navigation,route})=>{
   const [image, setImage] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
   const [images, setImages] = React.useState([]);
+  const [price, setPrice] = useState("");
+  const [nom, setNom] = useState("");
+  const [langitude, setLangitude] = useState(null);
+  const [rating, setRating] = React.useState(null);
+  const [latitude, setLatitude] = useState(null);
+  const [isClient, setIsClient] = useState(true);
+  
+  const [id, setId] = useState(null);
   let region = {
     longitude: 10.1785077,//myLocation.coords.longitude,
     latitude:36.8868947, //myLocation.coords.latitude,
@@ -57,69 +66,90 @@ const WeddingHallDetails = ({navigation,route})=>{
   
   const bs = React.createRef();
  const fall = new Animated.Value(1);
+
+ 
+ const updaterating = (val)=> {
+
+  let obj={
+    user_id:109,
+    sp_id:id,
+    rating:val
+  }
+  
+  axios.post(`${BasePath}/api/sp/rating/create`,obj)
+  .then(res=>{
+    console.log(res.data);
+  })
+
+}
+
+
   useEffect(() => {
     async function getUser() {
       let data
-      await StorageUtils.retrieveData('user').then((value) => (data = JSON.parse(value)));
-      if (data === undefined) {
-       console.log('not found')
-      } else {
-
-          setName(data.owner_name)
-         // console.log(data.'owner_name')
+      await StorageUtils.retrieveData('user').then((value) => {
+        data = JSON.parse(value)
+        setName(data.owner_name)
           setEmail(data.email)
-        //  console.log(data.email)
           setCategory(data.category)
           setCin(data.cin)
           setTel(data.tel)
-      }
+          setLangitude(data.langitude)
+          setLatitude(data.latitude)
+          setNom(data.professional_name)
+          setPrice(data.pack_price)
+          setId(data.id)
+          setWeddinghall(data)
+          setRating(Math.floor(Math.random() * 6) + 1)
+          // StorageUtils.retrieveData('user').then((value) => {
+          //   data = JSON.parse(value)
+          //   setIsClient(data === 'client')
+          // })
 
-      
-      const body ={
-        id: 156
-      }
-     
+
           axios 
-              .get(BasePath + "/api/sp/getimages/"+body.id)
-              .then((response)=>{
-                console.log('HELLO '+ response.data.result)
+          .get(BasePath + "/api/sp/getimages/"+data.id)
+          .then((response)=>{
 
-                let data = [] 
-                for(let i = 0 ; i< response.data.result.length ; i++){
-                  let s = {
-                    source: { uri:response.data.result[i].image}
-                  }
-                  data.push(s)
-                }
+            console.log(response.data.result);
+            for(let i = 0 ; i< response.data.result.length ; i++){
+              let s = {
+                source: { uri:response.data.result[i].image}
+              }
+              setImages(images => [...images, s]);
+            }
 
-                console.log(data)
-                setImages(data)
+          })
+          .catch((error)=>{
+            console.log(error) 
+          })
 
-
-
-
-                // const data =response.data.result[0]
-                // navigation.navigate("WeddingHallDetails",{weddinghalldata : data})
-                // console.log(data)
-              })
-              .catch((error)=>{
-                console.log(error)
-              })
-    }
-
-    
-        setWeddinghall(weddinghalldata)
-        let region = {
-            longitude:Number(weddinghalldata.longitude) ,//myLocation.coords.longitude,
-            latitude:Number(weddinghalldata.latitude), //myLocation.coords.latitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA
+          let region = {
+            longitude:Number(latitude) ,//myLocation.coords.longitude,
+            latitude:Number(langitude), //myLocation.coords.latitude,
+            latitudeDelta: LONGITUDE_DELTA,
+            longitudeDelta: LATITUDE_DELTA
           };
           setRegion(region);
+
+      })
+          
+    }
         getUser();
-  }, []);
+      }, []);
   
-    function goBack() {
+      const addRequest = ()=> {
+
+        let obj={
+          user_id:109,
+          sp_id:id,
+          date:"07/06/2022"
+        }
+        axios.post(`${BasePath}/api/sp/request/create`,obj)
+        .then(res=>console.log(res))
+      }
+
+      function goBack() {
         console.log('bhvfjnfnvfvn')
         navigation.toggleDrawer();
       }
@@ -157,7 +187,7 @@ const WeddingHallDetails = ({navigation,route})=>{
             const source = {
               uri,
               type,
-              name,
+              name
             }
             cloudinaryUpload(source)
             let s = {
@@ -170,6 +200,14 @@ const WeddingHallDetails = ({navigation,route})=>{
           }
         
       };
+      function goBack() {
+        console.log('bhvfjnfnvfvn')
+        navigation.toggleDrawer();
+      }
+
+      function edit () {
+          navigation.navigate('EditProfileSPRoom')
+      }
       const cloudinaryUpload = async (result) => {
       
         const data = new FormData()
@@ -206,83 +244,6 @@ const WeddingHallDetails = ({navigation,route})=>{
           })
       
       
-      
-      
-        //   console.log(result.base64)
-      //   let base64Img = result.uri
-      
-      // //Add your cloud name
-      // let apiUrl = 'https://api.cloudinary.com/v1_1/pentagon/image/upload';
-  
-      // const body = {
-      //   uri: result.uri,
-      //   name: 'SomeImageName.jpg',
-      //   type: 'image/jpg',
-      // }
-
-      //   const data = new FormData();
-      //   data.append("image", body);
-    
-      //   await fetch(BasePath + "/api/sp/AddImage", {
-      //     method: "POST",
-      //     body: data,
-      //   }).then( r => {
-      //           let data =  r.json()
-      //           console.log(data)
-      //           return data.secure_url
-      //     }).catch(err=>console.log(err))
-        
-
-
-      // axios 
-      //   .post(BasePath + "/api/sp/AddImage",body)
-      //   .then((response)=>{
-      //     console.log(response)
-      //     // const data =response.data.result[0]
-      //     // navigation.navigate("WeddingHallDetails",{weddinghalldata : data})
-      //     // console.log(data)
-      //   })
-      //   .catch((error)=>{
-      //     console.log(error)
-      //   })
-
-    //   let data = {
-    //     "file": base64Img,
-    //     "upload_preset": "expopreset",
-    //   }
-
-    //   fetch(apiUrl, {
-    //     body: JSON.stringify(data),
-    //     headers: {
-    //       'content-type': 'application/json'
-    //     },
-    //     method: 'POST',
-    //   }).then(async r => {
-    //       let data = await r.json()
-    //       console.log(data.secure_url)
-    //       return data.secure_url
-    // }).catch(err=>console.log(err))
-       
-       
-       
-       
-       
-       
-        // const data = new FormData()
-        // data.append('file', photo)
-        // data.append('upload_preset', 'pentagon')
-        // data.append("cloud_name", "pentagon")
-        // fetch("https://api.cloudinary.com/v1_1/pentagon/upload", {
-        //   method: "post",
-        //   body: data
-        // }).then(res => res.json()).
-        //   then(data => {
-        //     setImage(data.secure_url)
-    
-        //   }).catch(err => {
-        //       console.log(err)
-        //     Alert.alert("An Error Occured While Uploading")
-        //   })
       }
       const pickFromCamera = async ()=>{
         const {granted} =  await Permissions.askAsync(Permissions.CAMERA)
@@ -312,7 +273,7 @@ const WeddingHallDetails = ({navigation,route})=>{
         }else{
            Alert.alert("you need to give up permission to work")
         }
-     }
+      }
   
          const  renderInner = () => (
         <View style={styles.panel}>
@@ -335,21 +296,81 @@ const WeddingHallDetails = ({navigation,route})=>{
       );
 
       
- const renderHeader = () => (
-    <View style={styles.header}>
-      <View style={styles.panelHeader}>
-        <View style={styles.panelHandle} />
-      </View>
-    </View>
-  );
+      const renderHeader = () => (
+        <View style={styles.header}>
+          <View style={styles.panelHeader}>
+            <View style={styles.panelHandle} />
+          </View>
+        </View>
+      );
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+      const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+      };
 
     return(
 
         <ScrollView>
+          {/* <View style={{flexDirection :'row' , marginTop : 25}}> */}
+        {/* <TouchableOpacity onPress={goBack} style={styles.roundButtonActive}>
+         
+         <Ionicons
+               name="menu-outline"
+               size={30}
+               color="#666"
+               style={{ marginRight: 5 }}
+             />
+         </TouchableOpacity> */}
+            {/* <Title style={{marginLeft : '30%' ,fontSize:23,marginTop:30}}>Profile</Title> */}
+         <TouchableOpacity onPress={edit} style={styles.roundIconEdit}>
+         <Ionicons
+                name="md-person-sharp"
+                style={{marginTop:30,paddingRight:20}}
+                size={20}
+                color="#666"
+             />
+         
+         </TouchableOpacity>
+                    
+        {/* </View> */}
+       
+
+        {/* <View style={styles.userInfoSection}> */}
+        
+            {/* <View style={{flexDirection :'row' ,marginTop:50,justifyContent:'center'}}>
+            <ImageBackground
+                source={{
+                  uri: image,
+                }}
+                style={{height: 100, width: 100}}
+                imageStyle={{borderRadius: 15,backgroundColor:'#D49B35'}}>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Icon
+                    name="camera"
+                    size={35}
+                    color="#fff"
+                    style={{
+                      opacity: 0.7,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1,
+                      borderColor: '#fff',
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
+              </ImageBackground> */}
+              {/* <View style={{marginLeft:20}}>
+                    <Title style={[styles.title,{marginTop:15 ,marginBottom :5}]}> {name}</Title>
+                    <Caption style={styles.caption}>{category}</Caption>
+                </View>
+                </View> */}
+        {/* </View> */}
           
         <View style={{flexDirection :'row' , marginTop : 60}}>
         
@@ -359,14 +380,14 @@ const WeddingHallDetails = ({navigation,route})=>{
         <View style={styles.cartCard1}>
             <View style={{flexDirection :'row'  ,justifyContent:'center'}}>
                 <View style={{marginLeft:20 ,marginTop:10}}>
-                     <Title style={[styles.title,{ justifyContent:'center',size:30}]}>{weddinghall?.name}</Title>
+                     <Title style={[styles.title,{ justifyContent:'center',size:30}]}>{nom}</Title>
                 </View>
             </View>
       
              <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:15 }}>
                 <Icon name='account-cash' size={25}></Icon>
                 <Text style={{marginLeft:5 ,fontSize:18}}>
-                    {weddinghall?.price}
+                    {price}
                 </Text>
              </View>
              <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:15 }}>
@@ -428,16 +449,15 @@ const WeddingHallDetails = ({navigation,route})=>{
               onRegionChange={() => mapRef.current.forceUpdate()}
               ref={mapRef}
               style={styles.map}
-              
-            initialRegion={myRegion}
+              initialRegion={myRegion}
               
           >
 
           { weddinghall &&
                       <Marker
                       coordinate={{
-                          latitude: Number(weddinghall?.latitude),
-                          longitude: Number(weddinghall?.longitude),
+                          latitude: Number(weddinghall.latitude),
+                          longitude: Number(weddinghall.longitude),
                       }}
                       ></Marker>
                   }
@@ -453,9 +473,12 @@ const WeddingHallDetails = ({navigation,route})=>{
         images={images}
       />
         <View>
+         
         <TouchableOpacity style={styles.commandButton} onPress={() => {bs.current.snapTo(0)}}>
-          <Text style={styles.panelButtonTitle}>Add Images</Text>
-        </TouchableOpacity>
+        <Text style={styles.panelButtonTitle}>Add Images</Text>
+      </TouchableOpacity>
+      
+     
         <BottomSheet
         ref={bs}
         snapPoints={[330, 0]}
@@ -676,6 +699,70 @@ const styles =StyleSheet.create({
         paddingLeft: 10,
         color: '#05375a',
       },
+      container:{
+        flex :1
+    },
+    userInfoSection:{
+        paddingHorizontal:30,
+        marginBottom:25,
+        
+    },
+    title:{
+        fontSize:24,
+        fontWeight :'bold',
+    },
+    caption :{
+        fontSize :14,
+        lineHeight:14,
+        fontWeight:'500',
+    },
+    row:{
+        flexDirection:'row',
+        marginBottom:30,
+        marginLeft:70,
+    },
+    infoBoxWrapper :{
+        borderBottomColor :'#dddddd',
+        borderBottomWidth:1,
+        borderTopColor:'#dddddd',
+        borderTopWidth:1,
+        flexDirection:'row',
+        height:100,
+    },
+    infoBox:{
+        width:'50%',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    menuWrapper :{
+        marginTop:10,
+    },
+    menuItem :{
+        flexDirection:'row',
+        paddingVertical:15,
+        paddingHorizontal:30,
+    },
+    menuItemText:{
+        color:'#777777',
+        marginLeft:20,
+        fontWeight:'600',
+        fontSize:16,
+        lineHeight:26,
+    },
+    roundButtonActive: {
+        height: 50,
+        width:50,
+        marginTop:30
+      },
+      roundIconEdit:{
+        height :50,
+        width:50,
+        marginLeft:'90%',
+        position:'absolute',
+
+      },
+      
+    image: { height: 90, width: 90, borderRadius:60 },
 
       
 })
