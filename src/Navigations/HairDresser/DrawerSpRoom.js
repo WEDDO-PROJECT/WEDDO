@@ -78,7 +78,7 @@ const  DrawerContentRoom = ({navigation}) => {
                                 />
                             )}
                             label="Profile"
-                           // onPress={() => {props.navigation.navigate('Profile')}}
+                           onPress={() => {navigation.navigate('ProfileRoom')}}
                         />
                         
                     </Drawer.Section>

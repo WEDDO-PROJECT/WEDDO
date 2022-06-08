@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 60,
         justifyContent: 'center',
-        alignitems: 'center',
+        alignItems: 'center',
         borderColor: '#C0C0C0',
         borderWidth: 1,
     },
@@ -138,6 +138,6 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 15,
         justifyContent: 'center',
-        alignitems: 'center',
+        alignItems: 'center',
     },
 })

@@ -13,7 +13,8 @@ refresh()
     const del=(elem)=>{
         var obj={
             user_id:elem.user_id,
-            sp_id:elem.sp_id
+            sp_id:elem.sp_id,
+            date:elem.date
         }
         axios.post(`${BasePath}/api/request/delete`,obj)
         .then((res) =>{
@@ -63,6 +64,8 @@ refresh()
                       <TouchableOpacity onPress={()=>del(elem)}>
                           <Text style={styles.delete}>Delete</Text>
                       </TouchableOpacity>
+                      {elem.confirme==null&&<View style={{backgroundColor:'yellow'}}><Text>Waiting</Text></View>}
+                      {elem.confirme==1&&<View style={{backgroundColor:'green',marginTop:-10}}><Text>confirmed</Text></View>}
                     </View>
                 ))
             }

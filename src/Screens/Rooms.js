@@ -14,6 +14,7 @@ const Rooms =({navigation})=>{
     const  [rooms,setRooms]=useState([])
 
     useEffect(() => {
+        
          axios
          .get(BasePath + '/api/sp/SelectSalle')
          .then((response)=>{

@@ -117,14 +117,9 @@ if (val===4){
   else
   setView(4)
 }
-// if (val===5){
-//   array=allData.filter((elem,i)=> elem.category == 'Package')
-//   setFIltredData(array)
-//   if(view===5)
-//   setView(null)
-//   else
-//   setView(5)
-// }
+if (val===5){
+  setView(null)
+}
 
   }
   let nav = () => {
@@ -154,6 +149,20 @@ if (val===4){
               // left: 16,
             }}
           >
+            <TouchableOpacity
+                    title="weddingHall"
+                    onPress={() => buttonFunction(5)}
+                    style={view==5&&styles.clicked}
+            >
+                    <Image
+                      style={styles.box}
+                      source={imagePack}
+                    />
+                   <Text style={styles.text}>
+                
+                      Packages
+                   </Text>
+            </TouchableOpacity>            
             <TouchableOpacity
               title="photographer"
               onPress={() => buttonFunction(1)}
@@ -211,20 +220,7 @@ if (val===4){
                       Wedding Hall
                    </Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
-                    title="weddingHall"
-                    onPress={() => buttonFunction(5)}
-                    style={view==5&&styles.clicked}
-            >
-                    <Image
-                      style={styles.box}
-                      source={imagePack}
-                    />
-                   <Text style={styles.text}>
-                
-                      Packages
-                   </Text>
-            </TouchableOpacity>             */}
+            
          
           </View>
           <View>
@@ -306,7 +302,7 @@ const styles = StyleSheet.create({
     },
     inputFrom:{
       backgroundColor:'white',
-      fontFamily: "sans-serif-thin",
+      // fontFamily: "sans-serif-thin",
       // fontWeight: "bold",
       textAlign:"center",
       // fontColor:'#D49B35',

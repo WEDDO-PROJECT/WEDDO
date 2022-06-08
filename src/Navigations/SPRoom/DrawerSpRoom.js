@@ -78,9 +78,25 @@ const  DrawerContentRoom = ({navigation}) => {
                                 />
                             )}
                             label="Profile"
-                           // onPress={() => {props.navigation.navigate('Profile')}}
+                           onPress={() => {navigation.navigate('ProfileRoom')}}
                         />
+                        
+                    
+                        
                         <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="account-outline" 
+                                color={color}
+                                size={35}
+                                />
+                            )}
+                            label="Calendar"
+                           onPress={() => {navigation.navigate('Calendar')}}
+                        />
+                        
+                    
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="bookmark-outline" 
@@ -89,10 +105,10 @@ const  DrawerContentRoom = ({navigation}) => {
                                 />
                             )}
                             label="Bookmarks"
-                           // onPress={() => {props.navigation.navigate('BookmarkScreen')}}
-                        />
+                           // onPress={() => {navigation.navigate('BookmarkScreen')}}
+                        /> */}
                         
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="account-check-outline" 
@@ -102,7 +118,7 @@ const  DrawerContentRoom = ({navigation}) => {
                             )}
                             label="Support"
                             onPress={() => {navigation.navigate('WeddingHalls')}}
-                        />
+                        /> */}
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
@@ -114,7 +130,7 @@ const  DrawerContentRoom = ({navigation}) => {
                             label="localisation"
                             onPress={() => {navigation.navigate('MapContent')}}
                         />
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
                                 name="format-list-group" 
@@ -124,7 +140,7 @@ const  DrawerContentRoom = ({navigation}) => {
                             )}
                             label="marriage halls"
                             onPress={() => {navigation.navigate('Rooms')}}
-                        />
+                        /> */}
                     </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">
                         <TouchableRipple onPress={() => {toggleTheme()}}>

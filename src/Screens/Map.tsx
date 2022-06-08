@@ -1,33 +1,23 @@
-
 import React, { useEffect, useRef, useState } from "react";
-
 import { StyleSheet, TouchableOpacity, View,TextInput } from "react-native";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
-
 import MapView, { Marker, Region ,LatLng, Point} from "react-native-maps";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text } from "../components/Themed";
 import axios from "axios";
-
 import BasePath from "../constants/BasePath";
+import StorageUtils from "../Utils/StorageUtils";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const  MapContent = ({navigation}) => {
     const [myLocation, setLocation] = useState<LocationObject>();
     const [myRegion, setRegion] = useState<Region>(undefined);
     const [marker, setMarker] = React.useState<any>(undefined);
     const [name, setName] = React.useState<string>("");
-    const [price, setPrice] = React.useState<string>("");
+    const [price, setPrice] = React.useState<Number>(null);
+    const [id, setId] = React.useState<Number>(null);
     const [markerSelected, setMarkerSelected] = React.useState<boolean>(false);
-
-    
-    
-  const [errorMsg, setErrorMsg] = useState<string>("");
     const mapRef = useRef(null);
-    const [departureEvent, setDepartureEvent] = React.useState<
-     {
-      coordinate: LatLng;
-    }
-  >();
   const  setPosition=(coordinate: LatLng)=>{
       console.log(coordinate)
       const marker = {
@@ -38,25 +28,40 @@ const  MapContent = ({navigation}) => {
       setMarkerSelected(true)
     }
     useEffect(() => {
-        (async () => {
-          let status= await Location.hasServicesEnabledAsync();
-          // if (!status ) {
-          //   setErrorMsg("Permission to access location was denied");
-          //   return;
-          // }
-    
-          let myLocation = await Location.getCurrentPositionAsync({});
-          setLocation(myLocation);
-          let region = {
-            longitude: 10.1785077,//myLocation.coords.longitude,
-            latitude:36.8868947, //myLocation.coords.latitude,
-            latitudeDelta: 0.0043,
-            longitudeDelta: 0.0034,
-          };
-          setRegion(region);
-        })();
-      });
-
+      async function getUser()   {
+          let data
+           StorageUtils.retrieveData('user').then((value) => {
+            data = JSON.parse(value)
+            if (data === undefined|| data==null) {
+              console.log('not found')
+             } else {
+              setId(data.id)
+              console.log(data.id);
+              
+              if (data.latitude && data.longitude){
+                const x = {
+                  latitude: Number(data.latitude),
+                  longitude: Number(data.longitude)
+                };
+                setMarker(x)
+                
+                setMarkerSelected(true)
+              }
+             }
+           }  )
+            let status= await Location.hasServicesEnabledAsync()
+            let myLocation = await Location.getCurrentPositionAsync({});
+            setLocation(myLocation);
+            let region = {
+              longitude: 10.1785077,
+              latitude:36.8868947,
+              latitudeDelta: 0.0043,
+              longitudeDelta: 0.0034,
+            };
+            setRegion(region);
+        };
+        getUser();
+      }, []);
       const changeUserLocation = async () => {
         let previousLocation = myLocation;
         let location = await Location.getCurrentPositionAsync({});
@@ -72,11 +77,9 @@ const  MapContent = ({navigation}) => {
             latitudeDelta: 0.0043,
             longitudeDelta: 0.0034,
           };
-    
           mapRef.current.animateToRegion(region);
         }
       };
-
       const editName = (text) => {
           setName(text)
       }
@@ -87,31 +90,46 @@ const  MapContent = ({navigation}) => {
         console.log('bhvfjnfnvfvn')
         navigation.toggleDrawer();
       }
-    
       const AddSalle =async()=>{
         const body ={
-          name:name,
-          price:price,
+          id : id,
+          
           latitude:marker.latitude,
           longitude:marker.longitude
         }
-        axios 
-        .post(BasePath + "/api/sp/addSalle",body)
+        axios
+        .post(BasePath+"/api/sp/updateMap",body)
         .then((response)=>{
-          //console.log(response.data.result[0])
-          const data =response.data.result[0]
-          navigation.navigate("WeddingHallDetails",{weddinghalldata : data})
-          console.log(data)
+          console.log(response.data)
+          AsyncStorage.getItem('user')
+        .then(res=>{
+         var x=JSON.parse(res)
+          console.log(x);
+          axios.get(`${BasePath}/api/sp/info/${x.id}`)
+          .then(res=>{
+            var y=res.data[0];
+            console.log(y);
+            // setUser(y)
+            // setImage(y.logo)
+            // setEmail(y.email)
+            // setTel(y.tel)
+            // setDescription(y.description)
+            // setPack_price(y.pack_price)
+            // setProfessional_name(y.professional_name)
+            AsyncStorage.setItem('user',JSON.stringify(y))
+            navigation.navigate("ProfileRoom")
+          })
+        })
+          // const data =response.data.result[0]
+          // StorageUtils.storeData('weddingHall',data)
         })
         .catch((error)=>{
           console.log(error)
         })
       }
-    
     return(
         <View style={styles.container}>
           <TouchableOpacity onPress={goBack} style={styles.roundButton}>
-         
          <Ionicons
                name="menu-outline"
                size={30}
@@ -119,17 +137,15 @@ const  MapContent = ({navigation}) => {
                style={{ marginRight: 5 }}
              />
          </TouchableOpacity>
-<MapView 
+<MapView
         onRegionChange={() => mapRef.current.forceUpdate()}
           ref={mapRef}
           style={styles.map}
           showsUserLocation={true}
           initialRegion={myRegion}
           onUserLocationChange={changeUserLocation}
-          
           onPress={(e) => setPosition(e.nativeEvent.coordinate)}
      >
-
        { marker &&
                 <Marker
                   coordinate={{
@@ -138,23 +154,23 @@ const  MapContent = ({navigation}) => {
                   }}
                 ></Marker>
               }
-
-      
         </MapView>
-        {markerSelected && 
+        {markerSelected &&
                 <View style={styles.view}>
-                <TextInput
+                {/* <TextInput
+                defaultValue={`'${marker.latitude}'`}
                   style={styles.input}
                   placeholder={'Marriege Hall'}
                   value={name}
                   onChangeText={(text) => editName(text)}
                 ></TextInput>
               <TextInput
+                  defaultValue={`'${marker.longitude}'`}
                   style={styles.input}
                   placeholder={'price'}
                   value={price}
                   onChangeText={(text) => editPrice(text)}
-                ></TextInput>
+                ></TextInput> */}
               <TouchableOpacity
                 onPress={() => {
                   AddSalle();
@@ -162,14 +178,14 @@ const  MapContent = ({navigation}) => {
                 style={ styles.roundButtonActive }
               >
                 <MaterialCommunityIcons
-                  name= "play" 
+                  name= "play"
                   color="#393834"
                   size={30}
                 ></MaterialCommunityIcons>
                 <Text
                   style={ styles.switchTextActive }
-                > 
-                Add 
+                >
+                Add
                 </Text>
               </TouchableOpacity>
             </View>
@@ -178,7 +194,6 @@ const  MapContent = ({navigation}) => {
     )
 }
 export default MapContent ;
-
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -213,7 +228,7 @@ const styles = StyleSheet.create({
       color: "black",
       textAlign: "center",
     },
-    view: { position: "absolute", bottom: 0, backgroundColor : '#ffffff' , width : '100%' , paddingBottom : 10,alignItems : 'center'},
+    view: { position: "absolute", bottom: 0, backgroundColor : '#FFFFFF' , width : '100%' , paddingBottom : 10,alignItems : 'center'},
     switchTextActive: {
       fontSize: 15,
       color: "#393834",
@@ -223,8 +238,6 @@ const styles = StyleSheet.create({
       fontSize: 15,
       color: "#FFD804",
       marginLeft: 5,
-
-
     },
     roundButtonActive: {
       borderWidth: 1,
@@ -234,7 +247,7 @@ const styles = StyleSheet.create({
       height: 50,
       padding: 10,
       borderRadius: 50,
-      backgroundColor: "#FFD804",
+      backgroundColor: "#EBBAD2",
       flexDirection: "row",
       paddingRight: 10,
     },
