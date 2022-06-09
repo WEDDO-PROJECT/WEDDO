@@ -30,9 +30,9 @@ refresh()
                 setUser(JSON.parse(res))
                 var x= JSON.parse(res)
                 axios.get(`${BasePath}/api/request/getByIdUser/${x.id}`)
-                .then(res =>{
-                    console.log(res.data)
-                    setList(res.data)
+                .then(result =>{
+                    console.log('requests',result.data)
+                    setList(result.data)
                 })
             } 
             )
@@ -64,8 +64,8 @@ refresh()
                       <TouchableOpacity onPress={()=>del(elem)}>
                           <Text style={styles.delete}>Delete</Text>
                       </TouchableOpacity>
-                      {elem.confirme==null&&<View style={{backgroundColor:'yellow'}}><Text>Waiting</Text></View>}
-                      {elem.confirme==1&&<View style={{backgroundColor:'green',marginTop:-10}}><Text>confirmed</Text></View>}
+                      {!elem.confirme&&<View style={{backgroundColor:'yellow',height:20}}><Text>Waiting</Text></View>}
+                      {elem.confirme==1&&<View style={{backgroundColor:'green'}}><Text>confirmed</Text></View>}
                     </View>
                 ))
             }
@@ -85,7 +85,7 @@ const styles= StyleSheet.create({
     borderColor: '#D49B35',
     padding:10,
     width: 300,
-    height: 250,
+    minHeight: 250,
   },
   title: {
     fontSize:25,

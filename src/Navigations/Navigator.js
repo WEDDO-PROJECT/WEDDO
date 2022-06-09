@@ -191,7 +191,7 @@ export default function Navigator(){
 
    
  <Stack.Screen
-            name="WeddingHallDetails"
+            name="ProfileRoom"
             component={WeddingHallDetails}
             options={{
               headerStyle: {
