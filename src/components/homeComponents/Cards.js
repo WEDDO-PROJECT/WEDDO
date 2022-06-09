@@ -241,7 +241,7 @@ const styles= StyleSheet.create({
     borderRadius:10,
     padding:10,
     width: 300,
-    height: 250,
+    minHeight: 250,
     borderColor: "#D49B35",
     borderWidth: 1,
   },

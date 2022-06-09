@@ -67,17 +67,14 @@ const RegisterSP = ({ navigation }) => {
     .then((response)=>{
       console.log("response.data.result[0]")
       console.log(response.data)
-      const userdata =response.data.result[0]
-     StorageUtils.storeData('user',userdata)
-        if(userdata.category=='Hairdresser'){
-          navigation.navigate("DrawerNavigatorHairdresser")
-        }else if(userdata.category=='partyroom'){
-          navigation.navigate("DrawerNavigatorSP")
-        }else if(userdata.category=='Photographer'){
-          navigation.navigate("DrawerNavigatorPhotographer")
-        } if(userdata.category=='MusicalBand'){
-          navigation.navigate("DrawerNavigatorMusicalBand")
-        }
+      if (response.data.code === 200){
+
+        const userdata =response.data.result[0]
+        StorageUtils.storeData('user',userdata)
+        navigation.navigate("DrawerNavigatorSP")
+      }
+        
+        
     })
     
     .catch((error)=>{
