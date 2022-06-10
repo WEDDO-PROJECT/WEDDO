@@ -53,7 +53,8 @@ const WeddingHallDetails = ({navigation,route})=>{
   const [rating, setRating] = React.useState(null);
   const [latitude, setLatitude] = useState(null);
   const [isClient, setIsClient] = useState(true);
-  
+  const [refresh,setRefresh]=useState(false);
+  const [logo,setLogo] = useState('');
   const [id, setId] = useState(null);
   let region = {
     longitude: 10.1785077,//myLocation.coords.longitude,
@@ -99,6 +100,7 @@ const WeddingHallDetails = ({navigation,route})=>{
           setNom(data.professional_name)
           setPrice(data.pack_price)
           setId(data.id)
+          setLogo(data.logo)
           setWeddinghall(data)
           setRating(Math.floor(Math.random() * 6) + 1)
           // StorageUtils.retrieveData('user').then((value) => {
@@ -136,7 +138,7 @@ const WeddingHallDetails = ({navigation,route})=>{
           
     }
         getUser();
-      }, []);
+      }, [refresh]);
   
       const addRequest = ()=> {
 
@@ -311,6 +313,7 @@ const WeddingHallDetails = ({navigation,route})=>{
     return(
 
         <ScrollView>
+         
           {/* <View style={{flexDirection :'row' , marginTop : 25}}> */}
         {/* <TouchableOpacity onPress={goBack} style={styles.roundButtonActive}>
          
@@ -373,7 +376,9 @@ const WeddingHallDetails = ({navigation,route})=>{
         {/* </View> */}
           
         <View style={{flexDirection :'row' , marginTop : 60}}>
-        
+        <TouchableOpacity onPress={()=>setRefresh(!refresh)}>
+            <Text>refresh</Text>
+          </TouchableOpacity>
         <Title style={{marginLeft : '21%' ,fontSize:23, marginBottom:15,marginTop:15,color:'#FDC12A'}}> Wedding Hall Details</Title>
          
         </View>
@@ -404,7 +409,7 @@ const WeddingHallDetails = ({navigation,route})=>{
         
              <View style={{flexDirection :'row',alignItems:'center' ,marginLeft:20}}> 
             <Image
-                   source={require("../assets/SP.png")}
+                   source={{uri:logo}}
                     style={styles.image}
                   />
             

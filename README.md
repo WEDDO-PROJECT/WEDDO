@@ -7,5 +7,4 @@ test
     White : 'white'
     Gold :   'arni'
     Red : #64182b
-     waaaa
      

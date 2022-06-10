@@ -114,10 +114,10 @@ axios.post(`${BasePath}/api/rating/create`,obj)
           <Image style={styles.avatar} source={{uri:this.state.profile.logo}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text >the dreamer</Text>
-              <Text style={styles.category}>photographer</Text>
-              <Text style={styles.description}>photographe professionnel</Text>
-              <Text>25639789</Text>
+              <Text >{this.state.profile.owner_name}</Text>
+              <Text style={styles.category}>{this.state.profile.category}</Text>
+              <Text style={styles.description}>{this.state.profile.description}</Text>
+              <Text>{this.state.profile.tel}</Text>
               {/* <Text style={styles.tel} >{this.state.date}</Text>  */}
               <TouchableOpacity style={styles.buttonContainer}>
                 <Text>Contact Me</Text>  

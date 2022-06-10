@@ -52,9 +52,12 @@ const send=async()=>{
 
   .then(res=>{
     console.log(res.data);
-    const userdata =res.data.result[0]
-     StorageUtils.storeData('user',userdata)
-    navigation.navigate("drawer")
+    if(res.data.code===200){
+
+      const userdata =res.data.result[0]
+       StorageUtils.storeData('user',userdata)
+       navigation.navigate("DrawerNavigatorClient")
+    }
   })
 }
 const telChange = (val) => {

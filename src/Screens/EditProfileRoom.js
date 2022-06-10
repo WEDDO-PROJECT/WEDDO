@@ -126,6 +126,20 @@ const EditProfileSPRoom = ({navigation})=>{
     axios.post(BasePath+'/api/sp/update',obj)
     .then(res=>{
       console.log(res.data);
+      axios.get(`${BasePath}/api/sp/info/${user.id}`)
+      .then(res=>{
+        var y=res.data[0];
+        console.log(y);
+        setUser(y)
+        setImage(y.logo)
+        setEmail(y.email)
+        setTel(y.tel)
+        setDescription(y.description)
+        setPack_price(y.pack_price)
+        setProfessional_name(y.professional_name)
+        AsyncStorage.setItem('user',JSON.stringify(y))
+        navigation.navigate("ProfileRoom")
+      })
     })
     
   }
