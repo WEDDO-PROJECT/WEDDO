@@ -3,7 +3,10 @@ import { View, Text,TouchableOpacity, StyleSheet, ScrollView,Image } from 'react
 import BasePath from "../constants/BasePath";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+
 export default function Basket(props){
+    let accepted= require('../assets/accepted.png');
+    let pending = require('../assets/pending.png');
     const [user,setUser]=useState('')
     const [list,setList]=useState([])
     useEffect(() => {
@@ -50,7 +53,7 @@ refresh()
                     <View key={i}
                         style={styles.card}
                     >
-                        <Image  style={{borderRadius:10,width:100,height:100,borderWidth:1,borderColor:'#D49B35',marginBottom:15}} source={{uri:elem.logo}} /><Image/>
+                        <Image  style={{borderRadius:10,width:100,height:100,borderWidth:1,borderColor:'#BF9B30',marginBottom:15}} source={{uri:elem.logo}} /><Image/>
                         <Text style={styles.title}>{elem.professional_name}</Text>
                         <Text style={{
                         color:'black',
@@ -64,8 +67,8 @@ refresh()
                       <TouchableOpacity onPress={()=>del(elem)}>
                           <Text style={styles.delete}>Delete</Text>
                       </TouchableOpacity>
-                      {!elem.confirme&&<View style={{backgroundColor:'yellow',height:20}}><Text>Waiting</Text></View>}
-                      {elem.confirme==1&&<View style={{backgroundColor:'green'}}><Text>confirmed</Text></View>}
+                      {!elem.confirme&&<View><Image style={styles.image} source={pending} /></View>}
+                      {elem.confirme==1&&<View><Image style={styles.image} source={accepted} /></View>}
                     </View>
                 ))
             }
@@ -82,7 +85,7 @@ const styles= StyleSheet.create({
     elevation:9,
     borderRadius:10,
     borderWidth:1,
-    borderColor: '#D49B35',
+    borderColor: '#BF9B30',
     padding:10,
     width: 300,
     minHeight: 250,
@@ -90,7 +93,7 @@ const styles= StyleSheet.create({
   title: {
     fontSize:25,
     fontWeight:'500',
-    color : '#D49B35',
+    color : '#BF9B30',
     marginBottom:80,
     marginTop:-115,
     marginLeft: 110,
@@ -104,7 +107,7 @@ const styles= StyleSheet.create({
     alignItems: 'center',
     width:80,
     borderRadius:11,
-    backgroundColor: "#D49B35",
+    backgroundColor: "#BF9B30",
     textAlign: 'center',
     color: 'white',
     borderColor:'white',
@@ -120,17 +123,24 @@ const styles= StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:20,
+    marginBottom:40,
     width:80,
     borderRadius:11,
     backgroundColor: "white",
     textAlign: 'center',
-    color: '#D49B35',
-    borderColor:'#D49B35',
+    color: '#BF9B30',
+    borderColor:'#BF9B30',
     borderWidth: 1,
     elevation: 7,
     paddingTop: 5,
   },
+  image : { 
+    height : 50,
+    width: 363,
+    marginHorizontal: -43,
+    marginTop:7
+    
+   }
 })
 
 

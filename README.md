@@ -5,6 +5,6 @@ test
 // Color Codes // 
 
     White : 'white'
-    Gold :   'arni'
+    Gold :   '#BF9B30'
     Red : #64182b
      
