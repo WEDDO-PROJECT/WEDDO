@@ -125,26 +125,25 @@ const confirm=()=>{
       
   }}
 />
-{view==1&&<View>
+{view==1&&<View style={styles.text}>
   <Text>
-  {user.name}
+   Username : {user.name}
   </Text>
   <Text>
-  {user.tel_number}
+   Tel : {user.tel_number}
   </Text>
   <Text>
-  {user.email}
+   Email: {user.email}
   </Text>
   
-  </View>}
   {look==1&&view==1&&<View>
-  <TouchableOpacity style={{backgroundColor:'green'}} onPress={()=>confirm()} >
-  <Text>
-  Confirme
+  <TouchableOpacity style={styles.confirm} onPress={()=>confirm()} >
+  <Text style={{color:'white'}}>
+  Confirm
   </Text>
   </TouchableOpacity>
-  <TouchableOpacity style={{backgroundColor:'red'}} onPress={()=>del(request)} >
-  <Text>
+  <TouchableOpacity style={styles.cancel} onPress={()=>del(request)} >
+  <Text style={{color:'white'}}>
   Cancel
   </Text>
   </TouchableOpacity>
@@ -154,6 +153,7 @@ const confirm=()=>{
   no event on this day
   </Text>
   </View>}
+  </View>}
     </ScrollView>
   );
 }
@@ -161,11 +161,48 @@ const confirm=()=>{
 const styles = StyleSheet.create({
   containerCalendar: {
     flex:1,
-    backgroundColor:'#D49B35',
-    marginTop:200,
+    backgroundColor:'#BF9B30',
+    marginTop:50,
+    flexDirection: "column",
   },
-  calendar: {
+  text:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:30,
+    backgroundColor:'white',
+    borderRadius:5,
+    margin:50,
+    minHeight:150,
+    elevation:12
+  },
+  confirm:{
+    marginTop:50,
+    marginBottom:-19,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:80,
+    borderRadius:11,
+    backgroundColor: "green",
+    textAlign: 'center',
+    color: 'white',
+    borderColor:'white',
+    borderWidth: 1,
+    elevation: 7,
     
-    margin:0,
   },
+  cancel:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:80,
+    borderRadius:11,
+    backgroundColor: "red",
+    textAlign: 'center',
+    color: 'green',
+    borderColor:'white',
+    borderWidth: 1,
+    elevation: 7,
+    marginLeft:170,
+  }
 });

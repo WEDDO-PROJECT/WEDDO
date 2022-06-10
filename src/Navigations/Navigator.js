@@ -66,7 +66,7 @@ export default function Navigator(){
             name="DrawerNavigatorClient"
             component={drawer}
             options={{
-             
+              
               headerShown: false,
             }}
           />

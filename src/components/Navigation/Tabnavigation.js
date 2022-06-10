@@ -15,7 +15,7 @@ function Tabnavigation(props) {
             tabBarShowLabel: false,
             headerShown: false,
             tabBarStyle: { 
-                backgroundColor: '#D49B35',
+                backgroundColor: '#BF9B30',
                 height: 60,
                 position: 'absolute',
                 bottom: 16,
