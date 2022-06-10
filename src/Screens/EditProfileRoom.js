@@ -14,6 +14,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import BasePath from "../constants/BasePath";
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
+import Ionicons from "react-native-vector-icons/Ionicons"; 
  import axios from 'axios'
  import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -201,7 +202,7 @@ const EditProfileSPRoom = ({navigation})=>{
           </Text>
         </View>
         <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
+          <FontAwesome name="user-o" color={'#BF9B30'} size={20} />
           <TextInput
             placeholder="Professional Name"
             placeholderTextColor="#666666"
@@ -217,7 +218,7 @@ const EditProfileSPRoom = ({navigation})=>{
           />
         </View>
         <View style={styles.action}>
-          <FontAwesome name="user-o" color={colors.text} size={20} />
+          <Ionicons name="text-outline" color={'#BF9B30'} size={20} />
           <TextInput
           defaultValue={user.description}
           onChangeText={setDescription}
@@ -233,7 +234,7 @@ const EditProfileSPRoom = ({navigation})=>{
           />
         </View>
         <View style={styles.action}>
-          <Feather name="phone" color={colors.text} size={20} />
+          <Feather name="phone" color={'#BF9B30'} size={20} />
           <TextInput
           defaultValue={user.tel}
           onChangeText={setTel}
@@ -250,7 +251,7 @@ const EditProfileSPRoom = ({navigation})=>{
           />
         </View>
         <View style={styles.action}>
-          <FontAwesome name="envelope-o" color={colors.text} size={20} />
+          <FontAwesome name="envelope-o" color={'#BF9B30'} size={20} />
           <TextInput
           defaultValue={user.email}
           onChangeText={setEmail}
@@ -267,10 +268,10 @@ const EditProfileSPRoom = ({navigation})=>{
           />
         </View>
          <View style={styles.action}>
-          <FontAwesome name="globe" color={colors.text} size={20} />
+         <Ionicons name="cash-outline" color={'#BF9B30'} size={20} />
           <TextInput
           defaultValue={user.pack_price}
-            placeholder="Country"
+            placeholder="Price"
             placeholderTextColor="#666666"
             autoCorrect={false}
             onChangeText={setPack_price}

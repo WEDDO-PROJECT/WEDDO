@@ -18,7 +18,6 @@ function Cards(props) {
     var array=props.filtredData
     var arr=[]
     let obj={}
-    // console.log(props.filtredData)
     if(minPrice&&maxPrice){
       array=array.filter((elem,i)=> Number(elem.pack_price)>=minPrice)
       arr=array.filter((elem,i)=>Number(elem.pack_price)<=maxPrice)
@@ -78,7 +77,7 @@ return (
         <View style={{ justifyContent: 'center', alignItems: 'center',backgroundColor:"white"}}>
           
             <View>
-            <View style={styles.input}>
+            <View style={styles.minPr}>
             <InputField
           label={"Min Price"}
           setValue={setMinPrice}
@@ -88,12 +87,12 @@ return (
               name="cash-outline"
               size={20}
               color="#666"
-              style={{ marginRight: 15, color:'#D49B35',marginTop: -5}}
+              style={{ marginRight: 15, color:'#BF9B30',marginTop: -5}}
             />
           }
         />
         </View>
-            <View style={styles.input} >
+            <View style={styles.maxPr} >
             <InputField
           label={"Max Price"}
           setValue={setMaxPrice}
@@ -102,7 +101,7 @@ return (
               name="cash-outline"
               size={20}
               color="#666"
-              style={{ marginRight: 15, color:'#D49B35',marginTop: -5}}
+              style={{ marginRight: 15, color:'#BF9B30',marginTop: -5}}
             />
           }
         />
@@ -118,22 +117,9 @@ return (
             <View
             style={styles.card}
               >
-               {/* <ImageBackground
-                  style={{
-                    // marginTop:10,
-                    // width: "100%",
-                    // height: "100%",
-                    // borderRadius:10,
-                    // borderColor: "#D49B35",
-                    // borderWidth: 1.5,
-                  
-                  }}
-                  source={golden}
-                  resizeMode="cover"
-                >  */}
                 <View style={{display:'flex',flexDirection:'row',}}>
             
-                      <Image  style={{borderRadius:10,width:100,height:100,borderWidth:1,borderColor:'#D49B35',marginBottom:15}} source={{uri:elem.logo}} /><Image/>
+                      <Image  style={{borderRadius:10,width:100,height:100,borderWidth:1,borderColor:'#BF9B30',marginBottom:15}} source={{uri:elem.logo}} /><Image/>
                       
                      <Stars style={{paddingLeft:20}} 
               // half={true}
@@ -151,13 +137,6 @@ return (
                   style={[styles.myStarStyle, styles.myEmptyStarStyle]}
                 />
               }
-              // halfStar={
-              //   <Icon
-              //     name={"star-half"}
-              //     size={40}
-              //     style={[styles.myStarStyle]}
-              //   />
-              // }
             />
             </View>
                       <Text style={styles.title}>{elem.professional_name}</Text>
@@ -197,43 +176,54 @@ const styles= StyleSheet.create({
   title: {
     fontSize:25,
     fontWeight:'500',
-    color : '#D49B35',
+    color : '#BF9B30',
     marginBottom:110,
     marginTop:-115,
     marginLeft: 110,
-    // fontStyle: 'italic',
-    
-
-    // paddingTop:130,
   },
-  input: {
+
+  minPr: {
     backgroundColor: 'white',
-    // height: 40,
     margin: 10,
     borderWidth: 1,
-    
-    // padding: 10,
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor:'white',
-    // fontFamily: "sans-serif-thin",
-    // fontWeight: "bold",
-    textAlign:"center",
+    // textAlign:"center",
     alignItems:   'center',
-    // fontColor:'#D49B35',
     left:-6,
-    
-    // borderColor: "#777",
     padding: 6,
-
     borderRadius: 6,
     height: 50,
-    maxWidth: 340,
-    width: 150,
+    // maxWidth: 300,
+    width: 120,
     elevation: 12,
     alignSelf: "center",
-    borderColor: "#D49B35",
-    
+    borderColor: "#BF9B30",   
+    marginRight: 150,
+    marginBottom: -60
+
   },
+  maxPr :{
+    backgroundColor: 'white',
+    margin: 10,
+    borderWidth: 1,
+    // alignItems: 'center',
+    backgroundColor:'white',
+    // textAlign:"center",
+    alignItems:   'center',
+    left:-6,
+    padding: 6,
+    borderRadius: 6,
+    height: 50,
+    // maxWidth: 340,
+    width: 120,
+    elevation: 12,
+    alignSelf: "center",
+    borderColor: "#BF9B30", 
+    marginLeft: 160,
+    // marginBottom:50
+  },
+
   card: {
     margin:20, 
     backgroundColor:'white',
@@ -242,13 +232,15 @@ const styles= StyleSheet.create({
     padding:10,
     width: 300,
     minHeight: 250,
-    borderColor: "#D49B35",
+    borderColor: "#BF9B30",
     borderWidth: 1,
   },
+
   cardText: {
     marginHorizontal:'10',
     marginVertical:'10',
   },
+
   price: {
     marginLeft:190,
     marginTop:3,
@@ -258,7 +250,7 @@ const styles= StyleSheet.create({
     alignItems: 'center',
     width:80,
     borderRadius:11,
-    backgroundColor: "#D49B35",
+    backgroundColor: "#BF9B30",
     textAlign: 'center',
     color: 'white',
     borderColor:'white',
@@ -266,65 +258,69 @@ const styles= StyleSheet.create({
     elevation: 7,
     paddingTop: 5,
   },
+
   alertText : {
     width:300,
     height: 300,
     backgroundColor: 'white',
     borderWidth:1,
-    borderColor:'#D49B35',
+    borderColor:'#BF9B30',
     borderWidth: 1,
     borderRadius:20,
 
   },
+
   centeredView: {
     flex:1,
     justifyContent:'center',
     alignItems:'center',
     backgroundColor: '#00000099',
-    
+   },
 
-  },
   warning: {
     height:50,
     justifyContent:'center',
     alignItems:'center',
-    backgroundColor:'#D49B35' ,
+    backgroundColor:'#BF9B30' ,
     borderTopRightRadius:20,
     borderTopLeftRadius:20,
   },
+
   warningBody: {
     height:200,
     justifyContent:'center',
     alignItems:'center',
   },
+
   warningText: {
     fontSize: 20,
     margin: 10,
     textAlign: 'center',
   },
+
   btnOK:{
     fontSize: 20,
     margin: 10,
     textAlign: 'center',
   },
+
   warningBtn:{
-    backgroundColor:'#D49B35' ,
+    backgroundColor:'#BF9B30' ,
     borderBottomRightRadius:20,
     borderBottomLeftRadius:20,
   },
+
   myStarStyle: {
-    color: "#D49B35",
+    color: "#BF9B30",
     backgroundColor: "transparent",
     textShadowColor: "black",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
-    marginTop: 30,
-    // marginRight: 7,
-
-    
+    marginTop: 30,  
   },
+
   myEmptyStarStyle: {
-    color: "#D49B35",
+    color: "#BF9B30",
   },
   
 

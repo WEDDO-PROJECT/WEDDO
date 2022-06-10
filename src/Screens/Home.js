@@ -142,7 +142,7 @@ if (val===5){
               marginTop: 40,
               // backgroundColor:"#AF9E9E",
               borderRadius: 10,
-              // backgroundColor: '#D49B35',
+              // backgroundColor: '#BF9B30',
               height: 60,
               bottom: 16,
               // right: 16,
@@ -230,7 +230,7 @@ if (val===5){
                 onPress={() => {
                   nav();
                 }}
-              ><Ionicons name="calendar-outline" style ={{color:'#D49B35'}} size={26}></Ionicons>{"   "}{start === "" ? "Choose date" : start}
+              ><Ionicons name="calendar-outline" style ={{color:'#BF9B30'}} size={26}></Ionicons>{"   "}{start === "" ? "Choose date" : start}
               </Text>
             </View>
               </View>
@@ -287,12 +287,12 @@ const styles = StyleSheet.create({
      height: 50,
      borderRadius:30,
      borderWidth: 2,
-     borderColor:'#D49B35',
+     borderColor:'#BF9B30',
     },
     text:{
      textAlign: 'center',
-     color: "#D49B35",
-     fontSize:10
+     color: "#BF9B30",
+     fontSize:13
     },
     
     clicked:{
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
       // fontFamily: "sans-serif-thin",
       // fontWeight: "bold",
       textAlign:"center",
-      // fontColor:'#D49B35',
+      // fontColor:'#BF9B30',
       left:-6,
       borderWidth: 0.5,
       borderColor: "#777",
@@ -317,10 +317,10 @@ const styles = StyleSheet.create({
       width: 300,
       elevation: 12,
       alignSelf: "center",
-      borderColor: "#D49B35"
+      borderColor: "#BF9B30"
     },
     leftFrom: {
-      backgroundColor: "#D49B35",
+      backgroundColor: "#BF9B30",
       borderWidth: 0.5,
       borderColor: "#777",
       padding: 8,
@@ -341,10 +341,10 @@ const styles = StyleSheet.create({
       paddingVertical: 12,
       paddingHorizontal: 18,
       // marginVertical: 30,
-      marginHorizontal: 11,
+      marginHorizontal: 8,
       borderRadius: 10,
       // elevation: 20,
-      borderColor:'#D49B35',
+      borderColor:'#BF9B30',
       borderWidth: 1.5,
     },
     myStarStyle: {
