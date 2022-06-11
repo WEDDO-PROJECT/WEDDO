@@ -14,21 +14,24 @@ export default function InputField({
     <View
       style={{
         flexDirection: "row",
+        alignContent:"center",
         paddingBottom: 8,
-        marginBottom: 25,
+        marginTop: 12,
       }}
     >
       {icon}
       {inputType == "password" ? (
         <TextInput
           value={value}
-          onChangeText={setValue}
+          onChangeText={(e)=> setValue(e)}
           placeholder={label}
           style={{ flex: 1, paddingVertical: 0 }}
           secureTextEntry={true}
         />
       ) : (
         <TextInput
+          value={value}
+          onChangeText={(e)=>setValue(e)}
           placeholder={label}
           style={{ flex: 0, paddingVertical: 0 }}
         />
