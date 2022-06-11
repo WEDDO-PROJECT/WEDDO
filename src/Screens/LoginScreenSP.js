@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   Dimensions,
   navigation,
+  Image,
   useWindowDimensions,
+  StyleSheet,
 } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -39,6 +41,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from "react-native-vector-icons/FontAwesome";
 import StorageUtils from "../Utils/StorageUtils.js";
 
+
+let imageLogo = require('../assets/Logo.png')
+
+const { width, height } = Dimensions.get("window");
 import BasePath from "../constants/BasePath";
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
@@ -54,16 +60,22 @@ const send=()=>{
     }else {
       const userdata =res.data
       StorageUtils.storeData('user',userdata)
+      StorageUtils.storeData('weddingHall',userdata)
       StorageUtils.storeData('userRole','sp')
-      if(userdata.category=='Hairdresser'){
-        navigation.navigate("DrawerNavigatorHairdresser")
-      }else if(userdata.category=='partyroom'){
-        navigation.navigate("DrawerNavigator")
-      }else if(userdata.category=='Photographer'){
-        navigation.navigate("DrawerNavigatorPhotographer")
-      } if(userdata.category=='MusicalBand'){
-        navigation.navigate("DrawerNavigatorMusicalBand")
+      if (!userdata.status){
+        navigation.navigate("Status")
+      }else {
+        if(userdata.category=='Hairdresser'){
+          navigation.navigate("DrawerNavigatorHairdresser")
+        }else if(userdata.category=='partyroom'){
+          navigation.navigate("DrawerNavigator")
+        }else if(userdata.category=='Photographer'){
+          navigation.navigate("DrawerNavigatorPhotographer")
+        } if(userdata.category=='MusicalBand'){
+          navigation.navigate("DrawerNavigatorMusicalBand")
+        }
       }
+      
     }
    
  })
@@ -73,22 +85,14 @@ const send=()=>{
   // const navigation = useNavigation();
   //   const myIcon = <Icon name="bird" size={30} color="#900" />;
   return (
-    <ImageBackground
-      style={{
-        width: "100%",
-        height: height,
-      }}
-      source={Background}
-      resizeMode="cover"
-    >
+    
       <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
         <View style={{ paddingHorizontal: 25 }}>
           <View style={{ alignItems: "center" }}>
-            <Logo
-              height={300}
-              width={300}
-              style={{ transform: [{ rotate: "-5deg" }] }}
-            />
+          <Image
+            style={styles.image}
+            source={imageLogo}
+          />
           </View>
           <Text
             style={{
@@ -108,7 +112,7 @@ const send=()=>{
               <MaterialIcons
                 name="alternate-email"
                 size={20}
-                color="#666"
+                color="#d49b35"
                 style={{ marginRight: 5 }}
               />
             }
@@ -122,7 +126,7 @@ const send=()=>{
               <Ionicons
                 name="ios-lock-closed-outline"
                 size={20}
-                color="#666"
+                color="#d49b35"
                 style={{ marginRight: 5 }}
               />
             }
@@ -140,7 +144,7 @@ const send=()=>{
                 disabled={email==="" ||password ===""}  
                 onPress={send} 
                 style={{
-                    backgroundColor: "#EBBAD2",
+                    backgroundColor: "#d49b35",
                     padding: 5,
                     borderRadius: 10,
                     marginBottom: 30,
@@ -164,73 +168,14 @@ const send=()=>{
             </TouchableOpacity>
 
           <Text
-            style={{ textAlign: "center", color: "#EBBAD2", marginBottom: 20 }}
+            style={{ textAlign: "center", color: "#EBBAD2", marginBottom: -20 }}
           >
             
           </Text>
-          {/* <Icon.Button
-            name="facebook"
-            backgroundColor="#3b5998"
-            style={{
-              borderColor: "#ffff",
-              borderWidth: 2,
-              borderRadius: 10,
-              paddingHorizontal: 30,
-              paddingVertical: 10,
-            }}
-          >
-            Login with Facebook
-          </Icon.Button> */}
-          {/* <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginBottom: 30,
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <GoogleSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <FacebookSVG height={24} width={24} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {}}
-              style={{
-                borderColor: "#ddd",
-                borderWidth: 2,
-                borderRadius: 10,
-                paddingHorizontal: 30,
-                paddingVertical: 10,
-              }}
-            >
-              <TwitterSVG height={24} width={24} />
-            </TouchableOpacity>
-          </View> */}
-
           <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
-              marginBottom: 30,
             }}
           >
             {/* /<Text>New to the app?</Text> */}
@@ -239,7 +184,7 @@ const send=()=>{
               title="Register"
               onPress={() => navigation.navigate("RegisterSP")}
             > 
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}>
+              <Text style={{ color: "#d49b35", fontWeight: "700" }}>
                 {" "}
                 Register
               </Text>
@@ -259,7 +204,6 @@ const send=()=>{
           </View>
         </View>
       </SafeAreaView>
-    </ImageBackground>
   );
 };
 export default LoginScreen;
@@ -282,3 +226,47 @@ export default LoginScreen;
             Login with Google
           </Icon.Button>
           */
+          const styles = StyleSheet.create({
+            container: {
+              flex: 1,
+              backgroundColor: "#d49b35",
+            },
+            slider: {
+              height: 0.5 * height,
+              backgroundColor: "#B22222",
+              borderBottomRightRadius: 75,
+              backgroundColor:"white",
+              width:width
+            },
+            footer: {
+              flex: 1,
+            },
+            footerContent: {
+              flex: 1,
+              backgroundColor: "#d49b35",
+              borderTopLeftRadius: 75,
+              alignItems: "center",
+            },
+            textBtn: {
+              textAlign: "center",
+              margin: 15,
+              fontWeight: "bold",
+              color: "black",
+            },
+            button: {
+              borderRadius: 50,
+              //position:"absolute",
+              marginTop: "15%",
+              alignSelf: "center",
+              width: "50%",
+              height: "15%",
+              backgroundColor: "white",
+            },
+            image: {
+              alignSelf: "center",
+              width: 300,
+              height: 150,
+              margin:30,
+              marginTop:0
+            }
+          });

@@ -51,6 +51,7 @@ const WeddingHallDetails = ({navigation,route})=>{
   const [langitude, setLangitude] = useState(null);
   const [rating, setRating] = React.useState(null);
   const [latitude, setLatitude] = useState(null);
+  const [date, setDate] = useState(null);
   const [isClient, setIsClient] = useState(true);
   
   const [id, setId] = useState(null);
@@ -87,6 +88,9 @@ const WeddingHallDetails = ({navigation,route})=>{
     async function getUser() {
       let data
       await StorageUtils.retrieveData('weddingHall').then((value) => {
+        StorageUtils.retrieveData('date').then(res=> {
+          setDate(res)
+        })
         data = JSON.parse(value)
         setName(data.owner_name)
           setEmail(data.email)
@@ -138,14 +142,24 @@ const WeddingHallDetails = ({navigation,route})=>{
       }, []);
   
       const addRequest = ()=> {
+        let date
+        StorageUtils.retrieveData('date').then(res=> {
 
-        let obj={
-          user_id:109,
-          sp_id:id,
-          date:"07/06/2022"
-        }
-        axios.post(`${BasePath}/api/sp/request/create`,obj)
-        .then(res=>console.log(res))
+          StorageUtils.retrieveData('user').then(user => {
+            let obj={
+
+              user_id:JSON.parse(user).id,
+              sp_id:id,
+              date:res
+            }
+            console.log(obj)
+            axios.post(`${BasePath}/api/sp/request/create`,obj)
+            .then(res=>console.log('res'))
+          })
+          
+          
+        })
+        
       }
 
       function goBack() {
@@ -303,34 +317,12 @@ const WeddingHallDetails = ({navigation,route})=>{
 
         <ScrollView>
           
-        <View style={{flexDirection :'row' , marginTop : 60}}>
+        <View style={{flexDirection :'row' , marginTop : 60 }}>
         
-        <Title style={{marginLeft : '21%' ,fontSize:23, marginBottom:15,marginTop:15,color:'#FDC12A'}}> Wedding Hall Details</Title>
+        <Title style={{marginLeft : '21%' ,fontSize:23, marginBottom:15,marginTop:15,color:'#d49b35'}}> Wedding Hall Details</Title>
          
         </View>
-        <View style={styles.cartCard1}>
-            <View style={{flexDirection :'row'  ,justifyContent:'center'}}>
-                <View style={{marginLeft:20 ,marginTop:10}}>
-                     <Title style={[styles.title,{ justifyContent:'center',size:30}]}>{nom}</Title>
-                </View>
-            </View>
-      
-             <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:15 }}>
-                <Icon name='account-cash' size={25}></Icon>
-                <Text style={{marginLeft:5 ,fontSize:18}}>
-                    {price}
-                </Text>
-             </View>
-             <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:15 }}>
-                
-                <TouchableOpacity style={styles.mapButton} onPress={toggleModal}>
-                <Icon name='map-marker-radius-outline' size={30}></Icon>
-                  <Text style={styles.mapButtonTitle}>Show Location</Text>
-                </TouchableOpacity>
-                
-             </View>
-             
-        </View>
+        
         <View style={styles.cartCard }>
         
              <View style={{flexDirection :'row',alignItems:'center' ,marginLeft:20}}> 
@@ -366,6 +358,29 @@ const WeddingHallDetails = ({navigation,route})=>{
             </View> 
 
         
+        </View>
+        <View style={styles.cartCard1}>
+            <View style={{flexDirection :'row'  ,justifyContent:'center'}}>
+                <View style={{marginLeft:20 ,marginTop:10}}>
+                     <Title style={[styles.title,{ justifyContent:'center',size:30}]}>{nom}</Title>
+                </View>
+            </View>
+      
+             <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:15 }}>
+                <Icon name='account-cash' size={25}></Icon>
+                <Text style={{marginLeft:5 ,fontSize:18}}>
+                    {price}
+                </Text>
+             </View>
+             <View style={{flexDirection :'row' ,justifyContent:'center',marginTop:15 }}>
+                
+                <TouchableOpacity style={styles.mapButton} onPress={toggleModal}>
+                <Icon name='map-marker-radius-outline' size={30}></Icon>
+                  <Text style={styles.mapButtonTitle}>Show Location</Text>
+                </TouchableOpacity>
+                
+             </View>
+             
         </View>
        
     
@@ -443,7 +458,7 @@ halfStar={
 />
       </TouchableOpacity>
       <TouchableOpacity style={styles.commandButton} onPress={addRequest}>
-              <Text style={styles.panelButtonTitle}>Send Request</Text>
+              <Text style={styles.panelButtonTitle}>Request for {date}</Text>
       </TouchableOpacity>
 
 
@@ -576,7 +591,7 @@ const styles =StyleSheet.create({
       commandButton: {
         padding: 15,
         borderRadius: 10,
-        backgroundColor: '#FF6347',
+        backgroundColor: '#d49b35',
         alignItems: 'center',
         marginTop: 10,
         marginBottom:10,
@@ -633,7 +648,7 @@ const styles =StyleSheet.create({
       panelButton: {
         padding: 13,
         borderRadius: 10,
-        backgroundColor: '#FF6347',
+        backgroundColor: '#d49b35',
         alignItems: 'center',
         marginVertical: 7,
       },

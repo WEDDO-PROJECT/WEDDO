@@ -22,6 +22,10 @@ const Home =({ navigation})=> {
   const [view,setView]=useState(null)
   const [start, setStart] = useState("");
 
+  const setDate = (val)=> {
+    setStart(val)
+  }
+
   const array=[]
   useEffect(()=>{         // bring the url from the backend  
   setStart('')
@@ -78,13 +82,13 @@ if (val===4){
 
   }
   let nav = () => {
-    // navigation.navigate({
-    //   name: "Calendar",
-    //   // params: {
-    //   //   setStart: setStart
-    //   // },
-    //   // merge: true,
-    // });
+    navigation.navigate({
+      name: "Calendar",
+      params: {
+        setStart: setStart
+      },
+      merge: true,
+    });
   }
     return (
   <ScrollView style={{backgroundColor:"white" , marginTop : 40}}>
@@ -179,7 +183,7 @@ if (val===4){
              <Cards style={{
               // flexDirection: "row",
               // top: 30,
-            }} filtredData={allData} setTView={setView} navigation={navigation}></Cards> 
+            }} filtredData={allData} setTView={setView} navigation={navigation} start = {start}></Cards> 
           }
           {view&&
           <Cards style={{

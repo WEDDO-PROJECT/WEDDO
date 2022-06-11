@@ -1,10 +1,12 @@
 import { StyleSheet, View , ScrollView} from "react-native";
 import React,{useEffect,useState} from "react";
+import CalendarPicker from "react-native-calendar-picker";
 import Calendar from "react-native-calendar-range-picker";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
 import BasePath from '../../constants/BasePath'
 import Home from "../../Screens/Home";
+import StorageUtils from "../../Utils/StorageUtils";
 const CUSTOM_LOCALE = {
   monthNames: [
     "January",
@@ -29,6 +31,9 @@ const CUSTOM_LOCALE = {
 
 export default function CalendarInput({navigation ,route}) {
 const [marker,setMarker]=useState({})
+
+const setStart=route.params.setStart
+
 useEffect(()=>{
   // AsyncStorage.getItem('user')
   // .then(res=>{
@@ -52,19 +57,20 @@ useEffect(()=>{
   // )
 },[])
   return (
-    <ScrollView style={styles.containerCalendar}>
+      <View style={styles.containerCalendar}>
+
       <Calendar
-        style={styles.calendar}
-        locale={CUSTOM_LOCALE}
-        markedDates={{'2022-02-10': {
-          customStyles: {
-            container: {
-              backgroundColor: 'green'
-            }}}}}
-        pastYearRange={0}
-        futureYearRange={1}
+        startDate="2020-05-05"
+        singleSelectMode
+        onChange={(date) => {
+          setStart(date)
+          console.log(date);
+          StorageUtils.storeData('date',date)
+           navigation.goBack()
+
+        }}
       />
-    </ScrollView>
+      </View>
   );
 }
 
@@ -72,10 +78,9 @@ const styles = StyleSheet.create({
   containerCalendar: {
     flex:1,
     backgroundColor:'#D49B35',
-    margin:0,
+    marginTop:100,
   },
   calendar: {
-    
     margin:0,
   },
 });

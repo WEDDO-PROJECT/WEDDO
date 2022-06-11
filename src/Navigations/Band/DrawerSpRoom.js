@@ -91,6 +91,17 @@ const  DrawerContentRoom = ({navigation}) => {
                             label="My Space"
                            onPress={() => {navigation.navigate('Gallery')}}
                         />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="calendar-month-outline" 
+                                color={color}
+                                size={35}
+                                />
+                            )}
+                            label="Calendar"
+                            onPress={() => {navigation.navigate('CalendarSP')}}
+                        />
                         
                     </Drawer.Section>
                     {/* <Drawer.Section title="Preferences">

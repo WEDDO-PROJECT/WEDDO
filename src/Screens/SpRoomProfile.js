@@ -56,7 +56,7 @@ const ProfileRoom = ({navigation})=>{
                style={{ marginRight: 5 }}
              />
          </TouchableOpacity>
-            <Title style={{marginLeft : '30%' ,fontSize:23,marginTop:30}}>Profile</Title>
+            <Title style={{marginLeft : '30%' ,fontSize:23,marginTop:30,color:"#d49b35"}}>Profile</Title>
          <TouchableOpacity onPress={edit} style={styles.roundIconEdit}>
          <Ionicons
                 name="md-person-sharp"
@@ -121,6 +121,7 @@ export default ProfileRoom;
 
 const styles =StyleSheet.create({
     container:{
+        marginTop : 7,
         flex :1
     },
     userInfoSection:{

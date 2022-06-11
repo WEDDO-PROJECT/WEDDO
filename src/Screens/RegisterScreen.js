@@ -4,9 +4,12 @@ import {
   SafeAreaView,
   View,
   Text,
+  
   StyleSheet,
   TextInput,
   TouchableOpacity, 
+  Image,
+  Dimensions,
 } from "react-native";
 // import DatePicker from "react-native-date-picker";
 import InputField from "../components/input.js";
@@ -17,6 +20,9 @@ import Background from "../assets/Background.webp";
 import axios from 'axios'
 import StorageUtils from "../Utils/StorageUtils.js";
 
+let imageLogo = require('../assets/Logo.png')
+
+const { width, height } = Dimensions.get("window");
 import BasePath from "../constants/BasePath";
 
 const RegisterScreen = ({ navigation }) => {
@@ -119,14 +125,6 @@ const emailChange = (val) => {
   }
 };
   return (
-    <ImageBackground
-      style={{
-        width: "100%",
-        height: "100%",
-      }}
-      source={Background}
-      resizeMode="cover"
-    >
       <SafeAreaView
         style={{
           justifyContent: "center",
@@ -135,6 +133,11 @@ const emailChange = (val) => {
           marginTop: 150,
         }}
       >
+
+<Image
+            style={styles.image}
+            source={imageLogo}
+          />
        
         <Text
           style={{
@@ -154,7 +157,7 @@ const emailChange = (val) => {
             <Ionicons
               name="person-outline"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -175,7 +178,7 @@ const emailChange = (val) => {
             <MaterialIcons
               name="alternate-email"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -194,7 +197,7 @@ const emailChange = (val) => {
             <Ionicons
               name="call"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -211,7 +214,7 @@ const emailChange = (val) => {
             <Ionicons
               name="ios-lock-closed-outline"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -229,7 +232,7 @@ const emailChange = (val) => {
             <Ionicons
               name="ios-lock-closed-outline"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -249,10 +252,10 @@ const emailChange = (val) => {
 
         }  onPress={send} 
           style={{
-            backgroundColor: "#EBBAD2",
+            backgroundColor: "#d49b35",
             padding: 5,
             borderRadius: 10,
-            marginBottom: 30,
+            marginTop: 25,
             borderColor: "#ddd",
             borderWidth: 2,
             borderRadius: 10,
@@ -277,7 +280,6 @@ Register
 
 </View>
       </SafeAreaView>
-    </ImageBackground>
   );
 };
 
@@ -295,4 +297,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 20,
   },
+  image: {
+    alignSelf: "center",
+    width: 300,
+    height: 120,
+    margin:30,
+    marginTop:0
+  }
 });

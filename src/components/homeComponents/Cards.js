@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {View,Text,TouchableOpacity,Image, StyleSheet, ImageBackground,Alert, Modal} from 'react-native';
+import {View,Text,TouchableOpacity,Image, StyleSheet, ImageBackground,Alert, Modal, Pressable} from 'react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import InputField from "../input.js";
 import golden from "../../assets/golden.webp";
@@ -42,8 +42,8 @@ function Cards(props) {
     
   },[props.filtredData,minPrice,maxPrice])
     const goProfile=(sp)=>{
-
-      if(props.start==''){
+      console.log(props.start)
+      if(props.start===""){
         console.log('sp')
         SetshowAlert(true)
       }
@@ -58,10 +58,6 @@ function Cards(props) {
         } if(sp.category=='MusicalBand'){
           props.navigation.navigate("Gallery")
         }
-
-
-
-
       }
 
 
@@ -78,15 +74,23 @@ return (
         visible={showAlert}
         transparent
         onRequestClose={() => SetshowAlert(false)}
+        animationType='slide'
         >
           <View style={styles.centeredView}>
             <View style={styles.alertText}>
               <View style={styles.warning}>
-                <Text>Warning </Text>
+                <Text>WARNING </Text>
               </View>
               <View style={styles.warningBody}>
                 <Text style ={styles.warningText}>Please pick a date !</Text>
               </View> 
+              <Pressable
+              onPress={() =>SetshowAlert(false)}
+              style={styles.warningBtn}
+              android_ripple={{color:'#fff'}}
+              >
+                <Text style={styles.btnOK}>OK</Text>
+              </Pressable>
             </View>
           </View>
         </Modal>
@@ -232,6 +236,16 @@ const styles= StyleSheet.create({
     alignSelf: "center",
     borderColor: "#D49B35",
     
+  },
+  btnOK:{
+    fontSize: 20,
+    margin: 10,
+    textAlign: 'center',
+  },
+  warningBtn:{
+    backgroundColor:'#D49B35' ,
+    borderBottomRightRadius:20,
+    borderBottomLeftRadius:20,
   },
   card: {
     margin:20, 

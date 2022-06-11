@@ -37,6 +37,9 @@ import DrawerNavigatorHairdresser from "./HairDresser/DrawerNavigator";
 import DrawerNavigatorMusicalBand from "./Band/DrawerNavigator";
 import VerifyOTPScreen from "../Screens/VerifyOTPScreen.js";
 import CalendarInput from "../components/homeComponents/Calendar.js";
+
+import Calendar from "../Screens/Calendar.js";
+import Status from "../Screens/Status.js";
 const Stack = createStackNavigator();
 export default function Navigator(){
 
@@ -285,6 +288,30 @@ export default function Navigator(){
               title: "",
             }}
           />
+          <Stack.Screen
+            name="Status"
+            component={Status}
+            options={{
+              headerStyle: {
+                backgroundColor: "transparent",
+              },
+              headerTransparent: true,
+              title: "",
+            }}
+          />
+          <Stack.Screen
+            name="CalendarSP"
+            component={Calendar}
+            options={{
+              headerStyle: {
+                backgroundColor: "transparent",
+              },
+              headerTransparent: true,
+              title: "",
+            }}
+          />
+
+
    
            <Stack.Screen
             name="Rooms"

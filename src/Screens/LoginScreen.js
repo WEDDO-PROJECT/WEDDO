@@ -3,12 +3,14 @@ import {
   ImageBackground,
   View,
   Text,
+  Image,
   SafeAreaView,
   TextInput,
   TouchableOpacity,
   Dimensions,
   navigation,
   useWindowDimensions,
+  StyleSheet,
 } from "react-native";
 
 import { AsyncStorage } from 'react-native';
@@ -30,6 +32,9 @@ import axios from 'axios'
 import BasePath from "../constants/BasePath";
 import StorageUtils from "../Utils/StorageUtils.js";
 
+let imageLogo = require('../assets/Logo.png')
+
+const { width, height } = Dimensions.get("window");
 
 import Icon from "react-native-vector-icons/FontAwesome";
 const LoginScreen = ({navigation}) => {
@@ -45,11 +50,14 @@ const send=()=>{
   let person={email:email, password:password}
   console.log(person);
   axios.post(BasePath + '/api/user/login',person)
-  .then(res=>{console.log(res.data)
+  .then(res=>{
+    console.log(res.data[0])
   if(res.data==="Please fill all the fields" || res.data==="email not found" || res.data==="login failed" ){
     setErrorMsg(res.data)
   }else {
+    console.log("bcdbhdbchdbcdh")
     const userdata =res.data
+    console.log(userdata)
     StorageUtils.storeData('user',userdata)
     StorageUtils.storeData('userRole','client')
     navigation.navigate("drawer")
@@ -61,22 +69,14 @@ const send=()=>{
 }
   const { height } = useWindowDimensions();
   return (
-    <ImageBackground
-      style={{
-        width: "100%",
-        height: height,
-      }}
-      source={Background}
-      resizeMode="cover"
-    >
+    
       <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
         <View style={{ paddingHorizontal: 25 }}>
-          <View style={{ alignItems: "center" }}>
-            <Logo
-              height={300}
-              width={300}
-              style={{ transform: [{ rotate: "-5deg" }] }}
-            />
+        <View style={{ alignItems: "center" }}>
+            <Image
+            style={styles.image}
+            source={imageLogo}
+          />
           </View>
           <Text
             style={{
@@ -96,7 +96,7 @@ const send=()=>{
               <MaterialIcons
                 name="alternate-email"
                 size={20}
-                color="#666"
+                color="#d49b35"
                 style={{ marginRight: 5 }}
               />
             }
@@ -110,7 +110,7 @@ const send=()=>{
               <Ionicons
                 name="ios-lock-closed-outline"
                 size={20}
-                color="#666"
+                color="#d49b35"
                 style={{ marginRight: 5 }}
               />
             }
@@ -125,7 +125,7 @@ const send=()=>{
                 disabled={email==="" ||password ===""}  
                 onPress={send} 
                 style={{
-                    backgroundColor: "#EBBAD2",
+                    backgroundColor: "#d49b35",
                     padding: 5,
                     borderRadius: 10,
                     marginBottom: 30,
@@ -163,7 +163,7 @@ const send=()=>{
 
               onPress={() => navigation.navigate("RegisterScreen")}
             > 
-              <Text style={{ color: "#AD40AF", fontWeight: "700" }}  onPress={() =>navigation.navigate("RegisterScreen")} > 
+              <Text style={{ color: "#d49b35", fontWeight: "700" }}  onPress={() =>navigation.navigate("RegisterScreen")} > 
               
                 {" "}
                 Register
@@ -173,7 +173,50 @@ const send=()=>{
           </View>
         </View>
       </SafeAreaView>
-    </ImageBackground>
   );
 };
 export default LoginScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#d49b35",
+  },
+  slider: {
+    height: 0.5 * height,
+    backgroundColor: "#B22222",
+    borderBottomRightRadius: 75,
+    backgroundColor:"white",
+    width:width
+  },
+  footer: {
+    flex: 1,
+  },
+  footerContent: {
+    flex: 1,
+    backgroundColor: "#d49b35",
+    borderTopLeftRadius: 75,
+    alignItems: "center",
+  },
+  textBtn: {
+    textAlign: "center",
+    margin: 15,
+    fontWeight: "bold",
+    color: "black",
+  },
+  button: {
+    borderRadius: 50,
+    //position:"absolute",
+    marginTop: "15%",
+    alignSelf: "center",
+    width: "50%",
+    height: "15%",
+    backgroundColor: "white",
+  },
+  image: {
+    alignSelf: "center",
+    width: 300,
+    height: 150,
+    margin:30,
+    marginTop:0
+  }
+});

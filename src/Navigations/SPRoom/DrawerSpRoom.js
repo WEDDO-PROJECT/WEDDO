@@ -93,6 +93,18 @@ const  DrawerContentRoom = ({navigation}) => {
                             label="localisation"
                             onPress={() => {navigation.navigate('MapContent')}}
                         />
+
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="calendar-month-outline" 
+                                color={color}
+                                size={35}
+                                />
+                            )}
+                            label="Calendar"
+                            onPress={() => {navigation.navigate('CalendarSP')}}
+                        />
                         
                        
                         </Drawer.Section>

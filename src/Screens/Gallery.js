@@ -37,7 +37,8 @@ const SPGallery = ({navigation})=>{
   const [tel, setTel] = React.useState(null);
   const [email, setEmail] = React.useState(null);
   const [rating, setRating] = React.useState(null);
-  const [isClient, setIsClient] = useState(true);
+  const [isClient, setIsClient] = useState(null);
+  const [date, setDate] = useState(null);
   
   const bs = React.createRef();
   const fall = new Animated.Value(1);
@@ -61,9 +62,10 @@ const SPGallery = ({navigation})=>{
     async function getUser() {
       let data
       await StorageUtils.retrieveData('weddingHall').then((value) => {
-          
+        StorageUtils.retrieveData('date').then(res=> {
+          setDate(res)
+        })
         data = JSON.parse(value)
-        console.log(data)
 
         setId(data.id)
         const body ={
@@ -85,8 +87,6 @@ const SPGallery = ({navigation})=>{
         axios 
         .get(BasePath + "/api/sp/getimages/"+data.id)
         .then((response)=>{
-            
-          console.log('HELLO '+ response.data)
 
           let data = response.data.result
 
@@ -98,7 +98,6 @@ const SPGallery = ({navigation})=>{
             setImages(images => [...images, s]);
           }
 
-          console.log( "images :" + images) 
 
         })
         .catch((error)=>{
@@ -240,9 +239,7 @@ const SPGallery = ({navigation})=>{
 
         
     axios.post(BasePath + "/api/sp/updateprice",body).then((response)=>{
-      console.log("response.data.result[0]")
       console.log(response.data)
-      Alert.alert("Price Added Successfully")
       
     }).catch((error)=>{
       console.log(error)
@@ -254,14 +251,25 @@ const SPGallery = ({navigation})=>{
 
 
     const addRequest = ()=> {
+      StorageUtils.retrieveData('user').then(user => {
+        console.log(user)
+        let obj={
+          user_id:JSON.parse(user).id,
+          sp_id:id,
+          date:date
+        }
+        console.log("obj here "+obj)
+        axios.post(`${BasePath}/api/sp/request/create`,obj)
+        .then(res=>console.log(res))
+    })
 
-      let obj={
-        user_id:113,
-        sp_id:id,
-        date:"07/06/2022"
-      }
-      axios.post(`${BasePath}/api/sp/request/create`,obj)
-      .then(res=>console.log(res))
+      // let obj={
+      //   user_id:113,
+      //   sp_id:id,
+      //   date:"07/06/2022"
+      // }
+      // axios.post(`${BasePath}/api/sp/request/create`,obj)
+      // .then(res=>console.log(res))
     }
 
         return(
@@ -269,13 +277,13 @@ const SPGallery = ({navigation})=>{
                 
                 <View style={{flex :1,height : height}}>
                 
-                <View style={{flexDirection :'row' , marginTop : 60}}>
+                <View style={{flexDirection :'row' , marginTop : 60 , alignSelf : 'center'}}>
 
                  
                 
                 {!isClient ? 
                           <View style={{flexDirection :'column' ,justifyContent:'center', }}>
-                              <Title style={{fontSize:23,fontWeight:"bold", marginBottom:15,color:'#FDC12A'}}>
+                              <Title style={{fontSize:23,fontWeight:"bold", marginBottom:15,color:'#d49b35'}}>
                                   My Space
                               </Title>
                               <TextInput
@@ -392,8 +400,8 @@ const SPGallery = ({navigation})=>{
               }
             />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.commandButton} onPress={() => {addRequest}}>
-                            <Text style={styles.panelButtonTitle}>Send Request</Text>
+                    <TouchableOpacity style={styles.commandButton} onPress={addRequest}>
+                            <Text style={styles.panelButtonTitle}>Request for {date}</Text>
                     </TouchableOpacity>
 
 
@@ -435,9 +443,10 @@ const styles =StyleSheet.create({
     image: { height: 70, width: 70, borderRadius:60 },
       commandButton: {
         marginTop : 10,
-        padding: 15,
+        marginBottom :10,
+        padding: 10,
         borderRadius: 25,
-        backgroundColor: '#FF6347',
+        backgroundColor: '#d49b35',
         alignItems: 'center',
       },
       UPDATEButton: {
@@ -512,7 +521,7 @@ const styles =StyleSheet.create({
       panelButton: {
         padding: 13,
         borderRadius: 10,
-        backgroundColor: '#FF6347',
+        backgroundColor: '#d49b35',
         alignItems: 'center',
         marginVertical: 7,
       },

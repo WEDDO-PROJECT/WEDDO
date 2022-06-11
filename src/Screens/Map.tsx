@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
       height: 50,
       padding: 10,
       borderRadius: 50,
-      backgroundColor: "#EBBAD2",
+      backgroundColor: "#d49b35",
       flexDirection: "row",
       paddingRight: 10,
     },

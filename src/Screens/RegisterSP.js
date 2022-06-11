@@ -7,6 +7,8 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Image,
+  Dimensions,
 } from "react-native";
 // import DatePicker from "react-native-date-picker";
 import InputField from "../components/input.js";
@@ -21,6 +23,10 @@ import { CurrentRenderContext } from "@react-navigation/native";
 
 import BasePath from "../constants/BasePath";
 
+
+let imageLogo = require('../assets/Logo.png')
+
+const { width, height } = Dimensions.get("window");
 const RegisterSP = ({ navigation }) => {
   const [name,setName]=useState("")
   const [email,setEmail]=useState("")
@@ -68,17 +74,19 @@ const RegisterSP = ({ navigation }) => {
       console.log("response.data.result[0]")
       console.log(response.data.result[0])
       const userdata =response.data.result[0]
-     StorageUtils.storeData('user',userdata)
-     StorageUtils.storeData('userRole','sp')
-        if(userdata.category=='Hairdresser'){
-          navigation.navigate("DrawerNavigatorHairdresser")
-        }else if(userdata.category=='partyroom'){
-          navigation.navigate("DrawerNavigator")
-        }else if(userdata.category=='Photographer'){
-          navigation.navigate("DrawerNavigatorPhotographer")
-        } if(userdata.category=='MusicalBand'){
-          navigation.navigate("DrawerNavigatorMusicalBand")
-        }
+      navigation.navigate("Status")
+    //  StorageUtils.storeData('user',userdata)
+    //  StorageUtils.storeData('weddingHall',userdata)
+    //  StorageUtils.storeData('userRole','sp')
+    //     if(userdata.category=='Hairdresser'){
+    //       navigation.navigate("DrawerNavigatorHairdresser")
+    //     }else if(userdata.category=='partyroom'){
+    //       navigation.navigate("DrawerNavigator")
+    //     }else if(userdata.category=='Photographer'){
+    //       navigation.navigate("DrawerNavigatorPhotographer")
+    //     } if(userdata.category=='MusicalBand'){
+    //       navigation.navigate("DrawerNavigatorMusicalBand")
+    //     }
     })
     
     .catch((error)=>{
@@ -203,15 +211,6 @@ const RegisterSP = ({ navigation }) => {
   
 
   return (
-    <ImageBackground
-      style={{
-        width: "100%",
-        height: "100%",
-      }}
-      source={Background}
-      resizeMode="cover"
-      
-    >
     
       <SafeAreaView
         style={{
@@ -222,11 +221,14 @@ const RegisterSP = ({ navigation }) => {
       >  
       
         <View style={{ alignItems: "center" }}>
-         
+        <Image
+            style={styles.image}
+            source={imageLogo}
+          />
         </View>
         <Text
           style={{
-            textAlign:"center",
+            textAlign:"left",
             marginTop:5,
             fontSize: 28,
             fontWeight: "500",
@@ -246,7 +248,7 @@ const RegisterSP = ({ navigation }) => {
             <Ionicons
               name="person-outline"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -263,7 +265,7 @@ const RegisterSP = ({ navigation }) => {
             <MaterialIcons
               name="alternate-email"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -280,7 +282,7 @@ const RegisterSP = ({ navigation }) => {
             <MaterialIcons
               name="badge"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -289,7 +291,7 @@ const RegisterSP = ({ navigation }) => {
          {!data.cinChange && data.cin!=="" ? (
           <Text style={{color: 'red' , marginTop : -18}}>cin has 8 numbers </Text>
         ) : null}</View>
-        <View style={{marginBottom:15, marginTop:-20}}>
+        <View >
         <RNPickerSelect
                  
                  items={[
@@ -311,7 +313,7 @@ const RegisterSP = ({ navigation }) => {
             <Ionicons
               name="call"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -326,7 +328,7 @@ const RegisterSP = ({ navigation }) => {
             <Ionicons
               name="ios-lock-closed-outline"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -342,7 +344,7 @@ const RegisterSP = ({ navigation }) => {
             <Ionicons
               name="ios-lock-closed-outline"
               size={20}
-              color="#666"
+              color="#d49b35"
               style={{ marginRight: 5 }}
             />
           }
@@ -365,10 +367,10 @@ const RegisterSP = ({ navigation }) => {
 
                 }  onPress={register} 
                   style={{
-                    backgroundColor: "#EBBAD2",
+                    backgroundColor: "#d49b35",
                     padding: 5,
                     borderRadius: 10,
-                    marginBottom: 30,
+                    marginTop: 25,
                     borderColor: "#ddd",
                     borderWidth: 2,
                     borderRadius: 10,
@@ -393,7 +395,6 @@ const RegisterSP = ({ navigation }) => {
 
         </View>
       </SafeAreaView>
-    </ImageBackground>
   );
 };  
 
@@ -413,5 +414,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 20,
   },
+  image: {
+    alignSelf: "center",
+    width: 300,
+    height: 120,
+    margin:30,
+    marginTop:0
+  }
 
 });
